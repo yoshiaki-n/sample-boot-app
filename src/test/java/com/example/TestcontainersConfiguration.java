@@ -2,5 +2,8 @@ package com.example;
 
 import org.springframework.boot.test.context.TestConfiguration;
 
+/** Testcontainersの設定クラスです。 */
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfiguration {}
+@SuppressWarnings("PMD.TestClassWithoutTestCases")
+class TestcontainersConfiguration {
+}

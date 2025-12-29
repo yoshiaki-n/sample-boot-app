@@ -1,3 +1,5 @@
 package com.example.application;
 
-public class PlaceholderApplicationService {}
+/** アプリケーションサービスのプレースホルダーです。 */
+public class PlaceholderApplicationService {
+}

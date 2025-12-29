@@ -1,3 +1,5 @@
 package com.example.domain.service;
 
-public class PlaceholderDomainService {}
+/** ドメインサービスのプレースホルダーです。 */
+public class PlaceholderDomainService {
+}

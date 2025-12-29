@@ -6,15 +6,16 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+/** オニオンアーキテクチャの適応度関数テストです。 */
 @AnalyzeClasses(packages = "com.example")
+@SuppressWarnings("PMD.TestClassWithoutTestCases")
 public class OnionArchitectureTest {
 
   @ArchTest
-  static final ArchRule onion_architecture_is_respected =
-      onionArchitecture()
-          .domainModels("..domain..")
-          .domainServices("..domain.service..")
-          .applicationServices("..application..")
-          .adapter("infrastructure", "..infrastructure..")
-          .adapter("presentation", "..presentation..");
+  static final ArchRule onion_architecture_is_respected = onionArchitecture()
+      .domainModels("..domain..")
+      .domainServices("..domain.service..")
+      .applicationServices("..application..")
+      .adapter("infrastructure", "..infrastructure..")
+      .adapter("presentation", "..presentation..");
 }

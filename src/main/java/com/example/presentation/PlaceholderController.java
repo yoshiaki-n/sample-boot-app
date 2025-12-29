@@ -1,3 +1,5 @@
 package com.example.presentation;
 
-public class PlaceholderController {}
+/** RESTコントローラーのプレースホルダーです。 */
+public class PlaceholderController {
+}

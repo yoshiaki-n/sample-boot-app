@@ -1,3 +1,5 @@
 package com.example.infrastructure.persistence;
 
-public class PlaceholderInfrastructure {}
+/** インフラストラクチャ実装のプレースホルダーです。 */
+public class PlaceholderInfrastructure {
+}

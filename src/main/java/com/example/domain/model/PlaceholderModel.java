@@ -1,3 +1,5 @@
 package com.example.domain.model;
 
-public class PlaceholderModel {}
+/** ドメインモデルのプレースホルダーです。 */
+public class PlaceholderModel {
+}
