@@ -1,4 +1,3 @@
 package com.example.domain.service;
 
-public class PlaceholderDomainService {
-}
+public class PlaceholderDomainService {}

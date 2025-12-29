@@ -1,4 +1,3 @@
 package com.example.domain.model;
 
-public class PlaceholderModel {
-}
+public class PlaceholderModel {}

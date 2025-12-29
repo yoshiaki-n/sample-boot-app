@@ -1,4 +1,3 @@
 package com.example.application;
 
-public class PlaceholderApplicationService {
-}
+public class PlaceholderApplicationService {}
