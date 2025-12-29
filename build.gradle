@@ -3,6 +3,11 @@ plugins {
     id 'org.springframework.boot' version '4.0.1'
     id 'io.spring.dependency-management' version '1.1.7'
     id "com.diffplug.spotless" version "6.25.0"
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.12" // Use a recent version compatible with Java 17+
 }
 
 spotless {
@@ -122,3 +127,43 @@ task fitnessTest(type: Test) {
 
 check.dependsOn integrationTest
 check.dependsOn fitnessTest
+
+// Jacoco Configuration
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+integrationTest {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test, integrationTest
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    executionData(test, integrationTest)
+}
+
+// Aggregation Task (Merging execution data is handled implicitly by executionData above if tasks run)
+// But we want a dedicated task for "Run All Tests & Report"
+
+task jacocoRootReport(type: JacocoReport) {
+    dependsOn test, integrationTest
+    sourceDirectories.setFrom(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom(sourceSets.main.output)
+    executionData test, integrationTest
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+task allTest {
+    dependsOn jacocoRootReport
+    description = 'Runs all tests (unit and integration) and generates a combined Jacoco coverage report.'
+    group = 'verification'
+}
