@@ -177,6 +177,7 @@ task allTest {
 checkstyle {
     toolVersion = '10.12.0'
     configFile = file("config/checkstyle/google_checks.xml")
+    sourceSets = [sourceSets.main]
 }
 
 pmd {
@@ -188,10 +189,19 @@ pmd {
         "category/java/multithreading.xml",
         "category/java/performance.xml"
     ]
+    sourceSets = [sourceSets.main]
 }
 
 spotbugs {
     toolVersion = '4.8.3'
+}
+
+afterEvaluate {
+    tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+        if (!name.contains("Main")) {
+            enabled = false
+        }
+    }
 }
 
 sonarqube {

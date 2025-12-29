@@ -12,10 +12,11 @@ import com.tngtech.archunit.lang.ArchRule;
 public class OnionArchitectureTest {
 
   @ArchTest
-  static final ArchRule onion_architecture_is_respected = onionArchitecture()
-      .domainModels("..domain..")
-      .domainServices("..domain.service..")
-      .applicationServices("..application..")
-      .adapter("infrastructure", "..infrastructure..")
-      .adapter("presentation", "..presentation..");
+  static final ArchRule onion_architecture_is_respected =
+      onionArchitecture()
+          .domainModels("..domain..")
+          .domainServices("..domain.service..")
+          .applicationServices("..application..")
+          .adapter("infrastructure", "..infrastructure..")
+          .adapter("presentation", "..presentation..");
 }
