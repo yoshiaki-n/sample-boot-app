@@ -44,7 +44,7 @@ spotless {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-description = 'Demo project for Spring Boot'
+description = 'Spring Bootのデモプロジェクト'
 
 java {
     toolchain {
@@ -112,7 +112,7 @@ dependencyManagement {
 }
 
 task integrationTest(type: Test) {
-    description = 'Runs integration tests.'
+    description = '統合テストを実行します。'
     group = 'verification'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
@@ -121,7 +121,7 @@ task integrationTest(type: Test) {
 }
 
 task fitnessTest(type: Test) {
-    description = 'Runs fitness function tests (ArchUnit).'
+    description = '適応度関数テスト（ArchUnit）を実行します。'
     group = 'verification'
     testClassesDirs = sourceSets.fitnessTest.output.classesDirs
     classpath = sourceSets.fitnessTest.runtimeClasspath
@@ -168,7 +168,7 @@ task jacocoRootReport(type: JacocoReport) {
 
 task allTest {
     dependsOn jacocoRootReport
-    description = 'Runs all tests (unit and integration) and generates a combined Jacoco coverage report.'
+    description = '全てのテスト（単体・結合）を実行し、統合されたJacocoカバレッジレポートを生成します。'
     group = 'verification'
 }
 
