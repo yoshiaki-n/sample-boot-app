@@ -11,6 +11,5 @@ class SpringBootAppApplicationTests {
 
   @Test
   @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  void contextLoads() {
-  }
+  void contextLoads() {}
 }
