@@ -8,6 +8,7 @@ plugins {
     id 'pmd'
     id 'checkstyle'
     id 'org.sonarqube' version '6.0.1.5171'
+    id 'org.dddjava.jig-gradle-plugin' version '2025.11.1'
 }
 
 jacoco {
@@ -207,6 +208,21 @@ afterEvaluate {
 sonarqube {
     properties {
         property "sonar.projectKey", "com.example:spring-boot-app"
-        property "sonar.projectName", "spring-boot-app"
     }
+}
+
+// Documentation Configuration
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = sourceSets.main.compileClasspath
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.locale = 'ja_JP'
+    // Show public, protected, and package-private members (excludes private)
+    options.memberLevel = JavadocMemberLevel.PACKAGE
+}
+
+jig {
+    // defaults to main source set
 }
