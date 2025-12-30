@@ -1,4 +1,4 @@
-package com.example.domain.service;
+package com.example.samplebootapp.domain.service;
 
 /** ドメインサービスのプレースホルダーです。 */
 public class PlaceholderDomainService {}

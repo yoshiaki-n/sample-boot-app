@@ -1,4 +1,4 @@
-package com.example.application;
+package com.example.samplebootapp.application;
 
 /** アプリケーションサービスのプレースホルダーです。 */
 public class PlaceholderApplicationService {}

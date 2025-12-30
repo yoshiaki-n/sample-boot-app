@@ -1,4 +1,4 @@
-package com.example.domain.model;
+package com.example.samplebootapp.domain.model;
 
 /** ドメインモデルのプレースホルダーです。 */
 public class PlaceholderModel {}

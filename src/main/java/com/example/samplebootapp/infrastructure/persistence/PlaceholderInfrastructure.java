@@ -1,4 +1,4 @@
-package com.example.infrastructure.persistence;
+package com.example.samplebootapp.infrastructure.persistence;
 
 /** インフラストラクチャ実装のプレースホルダーです。 */
 public class PlaceholderInfrastructure {}

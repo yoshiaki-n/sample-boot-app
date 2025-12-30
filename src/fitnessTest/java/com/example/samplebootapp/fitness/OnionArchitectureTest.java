@@ -1,4 +1,4 @@
-package com.example.fitness;
+package com.example.samplebootapp.fitness;
 
 import static com.tngtech.archunit.library.Architectures.onionArchitecture;
 
@@ -7,7 +7,7 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /** オニオンアーキテクチャの適応度関数テストです。 */
-@AnalyzeClasses(packages = "com.example")
+@AnalyzeClasses(packages = "com.example.samplebootapp")
 @SuppressWarnings("PMD.TestClassWithoutTestCases")
 public class OnionArchitectureTest {
 
