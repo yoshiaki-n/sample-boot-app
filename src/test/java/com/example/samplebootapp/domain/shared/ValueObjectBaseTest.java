@@ -66,6 +66,36 @@ class ValueObjectBaseTest {
   }
 
   @Test
+  @DisplayName("自分自身との比較は等価であること")
+  void testEquals_Self() {
+    // 準備 (Arrange)
+    TestValueObject obj1 = new TestValueObject("test", 1);
+
+    // 検証 (Assert)
+    assertThat(obj1).isEqualTo(obj1);
+  }
+
+  @Test
+  @DisplayName("nullとの比較は等価でないこと")
+  void testEquals_Null() {
+    // 準備 (Arrange)
+    TestValueObject obj1 = new TestValueObject("test", 1);
+
+    // 検証 (Assert)
+    assertThat(obj1).isNotEqualTo(null);
+  }
+
+  @Test
+  @DisplayName("異なるクラスとの比較は等価でないこと")
+  void testEquals_DifferentClass() {
+    // 準備 (Arrange)
+    TestValueObject obj1 = new TestValueObject("test", 1);
+
+    // 検証 (Assert)
+    assertThat(obj1).isNotEqualTo("test");
+  }
+
+  @Test
   @DisplayName("toStringが属性値を含む文字列表現を返すこと")
   void testToString() {
     // 準備 (Arrange)

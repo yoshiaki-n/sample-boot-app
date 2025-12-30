@@ -61,6 +61,46 @@ class EntityBaseTest {
   }
 
   @Test
+  @DisplayName("getIdが正しいIDを返すこと")
+  void testGetId() {
+    // 準備 (Arrange)
+    TestEntity entity = new TestEntity("id-100", "value");
+
+    // 検証 (Assert)
+    assertThat(entity.getId()).isEqualTo("id-100");
+  }
+
+  @Test
+  @DisplayName("自分自身との比較は等価であること")
+  void testEquals_Self() {
+    // 準備 (Arrange)
+    TestEntity entity = new TestEntity("id-1", "value");
+
+    // 検証 (Assert)
+    assertThat(entity).isEqualTo(entity);
+  }
+
+  @Test
+  @DisplayName("nullとの比較は等価でないこと")
+  void testEquals_Null() {
+    // 準備 (Arrange)
+    TestEntity entity = new TestEntity("id-1", "value");
+
+    // 検証 (Assert)
+    assertThat(entity).isNotEqualTo(null);
+  }
+
+  @Test
+  @DisplayName("異なるクラスとの比較は等価でないこと")
+  void testEquals_DifferentClass() {
+    // 準備 (Arrange)
+    TestEntity entity = new TestEntity("id-1", "value");
+
+    // 検証 (Assert)
+    assertThat(entity).isNotEqualTo("id-1");
+  }
+
+  @Test
   @DisplayName("toStringが属性値を含む文字列表現を返すこと")
   void testToString() {
     // 準備 (Arrange)
