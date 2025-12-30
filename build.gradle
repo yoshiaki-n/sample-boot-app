@@ -93,12 +93,19 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
     testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'org.mockito:mockito-core:5.+'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.8.3'
+
 
     // テストランタイム
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // ArchUnit (適応度関数テスト)
     testImplementation 'com.tngtech.archunit:archunit-junit5:1.3.0'
+
+    // ユーティリティ
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
 }
 
 dependencyManagement {
