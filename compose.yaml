@@ -1,1 +1,11 @@
-services: {}
+services:
+  db:
+    build: ./docker/postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: sampleapp
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sampleapp
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
