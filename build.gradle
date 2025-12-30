@@ -1,31 +1,30 @@
 plugins {
+    // Java言語プラグイン
     id 'java'
+    // Spring Bootプラグイン
     id 'org.springframework.boot' version '4.0.1'
+    // 依存関係管理プラグイン
     id 'io.spring.dependency-management' version '1.1.7'
+    // コードフォーマッター
     id "com.diffplug.spotless" version "6.25.0"
+    // コードカバレッジ
     id 'jacoco'
+    // 静的解析ツール
     id 'com.github.spotbugs' version '6.0.26'
     id 'pmd'
     id 'checkstyle'
     id 'org.sonarqube' version '6.0.1.5171'
+    // アーキテクチャ可視化
     id 'org.dddjava.jig-gradle-plugin' version '2025.11.1'
-}
-
-jacoco {
-    toolVersion = "0.8.12" // Use a recent version compatible with Java 17+
 }
 
 apply from: 'gradle/spotless.gradle'
 
+// =================================================================================================
+// プロジェクト情報
+// =================================================================================================
+
 group = 'com.example.samplebootapp'
-
-// ... existing code ...
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "com.example.samplebootapp:spring-boot-app"
-    }
-}
 version = '0.0.1-SNAPSHOT'
 description = 'Spring Bootのデモプロジェクト'
 
@@ -35,18 +34,9 @@ java {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
-ext {
-    set('springCloudVersion', "2025.1.0")
-}
-
-
-tasks.named('test') {
-    useJUnitPlatform()
-}
+// =================================================================================================
+// ソースセット定義 (Configurationsが自動生成されるため、依存関係定義より前に配置)
+// =================================================================================================
 
 sourceSets {
     integrationTest {
@@ -59,6 +49,18 @@ sourceSets {
     }
 }
 
+// =================================================================================================
+// リポジトリと依存関係
+// =================================================================================================
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2025.1.0")
+}
+
 configurations {
     integrationTestImplementation.extendsFrom testImplementation
     integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
@@ -67,24 +69,35 @@ configurations {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-micrometer-tracing-brave'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // Spring Boot コア
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // 可観測性 (Observability)
+    implementation 'org.springframework.boot:spring-boot-micrometer-tracing-brave'
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+
+    // 耐障害性 (Resilience)
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+
+    // 開発ツール
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-    testImplementation 'org.springframework.boot:spring-boot-micrometer-tracing-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+
+    // テスト
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
+    testImplementation 'org.springframework.boot:spring-boot-micrometer-tracing-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-    testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+
+    // テストランタイム
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // ArchUnit
+    // ArchUnit (適応度関数テスト)
     testImplementation 'com.tngtech.archunit:archunit-junit5:1.3.0'
 }
 
@@ -94,6 +107,17 @@ dependencyManagement {
     }
 }
 
+// =================================================================================================
+// テスト設定
+// =================================================================================================
+
+// 単体テスト
+tasks.named('test') {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+// 統合テスト
 task integrationTest(type: Test) {
     description = '統合テストを実行します。'
     group = 'verification'
@@ -101,8 +125,10 @@ task integrationTest(type: Test) {
     classpath = sourceSets.integrationTest.runtimeClasspath
     useJUnitPlatform()
     shouldRunAfter test
+    finalizedBy jacocoTestReport
 }
 
+// 適応度関数テスト (ArchUnit)
 task fitnessTest(type: Test) {
     description = '適応度関数テスト（ArchUnit）を実行します。'
     group = 'verification'
@@ -112,17 +138,16 @@ task fitnessTest(type: Test) {
     shouldRunAfter test
 }
 
+// 'check' タスクですべてのテストが実行されるように依存関係を設定
 check.dependsOn integrationTest
 check.dependsOn fitnessTest
 
-// Jacoco Configuration
+// =================================================================================================
+// コード品質 (カバレッジ)
+// =================================================================================================
 
-test {
-    finalizedBy jacocoTestReport
-}
-
-integrationTest {
-    finalizedBy jacocoTestReport
+jacoco {
+    toolVersion = "0.8.12"
 }
 
 jacocoTestReport {
@@ -134,10 +159,9 @@ jacocoTestReport {
     executionData(test, integrationTest)
 }
 
-// Aggregation Task (Merging execution data is handled implicitly by executionData above if tasks run)
-// But we want a dedicated task for "Run All Tests & Report"
-
 task jacocoRootReport(type: JacocoReport) {
+    description = '全テストのカバレッジレポートを生成します。'
+    group = 'verification'
     dependsOn test, integrationTest
     sourceDirectories.setFrom(sourceSets.main.allSource.srcDirs)
     classDirectories.setFrom(sourceSets.main.output)
@@ -155,7 +179,9 @@ task allTest {
     group = 'verification'
 }
 
-// Static Analysis Configuration
+// =================================================================================================
+// コード品質 (静的解析)
+// =================================================================================================
 
 checkstyle {
     toolVersion = '10.12.0'
@@ -179,6 +205,8 @@ spotbugs {
     toolVersion = '4.8.3'
 }
 
+// 必要に応じてSpotBugsタスクの実行条件を設定
+// 現状は元の設定に従い、Main以外のタスクを無効化
 afterEvaluate {
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
         if (!name.contains("Main")) {
@@ -189,11 +217,13 @@ afterEvaluate {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "com.example:spring-boot-app"
+        property "sonar.projectKey", "com.example.samplebootapp:spring-boot-app"
     }
 }
 
-// Documentation Configuration
+// =================================================================================================
+// ドキュメント
+// =================================================================================================
 
 javadoc {
     source = sourceSets.main.allJava
@@ -201,10 +231,10 @@ javadoc {
     options.encoding = 'UTF-8'
     options.charSet = 'UTF-8'
     options.locale = 'ja_JP'
-    // Show public, protected, and package-private members (excludes private)
+    // public, protected, package-private メンバーを表示 (private は除外)
     options.memberLevel = JavadocMemberLevel.PACKAGE
 }
 
 jig {
-    // defaults to main source set
+    // デフォルトは main ソースセット
 }
