@@ -15,33 +15,7 @@ jacoco {
     toolVersion = "0.8.12" // Use a recent version compatible with Java 17+
 }
 
-spotless {
-    java {
-        googleJavaFormat()
-        indentWithSpaces(2)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    groovyGradle {
-        target '*.gradle'
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    format 'misc', {
-        target '*.md', '.gitignore', '**/*.yaml', '**/*.yml', '**/*.xml'
-        indentWithSpaces(2)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    sql {
-        target '**/*.sql'
-        dbeaver()
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-}
+apply from: 'gradle/spotless.gradle'
 
 group = 'com.example.samplebootapp'
 
