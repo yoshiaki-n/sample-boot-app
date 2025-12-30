@@ -1,4 +1,4 @@
-package com.example.samplebootapp.samplebootapp;
+package com.example.samplebootapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,5 +11,6 @@ class SpringBootAppApplicationTests {
 
   @Test
   @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  void contextLoads() {}
+  void contextLoads() {
+  }
 }
