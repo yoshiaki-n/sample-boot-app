@@ -27,6 +27,24 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Start Database
+        run: docker compose up -d db
+
+      - name: Wait for Database
+        run: |
+          docker compose exec -T db sh -c 'until pg_isready; do sleep 1; done'
+        timeout-minutes: 1
+
+      - name: Run Database Migration
+        run: |
+          docker run --rm --network host \
+            -v $(pwd)/src/main/resources/db/migration:/flyway/sql \
+            flyway/flyway:11 \
+            -url=jdbc:postgresql://localhost:5432/sampleapp \
+            -user=sampleapp \
+            -password=password \
+            migrate
+
       - name: Run Integration Tests
         run: ./gradlew integrationTest
 
