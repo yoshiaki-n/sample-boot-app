@@ -31,6 +31,7 @@ management:
       enabled: true
 
 mybatis:
+  type-handlers-package: com.example.samplebootapp.infrastructure.product.datasource.typehandler
   configuration:
     map-underscore-to-camel-case: true
 
@@ -43,6 +44,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/sampleapp
     username: sampleapp
     password: password
+logging:
+  level:
+    root: INFO
+    com.example.samplebootapp: DEBUG
+
 ---
 spring:
   config:
