@@ -1,0 +1,28 @@
+name: Nightly Fitness Test
+
+on:
+  schedule:
+    # 毎日 15:00 UTC (00:00 JST) に実行
+    - cron: "0 15 * * *"
+  # 手動実行も可能にする
+  workflow_dispatch:
+
+jobs:
+  fitness-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Run Fitness Tests
+        run: ./gradlew fitnessTest
