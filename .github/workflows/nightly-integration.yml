@@ -7,6 +7,9 @@ on:
   # 手動実行も可能にする
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   integration-test:
     runs-on: ubuntu-latest
@@ -26,3 +29,12 @@ jobs:
 
       - name: Run Integration Tests
         run: ./gradlew integrationTest
+
+      - name: Deploy to GitHub Pages
+        if: always() # テスト失敗時もレポートは見たい
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/reports/tests/integrationTest
+          destination_dir: reports/integration-test
+          keep_files: true
