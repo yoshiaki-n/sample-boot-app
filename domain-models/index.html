@@ -756,7 +756,7 @@
 <li><code>&lt;&lt;Value Object&gt;&gt;</code>: 値によって識別されるオブジェクト。</li>
 </ul>
 <h2 id="1-product-context">1. 商品コンテキスト (Product Context)</h2>
-<pre><code class="language-mermaid">classDiagram
+<pre class="mermaid"><code>classDiagram
     class Product {
         &lt;&lt;Aggregate Root&gt;&gt;
         +ProductId id
@@ -775,10 +775,9 @@
         +rename(newName)
     }
 
-    Product --&gt; Category : categoryId
-</code></pre>
+    Product --&gt; Category : categoryId</code></pre>
 <h2 id="2-order-context">2. 注文コンテキスト (Order Context)</h2>
-<pre><code class="language-mermaid">classDiagram
+<pre class="mermaid"><code>classDiagram
     class Order {
         &lt;&lt;Aggregate Root&gt;&gt;
         +OrderId id
@@ -821,11 +820,10 @@
         +add(quantity)
     }
 
-    Order &quot;1&quot; *-- &quot;n&quot; OrderItem : contains
-    Cart &quot;1&quot; *-- &quot;n&quot; CartItem : contains
-</code></pre>
+    Order "1" *-- "n" OrderItem : contains
+    Cart "1" *-- "n" CartItem : contains</code></pre>
 <h2 id="3-inventory-context">3. 在庫コンテキスト (Inventory Context)</h2>
-<pre><code class="language-mermaid">classDiagram
+<pre class="mermaid"><code>classDiagram
     class Inventory {
         &lt;&lt;Aggregate Root&gt;&gt;
         +ProductId productId
@@ -834,10 +832,9 @@
         +allocate(quantity) void
         +replenish(quantity) void
         +isAvailable(quantity) boolean
-    }
-</code></pre>
+    }</code></pre>
 <h2 id="4-user-context">4. 会員コンテキスト (User Context)</h2>
-<pre><code class="language-mermaid">classDiagram
+<pre class="mermaid"><code>classDiagram
     class User {
         &lt;&lt;Aggregate Root&gt;&gt;
         +UserId id
@@ -858,8 +855,7 @@
         +fullName() String
     }
 
-    User *-- Profile
-</code></pre>
+    User *-- Profile</code></pre>
 
 
 
