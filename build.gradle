@@ -205,6 +205,13 @@ checkstyle {
     sourceSets = [sourceSets.main]
 }
 
+tasks.withType(Checkstyle) {
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
 pmd {
     toolVersion = "7.0.0"
     consoleOutput = true
@@ -217,8 +224,25 @@ pmd {
     sourceSets = [sourceSets.main]
 }
 
+tasks.withType(Pmd) {
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
 spotbugs {
     toolVersion = '4.8.3'
+    // SpotBugs Gradle Plugin defaults to XML only unless configured in tasks
+    // However, the extension doesn't easily set report types globally as cleanly as others.
+    // It's better to configure tasks.withType(SpotBugsTask)
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+    reports {
+        html.required = true
+        xml.required = true
+    }
 }
 
 // 必要に応じてSpotBugsタスクの実行条件を設定
