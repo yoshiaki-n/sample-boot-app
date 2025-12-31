@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.samplebootapp.infrastructure.product.datasource.ProductMapper">
+
+    <resultMap id="ProductResultMap" type="com.example.samplebootapp.domain.product.model.Product">
+        <constructor>
+            <idArg column="id" javaType="com.example.samplebootapp.domain.product.model.ProductId" />
+            <arg column="name" javaType="String" />
+            <arg column="description" javaType="String" />
+            <arg column="price_amount" javaType="com.example.samplebootapp.domain.product.model.Price" />
+            <arg column="category_id" javaType="com.example.samplebootapp.domain.product.model.CategoryId" />
+        </constructor>
+    </resultMap>
+
+    <select id="findById" resultMap="ProductResultMap">
+        SELECT
+            id,
+            name,
+            description,
+            price_amount,
+            category_id
+        FROM
+            product_products
+        WHERE
+            id = #{id.value}
+    </select>
+
+    <select id="search" resultMap="ProductResultMap">
+        SELECT
+            id,
+            name,
+            description,
+            price_amount,
+            category_id
+        FROM
+            product_products
+        <where>
+            <if test="criteria.keyword != null">
+                AND (name LIKE CONCAT('%', #{criteria.keyword}, '%') OR description LIKE CONCAT('%', #{criteria.keyword}, '%'))
+            </if>
+            <if test="criteria.categoryId != null">
+                AND category_id = #{criteria.categoryId.value}
+            </if>
+            <if test="criteria.minPrice != null">
+                AND price_amount &gt;= #{criteria.minPrice.amount}
+            </if>
+            <if test="criteria.maxPrice != null">
+                AND price_amount &lt;= #{criteria.maxPrice.amount}
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+</mapper>
