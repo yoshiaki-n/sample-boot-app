@@ -12,6 +12,8 @@ Spring Boot サンプルアプリケーション
     - [1.3.1. テストの実行](#131-テストの実行)
     - [1.3.2. コード品質チェック](#132-コード品質チェック)
     - [1.3.3. コードフォーマット](#133-コードフォーマット)
+    - [1.3.4. 開発環境DB接続](#134-開発環境db接続)
+    - [1.3.5. データベースマイグレーション](#135-データベースマイグレーション)
   - [1.4. 運用管理・モニタリング](#14-運用管理モニタリング)
     - [1.4.1. メトリクス確認 (Prometheus)](#141-メトリクス確認-prometheus)
   - [1.5. ディレクトリ構成](#15-ディレクトリ構成)
@@ -97,6 +99,42 @@ Spring Boot サンプルアプリケーション
 ```bash
 ./gradlew spotlessApply
 ```
+### 1.3.4. 開発環境DB接続
+
+```
+psql -h localhost -p 5432 -U sampleapp sampleapp
+```
+
+### 1.3.5. データベースマイグレーション
+
+Flywayを使用してデータベースの管理を行います。
+Gradleプラグインは現在環境依存の問題があるため、Dockerイメージを使用した実行方法を推奨します。
+
+| タスク名 | 説明 | 実行コマンド |
+| :--- | :--- | :--- |
+| `flywayMigrate` | DBマイグレーションを実行します。 | `bootRun`時に自動実行されます。手動の場合は下記参照。 |
+| `flywayClean` | DBの全テーブル・オブジェクトを削除（ドロップ）します。 | 下記コマンド参照 |
+| `flywayInfo` | 現在の適用状況を確認します。 | 下記コマンド参照 |
+
+**手動実行コマンド (Docker使用)**
+
+プロジェクトルートで実行してください。
+
+**マイグレーション (Migrate)**
+```bash
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password migrate
+```
+
+**全削除 (Clean)**
+```bash
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password clean
+```
+
+**状況確認 (Info)**
+```bash
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password info
+```
+
 
 ## 1.4. 運用管理・モニタリング
 
