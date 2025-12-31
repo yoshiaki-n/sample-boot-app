@@ -1,8 +1,9 @@
 spring:
+  application:
+    name: spring-boot-app
+  profiles:
+    active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/sampleapp
-    username: sampleapp
-    password: password
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
@@ -11,3 +12,22 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sampleapp
+    username: sampleapp
+    password: password
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
