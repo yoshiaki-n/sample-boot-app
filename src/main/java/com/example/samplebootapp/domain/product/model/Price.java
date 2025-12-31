@@ -9,7 +9,9 @@ import java.math.BigDecimal;
 /**
  * 価格値オブジェクト.
  */
-public class Price extends ValueObjectBase<Price> implements Serializable {
+public final class Price extends ValueObjectBase<Price> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @NotNull
     @Min(0)

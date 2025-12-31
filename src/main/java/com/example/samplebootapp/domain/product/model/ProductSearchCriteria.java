@@ -9,6 +9,8 @@ import java.io.Serializable;
 public class ProductSearchCriteria extends ValueObjectBase<ProductSearchCriteria>
         implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private final String keyword;
     private final CategoryId categoryId;
     private final Price minPrice;
