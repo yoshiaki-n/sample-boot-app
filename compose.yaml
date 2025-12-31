@@ -9,3 +9,10 @@ services:
       POSTGRES_DB: sampleapp
     volumes:
       - ./docker/postgres/data:/var/lib/postgresql/data
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml

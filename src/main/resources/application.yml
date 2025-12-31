@@ -9,6 +9,17 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
