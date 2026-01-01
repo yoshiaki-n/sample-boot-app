@@ -1,4 +1,2 @@
-/**
- * 会員コンテキストのプレゼンテーション層、
- */
+/** 会員コンテキストのプレゼンテーション層、 */
 package com.example.samplebootapp.presentation.user;

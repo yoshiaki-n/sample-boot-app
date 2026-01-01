@@ -12,15 +12,16 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 @MapperScan("com.example.samplebootapp.infrastructure.product.datasource")
 public class MyBatisConfig {
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setMapperLocations(
-                new PathMatchingResourcePatternResolver()
-                        .getResources("classpath*:com/example/samplebootapp/infrastructure/**/datasource/*.xml"));
-        sessionFactory
-                .setTypeHandlersPackage("com.example.samplebootapp.infrastructure.product.datasource.typehandler");
-        return sessionFactory.getObject();
-    }
+  @Bean
+  public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+    sessionFactory.setDataSource(dataSource);
+    sessionFactory.setMapperLocations(
+        new PathMatchingResourcePatternResolver()
+            .getResources(
+                "classpath*:com/example/samplebootapp/infrastructure/**/datasource/*.xml"));
+    sessionFactory.setTypeHandlersPackage(
+        "com.example.samplebootapp.infrastructure.product.datasource.typehandler");
+    return sessionFactory.getObject();
+  }
 }

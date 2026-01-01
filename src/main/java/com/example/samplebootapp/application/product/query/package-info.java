@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのクエリ、
- */
+/** 商品コンテキストのクエリ、 */
 package com.example.samplebootapp.application.product.query;

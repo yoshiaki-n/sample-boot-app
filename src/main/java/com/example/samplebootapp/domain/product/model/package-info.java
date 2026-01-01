@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのドメインモデル、
- */
+/** 商品コンテキストのドメインモデル、 */
 package com.example.samplebootapp.domain.product.model;

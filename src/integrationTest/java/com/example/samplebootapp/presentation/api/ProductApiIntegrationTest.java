@@ -16,16 +16,19 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class ProductApiIntegrationTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("商品一覧取得APIの統合テスト: ステータスコード200と正しいJSONレスポンスが返ること")
-  @Sql(scripts = { "/db/testdata/delete_products.sql",
-      "/db/testdata/insert_products.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-  @Sql(scripts = "/db/testdata/delete_products.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(
+      scripts = {"/db/testdata/delete_products.sql", "/db/testdata/insert_products.sql"},
+      executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  @Sql(
+      scripts = "/db/testdata/delete_products.sql",
+      executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
   void testGetProducts() throws Exception {
-    mockMvc.perform(get("/api/products"))
+    mockMvc
+        .perform(get("/api/products"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(3))
         // P001: Smartphone

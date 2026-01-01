@@ -8,25 +8,23 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
-/**
- * ProductRepository実装クラス.
- */
+/** ProductRepository実装クラス. */
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final ProductMapper productMapper;
+  private final ProductMapper productMapper;
 
-    public ProductRepositoryImpl(ProductMapper productMapper) {
-        this.productMapper = productMapper;
-    }
+  public ProductRepositoryImpl(ProductMapper productMapper) {
+    this.productMapper = productMapper;
+  }
 
-    @Override
-    public Optional<Product> findById(ProductId id) {
-        return productMapper.findById(id);
-    }
+  @Override
+  public Optional<Product> findById(ProductId id) {
+    return productMapper.findById(id);
+  }
 
-    @Override
-    public List<Product> search(ProductSearchCriteria criteria) {
-        return productMapper.search(criteria);
-    }
+  @Override
+  public List<Product> search(ProductSearchCriteria criteria) {
+    return productMapper.search(criteria);
+  }
 }

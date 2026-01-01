@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのコマンド、
- */
+/** 商品コンテキストのコマンド、 */
 package com.example.samplebootapp.application.product.command;

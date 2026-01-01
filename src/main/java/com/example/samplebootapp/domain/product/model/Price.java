@@ -6,29 +6,27 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * 価格値オブジェクト.
- */
+/** 価格値オブジェクト. */
 public final class Price extends ValueObjectBase<Price> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Min(0)
-    private final BigDecimal amount;
+  @NotNull
+  @Min(0)
+  private final BigDecimal amount;
 
-    public Price(@NotNull BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("価格は0以上である必要があります");
-        }
-        this.amount = amount;
+  public Price(@NotNull BigDecimal amount) {
+    if (amount.compareTo(BigDecimal.ZERO) < 0) {
+      throw new IllegalArgumentException("価格は0以上である必要があります");
     }
+    this.amount = amount;
+  }
 
-    public static Price of(long amount) {
-        return new Price(BigDecimal.valueOf(amount));
-    }
+  public static Price of(long amount) {
+    return new Price(BigDecimal.valueOf(amount));
+  }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+  public BigDecimal getAmount() {
+    return amount;
+  }
 }

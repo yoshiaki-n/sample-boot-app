@@ -1,4 +1,2 @@
-/**
- * 会員コンテキストのコマンド、
- */
+/** 会員コンテキストのコマンド、 */
 package com.example.samplebootapp.application.user.command;

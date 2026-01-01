@@ -1,4 +1,2 @@
-/**
- * 在庫コンテキストのプレゼンテーション層、
- */
+/** 在庫コンテキストのプレゼンテーション層、 */
 package com.example.samplebootapp.presentation.inventory;

@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのドメイン層、
- */
+/** 商品コンテキストのドメイン層、 */
 package com.example.samplebootapp.domain.product;

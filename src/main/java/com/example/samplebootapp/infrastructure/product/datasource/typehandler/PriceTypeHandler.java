@@ -10,33 +10,31 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
 
-/**
- * Price用MyBatis TypeHandler.
- */
+/** Price用MyBatis TypeHandler. */
 @MappedTypes(Price.class)
 public class PriceTypeHandler extends BaseTypeHandler<Price> {
 
-    @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, Price parameter, JdbcType jdbcType)
-            throws SQLException {
-        ps.setBigDecimal(i, parameter.getAmount());
-    }
+  @Override
+  public void setNonNullParameter(PreparedStatement ps, int i, Price parameter, JdbcType jdbcType)
+      throws SQLException {
+    ps.setBigDecimal(i, parameter.getAmount());
+  }
 
-    @Override
-    public Price getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        BigDecimal amount = rs.getBigDecimal(columnName);
-        return amount == null ? null : new Price(amount);
-    }
+  @Override
+  public Price getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    BigDecimal amount = rs.getBigDecimal(columnName);
+    return amount == null ? null : new Price(amount);
+  }
 
-    @Override
-    public Price getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        BigDecimal amount = rs.getBigDecimal(columnIndex);
-        return amount == null ? null : new Price(amount);
-    }
+  @Override
+  public Price getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    BigDecimal amount = rs.getBigDecimal(columnIndex);
+    return amount == null ? null : new Price(amount);
+  }
 
-    @Override
-    public Price getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        BigDecimal amount = cs.getBigDecimal(columnIndex);
-        return amount == null ? null : new Price(amount);
-    }
+  @Override
+  public Price getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    BigDecimal amount = cs.getBigDecimal(columnIndex);
+    return amount == null ? null : new Price(amount);
+  }
 }

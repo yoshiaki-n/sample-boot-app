@@ -1,4 +1,2 @@
-/**
- * 在庫コンテキストのREST API、
- */
+/** 在庫コンテキストのREST API、 */
 package com.example.samplebootapp.presentation.inventory.api;

@@ -6,11 +6,8 @@ import java.util.UUID;
 
 /**
  * ID生成クラス。
- * <p>
- * システム共通で使用するユニークIDを生成します。
- * 生成されるIDはUUID v7（Time-ordered Epoch）形式であり、
- * 生成順にソート可能です。
- * </p>
+ *
+ * <p>システム共通で使用するユニークIDを生成します。 生成されるIDはUUID v7（Time-ordered Epoch）形式であり、 生成順にソート可能です。
  */
 public final class IdGenerator {
 

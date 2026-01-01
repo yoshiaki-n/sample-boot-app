@@ -57,7 +57,7 @@ Spring Boot サンプルアプリケーション
     ```bash
     ./gradlew bootRun
     ```
-    
+
     起動後、 `http://localhost:8080` でアクセス可能です。
 
 ## 1.3. 開発ガイド

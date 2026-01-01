@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのREST API、
- */
+/** 商品コンテキストのREST API、 */
 package com.example.samplebootapp.presentation.product.api;

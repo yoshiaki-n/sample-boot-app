@@ -1,4 +1,2 @@
-/**
- * 商品コンテキストのアプリケーション層、
- */
+/** 商品コンテキストのアプリケーション層、 */
 package com.example.samplebootapp.application.product;

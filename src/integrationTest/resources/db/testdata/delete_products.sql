@@ -1,2 +1,7 @@
-DELETE FROM product_products;
-DELETE FROM product_categories;
+DELETE
+FROM
+    product_products;
+
+DELETE
+FROM
+    product_categories;
