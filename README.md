@@ -14,6 +14,7 @@ Spring Boot サンプルアプリケーション
     - [1.3.3. コードフォーマット](#133-コードフォーマット)
     - [1.3.4. 開発環境DB接続](#134-開発環境db接続)
     - [1.3.5. データベースマイグレーション](#135-データベースマイグレーション)
+    - [1.3.6. APIドキュメント (OpenAPI)](#136-apiドキュメント-openapi)
   - [1.4. 運用管理・モニタリング](#14-運用管理モニタリング)
     - [1.4.1. メトリクス確認 (Prometheus)](#141-メトリクス確認-prometheus)
   - [1.5. ディレクトリ構成](#15-ディレクトリ構成)
@@ -135,6 +136,21 @@ docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway
 docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password info
 ```
 
+
+```
+
+### 1.3.6. APIドキュメント (OpenAPI)
+
+開発環境 (`dev` プロファイル) では、OpenAPI (Swagger UI) を利用してAPI仕様を確認・実行できます。
+
+*   **Swagger UI (画面)**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+    *   ブラウザでAPI仕様の閲覧や、実際のリクエスト送信が可能です。
+*   **OpenAPI YAML定義**: [http://localhost:8080/v3/api-docs.yaml](http://localhost:8080/v3/api-docs.yaml)
+    *   API仕様のYAMLファイルを取得できます。自動生成ツールなどに取り込む際に利用します。
+*   **OpenAPI JSON定義**: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+> [!NOTE]
+> 本番環境 (`prod` プロファイル) では、セキュリティのためこれらのエンドポイントは無効化されています。
 
 ## 1.4. 運用管理・モニタリング
 

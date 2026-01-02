@@ -1,12 +1,17 @@
 package com.example.samplebootapp.presentation.product.api;
 
 import com.example.samplebootapp.domain.product.model.Product;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 /** 商品レスポンスDTO. */
 public record ProductResponse(
-    String id, String name, String description, BigDecimal price, String categoryId)
+    @Schema(description = "商品ID", example = "P001") String id,
+    @Schema(description = "商品名", example = "ボールペン") String name,
+    @Schema(description = "商品説明", example = "書きやすいボールペンです。") String description,
+    @Schema(description = "価格", example = "150") BigDecimal price,
+    @Schema(description = "カテゴリID", example = "C001") String categoryId)
     implements Serializable {
 
   /**
