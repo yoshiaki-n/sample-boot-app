@@ -26,8 +26,11 @@ classDiagram
         <<Entity>>
         +CategoryId id
         +String name
+        +CategoryId parentId
         +rename(newName)
     }
+
+    Category --> Category : parentId
 
     Product --> Category : categoryId
 ```

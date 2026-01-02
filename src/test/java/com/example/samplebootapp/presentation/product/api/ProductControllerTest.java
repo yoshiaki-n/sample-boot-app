@@ -6,8 +6,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.samplebootapp.application.product.query.CategoryQueryService;
 import com.example.samplebootapp.application.product.query.ProductQueryService;
+import com.example.samplebootapp.domain.product.model.Category;
 import com.example.samplebootapp.domain.product.model.CategoryId;
+import com.example.samplebootapp.domain.product.model.CategoryRepository;
 import com.example.samplebootapp.domain.product.model.Price;
 import com.example.samplebootapp.domain.product.model.Product;
 import com.example.samplebootapp.domain.product.model.ProductId;
@@ -23,29 +26,31 @@ import org.springframework.http.ResponseEntity;
 class ProductControllerTest {
 
   private ProductRepository productRepository;
+  private CategoryRepository categoryRepository;
   private ProductController productController;
 
   @BeforeEach
   void setUp() {
     productRepository = mock(ProductRepository.class);
+    categoryRepository = mock(CategoryRepository.class);
     // User requested to use mock for ProductRepository, so we instantiate the real
     // service
     // injecting the mock repository, and then use that service for the controller.
     ProductQueryService productQueryService = new ProductQueryService(productRepository);
-    productController = new ProductController(productQueryService);
+    CategoryQueryService categoryQueryService = new CategoryQueryService(categoryRepository);
+    productController = new ProductController(productQueryService, categoryQueryService);
   }
 
   @Test
   @DisplayName("商品検索APIが正常に動作し、レスポンスを返すこと")
   void searchProducts() {
     // 準備 (Arrange)
-    Product product =
-        new Product(
-            ProductId.generate(),
-            "Test Product",
-            "Test Description",
-            Price.of(1000),
-            new CategoryId("cat-1"));
+    Product product = new Product(
+        ProductId.generate(),
+        "Test Product",
+        "Test Description",
+        Price.of(1000),
+        new CategoryId("cat-1"));
     when(productRepository.search(any())).thenReturn(List.of(product));
 
     ProductSearchRequest request = new ProductSearchRequest("Test", null, 500L, 2000L);
@@ -69,9 +74,8 @@ class ProductControllerTest {
   void getProduct() {
     // 準備 (Arrange)
     ProductId productId = ProductId.generate();
-    Product product =
-        new Product(
-            productId, "Test Product", "Test Description", Price.of(1000), new CategoryId("cat-1"));
+    Product product = new Product(
+        productId, "Test Product", "Test Description", Price.of(1000), new CategoryId("cat-1"));
     when(productRepository.findById(productId)).thenReturn(java.util.Optional.of(product));
 
     // 実行 (Act)
@@ -96,5 +100,28 @@ class ProductControllerTest {
 
     // 検証 (Assert)
     assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+  }
+
+  @Test
+  @DisplayName("カテゴリ一覧APIが正常に動作し、階層構造を返すこと")
+  void listCategories() {
+    // 準備 (Arrange)
+    CategoryId rootId = new CategoryId("root");
+    CategoryId childId = new CategoryId("child");
+    Category root = new Category(rootId, "Root", null);
+    Category child = new Category(childId, "Child", rootId);
+
+    when(categoryRepository.findAll()).thenReturn(List.of(root, child));
+
+    // 実行 (Act)
+    ResponseEntity<List<CategoryResponse>> responseEntity = productController.listCategories();
+
+    // 検証 (Assert)
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    List<CategoryResponse> body = responseEntity.getBody();
+    assertThat(body).hasSize(1);
+    assertThat(body.get(0).getId()).isEqualTo("root");
+    assertThat(body.get(0).getChildren()).hasSize(1);
+    assertThat(body.get(0).getChildren().get(0).getId()).isEqualTo("child");
   }
 }
