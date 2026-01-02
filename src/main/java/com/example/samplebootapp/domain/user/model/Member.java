@@ -2,15 +2,25 @@ package com.example.samplebootapp.domain.user.model;
 
 import com.example.samplebootapp.domain.shared.AggregateRootBase;
 import com.example.samplebootapp.domain.shared.IdGenerator;
+import java.io.Serializable;
 
 /**
  * 会員集約ルート.
  */
-public class Member extends AggregateRootBase<String> {
+public class Member extends AggregateRootBase<String> implements Serializable {
 
-    private final String name;
-    private final String email;
-    private final String password;
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * デフォルトコンストラクタ(Framework/Serialization用).
+     */
+    protected Member() {
+        super(null);
+    }
+
+    private String name;
+    private String email;
+    private String password;
 
     /**
      * コンストラクタ.

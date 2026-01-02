@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class MemberUserDetails implements UserDetails {
 
+    private static final long serialVersionUID = 1L;
+
     private final Member member;
 
     public MemberUserDetails(Member member) {

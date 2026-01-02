@@ -1,6 +1,7 @@
 package com.example.samplebootapp.domain.shared;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -8,17 +9,20 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * エンティティ（Entity）の基底クラス.
  *
- * <p>エンティティは、一意の識別子（ID）によって同一性が判断されるオブジェクトです。
+ * <p>
+ * エンティティは、一意の識別子（ID）によって同一性が判断されるオブジェクトです。
  *
  * @param <ID> 識別子の型
  */
 @SuppressWarnings({
-  "PMD.AbstractClassWithoutAbstractMethod",
-  "checkstyle:SummaryJavadoc",
-  "checkstyle:ClassTypeParameterName"
+    "PMD.AbstractClassWithoutAbstractMethod",
+    "checkstyle:SummaryJavadoc",
+    "checkstyle:ClassTypeParameterName"
 })
 @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
-public abstract class EntityBase<ID> {
+public abstract class EntityBase<ID> implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private final ID id;
 
@@ -73,7 +77,8 @@ public abstract class EntityBase<ID> {
   }
 
   /**
-   * 文字列表現を返します. Apache Commons Langの {@link ToStringBuilder#reflectionToString} を使用して生成します。
+   * 文字列表現を返します. Apache Commons Langの {@link ToStringBuilder#reflectionToString}
+   * を使用して生成します。
    *
    * @return オブジェクトの文字列表現
    */
