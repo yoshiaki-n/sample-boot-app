@@ -3,6 +3,7 @@ package com.example.samplebootapp.infrastructure.user.repository;
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.domain.user.model.MemberRepository;
 import com.example.samplebootapp.infrastructure.user.mapper.MemberMapper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,6 +19,7 @@ public class MemberRepositoryImpl implements MemberRepository {
      *
      * @param memberMapper 会員Mapper
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public MemberRepositoryImpl(MemberMapper memberMapper) {
         this.memberMapper = memberMapper;
     }
