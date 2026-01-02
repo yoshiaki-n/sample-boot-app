@@ -15,7 +15,7 @@ public class Member extends AggregateRootBase<String> implements Serializable {
      * デフォルトコンストラクタ(Framework/Serialization用).
      */
     protected Member() {
-        super(null);
+        super("");
     }
 
     private String name;

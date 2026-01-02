@@ -15,7 +15,7 @@ public interface MemberMapper {
      *
      * @param member 会員
      */
-    @Insert("INSERT INTO members (id, name, email, password) VALUES (#{id}, #{name}, #{email}, #{password})")
+    @Insert("INSERT INTO user_members (id, name, email, password) VALUES (#{id}, #{name}, #{email}, #{password})")
     void insert(Member member);
 
     /**
@@ -24,6 +24,6 @@ public interface MemberMapper {
      * @param email メールアドレス
      * @return 会員
      */
-    @org.apache.ibatis.annotations.Select("SELECT * FROM members WHERE email = #{email}")
+    @org.apache.ibatis.annotations.Select("SELECT * FROM user_members WHERE email = #{email}")
     Member findByEmail(String email);
 }

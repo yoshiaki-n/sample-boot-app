@@ -48,7 +48,7 @@ class MemberControllerIntegrationTest {
         .andExpect(status().isCreated());
 
     // 検証
-    Map<String, Object> memberMap = jdbcTemplate.queryForMap("SELECT * FROM members WHERE email = ?",
+    Map<String, Object> memberMap = jdbcTemplate.queryForMap("SELECT * FROM user_members WHERE email = ?",
         "hanako@example.com");
 
     assertThat(memberMap).isNotNull();
