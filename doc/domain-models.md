@@ -112,6 +112,7 @@ classDiagram
         +Profile profile
         +changePassword(newPassword)
         +updateProfile(profile)
+        +delete()
         +isAuthenticated(password) boolean
     }
 
