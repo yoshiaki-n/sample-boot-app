@@ -28,4 +28,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     public void register(Member member) {
         memberMapper.insert(member);
     }
+
+    @Override
+    public Member findByEmail(String email) {
+        return memberMapper.findByEmail(email);
+    }
 }

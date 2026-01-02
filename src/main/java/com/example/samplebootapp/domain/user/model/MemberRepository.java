@@ -11,4 +11,12 @@ public interface MemberRepository {
      * @param member 会員
      */
     void register(Member member);
+
+    /**
+     * メールアドレスで会員を検索します.
+     *
+     * @param email メールアドレス
+     * @return 会員（存在しない場合はnull）
+     */
+    Member findByEmail(String email);
 }

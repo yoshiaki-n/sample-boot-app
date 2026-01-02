@@ -128,7 +128,7 @@ docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway
 
 **全削除 (Clean)**
 ```bash
-docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password clean
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password -cleanDisabled=false clean
 ```
 
 **状況確認 (Info)**

@@ -32,7 +32,6 @@ class MemberControllerIntegrationTest {
 
   @Test
   @DisplayName("会員登録API: 正常に登録でき、DBに保存されること")
-  @Sql(scripts = "classpath:db/migration/V1.0.3__create_members_table.sql")
   void testRegister() throws Exception {
     // 準備
     MemberRequest request = new MemberRequest();
