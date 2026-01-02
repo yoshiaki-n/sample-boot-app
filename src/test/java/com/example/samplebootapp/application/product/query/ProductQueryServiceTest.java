@@ -1,6 +1,7 @@
 package com.example.samplebootapp.application.product.query;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +12,7 @@ import com.example.samplebootapp.domain.product.model.ProductId;
 import com.example.samplebootapp.domain.product.model.ProductRepository;
 import com.example.samplebootapp.domain.product.model.ProductSearchCriteria;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,5 +51,37 @@ class ProductQueryServiceTest {
     assertThat(result).hasSize(1);
     assertThat(result.get(0)).isEqualTo(product);
     verify(productRepository).search(criteria);
+  }
+
+  @Test
+  @DisplayName("IDで商品を検索して取得できること")
+  void findProductById() {
+    // 準備 (Arrange)
+    ProductId productId = ProductId.generate();
+    Product product =
+        new Product(
+            productId, "Test Product", "Description", Price.of(500), new CategoryId("cat-1"));
+
+    when(productRepository.findById(any(ProductId.class))).thenReturn(Optional.of(product));
+
+    // 実行 (Act)
+    Optional<Product> result = productQueryService.findById(productId.getValue());
+
+    // 検証 (Assert)
+    assertThat(result).isPresent();
+    assertThat(result.get()).isEqualTo(product);
+  }
+
+  @Test
+  @DisplayName("存在しないIDで検索した場合、空が返されること")
+  void findProductByIdNotFound() {
+    // 準備 (Arrange)
+    when(productRepository.findById(any(ProductId.class))).thenReturn(Optional.empty());
+
+    // 実行 (Act)
+    Optional<Product> result = productQueryService.findById("unknown-id");
+
+    // 検証 (Assert)
+    assertThat(result).isEmpty();
   }
 }

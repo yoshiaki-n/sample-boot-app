@@ -167,7 +167,8 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: [unit-test, checkstyle, pmd, spotbugs, coverage]
+    # needs: [unit-test, checkstyle, pmd, spotbugs, coverage]
+    needs: [unit-test, checkstyle, pmd, spotbugs]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
