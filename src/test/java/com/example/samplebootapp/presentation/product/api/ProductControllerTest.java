@@ -39,12 +39,13 @@ class ProductControllerTest {
   @DisplayName("商品検索APIが正常に動作し、レスポンスを返すこと")
   void searchProducts() {
     // 準備 (Arrange)
-    Product product = new Product(
-        ProductId.generate(),
-        "Test Product",
-        "Test Description",
-        Price.of(1000),
-        new CategoryId("cat-1"));
+    Product product =
+        new Product(
+            ProductId.generate(),
+            "Test Product",
+            "Test Description",
+            Price.of(1000),
+            new CategoryId("cat-1"));
     when(productRepository.search(any())).thenReturn(List.of(product));
 
     ProductSearchRequest request = new ProductSearchRequest("Test", null, 500L, 2000L);
@@ -68,12 +69,9 @@ class ProductControllerTest {
   void getProduct() {
     // 準備 (Arrange)
     ProductId productId = ProductId.generate();
-    Product product = new Product(
-        productId,
-        "Test Product",
-        "Test Description",
-        Price.of(1000),
-        new CategoryId("cat-1"));
+    Product product =
+        new Product(
+            productId, "Test Product", "Test Description", Price.of(1000), new CategoryId("cat-1"));
     when(productRepository.findById(productId)).thenReturn(java.util.Optional.of(product));
 
     // 実行 (Act)

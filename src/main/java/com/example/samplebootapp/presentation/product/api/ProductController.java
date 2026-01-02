@@ -48,7 +48,7 @@ public class ProductController {
    */
   @GetMapping("/{productId}")
   @Operation(summary = "商品詳細取得", description = "指定されたIDの商品の詳細情報を返します。")
-  public ResponseEntity<ProductResponse> get(@org.springframework.web.bind.annotation.PathVariable String productId) {
+  public ResponseEntity<ProductResponse> get(@PathVariable String productId) {
     return productQueryService
         .findById(productId)
         .map(ProductResponse::from)
