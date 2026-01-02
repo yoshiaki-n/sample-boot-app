@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.samplebootapp.infrastructure.product.datasource.CategoryMapper">
+
+    <resultMap id="categoryResultMap" type="com.example.samplebootapp.domain.product.model.Category">
+        <constructor>
+            <idArg column="id" javaType="com.example.samplebootapp.domain.product.model.CategoryId"/>
+            <arg column="name" javaType="String"/>
+            <arg column="parent_id" javaType="com.example.samplebootapp.domain.product.model.CategoryId"/>
+        </constructor>
+    </resultMap>
+
+    <select id="findAll" resultMap="categoryResultMap">
+        SELECT
+            id,
+            name,
+            parent_id
+        FROM
+            product_categories
+    </select>
+
+</mapper>

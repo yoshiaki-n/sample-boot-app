@@ -1,5 +1,6 @@
 package com.example.samplebootapp.presentation.product.api;
 
+import com.example.samplebootapp.application.product.query.CategoryQueryService;
 import com.example.samplebootapp.application.product.query.ProductQueryService;
 import com.example.samplebootapp.domain.product.model.Product;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
   private final ProductQueryService productQueryService;
+  private final CategoryQueryService categoryQueryService;
 
-  public ProductController(ProductQueryService productQueryService) {
+  public ProductController(
+      ProductQueryService productQueryService, CategoryQueryService categoryQueryService) {
     this.productQueryService = productQueryService;
+    this.categoryQueryService = categoryQueryService;
   }
 
   /**
@@ -54,5 +58,16 @@ public class ProductController {
         .map(ProductResponse::from)
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
+  }
+
+  /**
+   * カテゴリ一覧を取得します.
+   *
+   * @return カテゴリ一覧
+   */
+  @GetMapping("/categories")
+  @Operation(summary = "カテゴリ一覧取得", description = "商品カテゴリの階層構造を返します。")
+  public ResponseEntity<List<CategoryResponse>> listCategories() {
+    return ResponseEntity.ok(categoryQueryService.listCategories());
   }
 }
