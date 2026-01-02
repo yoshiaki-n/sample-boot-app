@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 /** カテゴリMapper. */
 @Mapper
 public interface CategoryMapper {
-    /**
-     * 全カテゴリを取得します.
-     *
-     * @return カテゴリリスト
-     */
-    List<Category> findAll();
+  /**
+   * 全カテゴリを取得します.
+   *
+   * @return カテゴリリスト
+   */
+  List<Category> findAll();
 }

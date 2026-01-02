@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 
-    private final CategoryMapper categoryMapper;
+  private final CategoryMapper categoryMapper;
 
-    public CategoryRepositoryImpl(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
-    }
+  public CategoryRepositoryImpl(CategoryMapper categoryMapper) {
+    this.categoryMapper = categoryMapper;
+  }
 
-    @Override
-    public List<Category> findAll() {
-        return categoryMapper.findAll();
-    }
+  @Override
+  public List<Category> findAll() {
+    return categoryMapper.findAll();
+  }
 }

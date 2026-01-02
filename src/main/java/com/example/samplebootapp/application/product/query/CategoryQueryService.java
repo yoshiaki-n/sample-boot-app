@@ -16,43 +16,43 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CategoryQueryService {
 
-    private final CategoryRepository categoryRepository;
+  private final CategoryRepository categoryRepository;
 
-    public CategoryQueryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+  public CategoryQueryService(CategoryRepository categoryRepository) {
+    this.categoryRepository = categoryRepository;
+  }
 
-    /**
-     * カテゴリ一覧を階層構造で取得します.
-     *
-     * @return カテゴリリスト（階層構造）
-     */
-    public List<CategoryResponse> listCategories() {
-        List<Category> allCategories = categoryRepository.findAll();
+  /**
+   * カテゴリ一覧を階層構造で取得します.
+   *
+   * @return カテゴリリスト（階層構造）
+   */
+  public List<CategoryResponse> listCategories() {
+    List<Category> allCategories = categoryRepository.findAll();
 
-        // IDでマップ化
-        Map<CategoryId, CategoryResponse> responseMap = allCategories.stream()
-                .collect(Collectors.toMap(Category::getId, CategoryResponse::from));
+    // IDでマップ化
+    Map<CategoryId, CategoryResponse> responseMap =
+        allCategories.stream().collect(Collectors.toMap(Category::getId, CategoryResponse::from));
 
-        List<CategoryResponse> rootCategories = new ArrayList<>();
+    List<CategoryResponse> rootCategories = new ArrayList<>();
 
-        for (Category category : allCategories) {
-            CategoryResponse response = responseMap.get(category.getId());
-            CategoryId parentId = category.getParentId();
+    for (Category category : allCategories) {
+      CategoryResponse response = responseMap.get(category.getId());
+      CategoryId parentId = category.getParentId();
 
-            if (parentId == null) {
-                rootCategories.add(response);
-            } else {
-                CategoryResponse parent = responseMap.get(parentId);
-                if (parent != null) {
-                    parent.addChild(response);
-                } else {
-                    // 親が見つからない場合はルートとして扱う（データ整合性の問題だが、APIとしては表示する）
-                    rootCategories.add(response);
-                }
-            }
+      if (parentId == null) {
+        rootCategories.add(response);
+      } else {
+        CategoryResponse parent = responseMap.get(parentId);
+        if (parent != null) {
+          parent.addChild(response);
+        } else {
+          // 親が見つからない場合はルートとして扱う（データ整合性の問題だが、APIとしては表示する）
+          rootCategories.add(response);
         }
-
-        return rootCategories;
+      }
     }
+
+    return rootCategories;
+  }
 }
