@@ -43,10 +43,10 @@ class CategoryQueryServiceTest {
 
         // Assert
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).id()).isEqualTo("root");
-        assertThat(result.get(0).children()).hasSize(1);
-        assertThat(result.get(0).children().get(0).id()).isEqualTo("child");
-        assertThat(result.get(0).children().get(0).children()).hasSize(1);
-        assertThat(result.get(0).children().get(0).children().get(0).id()).isEqualTo("grandChild");
+        assertThat(result.get(0).getId()).isEqualTo("root");
+        assertThat(result.get(0).getChildren()).hasSize(1);
+        assertThat(result.get(0).getChildren().get(0).getId()).isEqualTo("child");
+        assertThat(result.get(0).getChildren().get(0).getChildren()).hasSize(1);
+        assertThat(result.get(0).getChildren().get(0).getChildren().get(0).getId()).isEqualTo("grandChild");
     }
 }

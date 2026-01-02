@@ -120,8 +120,8 @@ class ProductControllerTest {
     assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     List<CategoryResponse> body = responseEntity.getBody();
     assertThat(body).hasSize(1);
-    assertThat(body.get(0).id()).isEqualTo("root");
-    assertThat(body.get(0).children()).hasSize(1);
-    assertThat(body.get(0).children().get(0).id()).isEqualTo("child");
+    assertThat(body.get(0).getId()).isEqualTo("root");
+    assertThat(body.get(0).getChildren()).hasSize(1);
+    assertThat(body.get(0).getChildren().get(0).getId()).isEqualTo("child");
   }
 }
