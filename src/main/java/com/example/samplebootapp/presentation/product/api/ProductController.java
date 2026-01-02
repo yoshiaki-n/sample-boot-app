@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +38,21 @@ public class ProductController {
     List<Product> products = productQueryService.search(request.toCriteria());
     List<ProductResponse> response = products.stream().map(ProductResponse::from).toList();
     return ResponseEntity.ok(response);
+  }
+
+  /**
+   * 商品詳細を取得します.
+   *
+   * @param productId 商品ID
+   * @return 商品詳細
+   */
+  @GetMapping("/{productId}")
+  @Operation(summary = "商品詳細取得", description = "指定されたIDの商品の詳細情報を返します。")
+  public ResponseEntity<ProductResponse> get(@org.springframework.web.bind.annotation.PathVariable String productId) {
+    return productQueryService
+        .findById(productId)
+        .map(ProductResponse::from)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
   }
 }

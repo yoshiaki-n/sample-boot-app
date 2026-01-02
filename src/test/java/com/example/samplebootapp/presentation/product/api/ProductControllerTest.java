@@ -39,13 +39,12 @@ class ProductControllerTest {
   @DisplayName("商品検索APIが正常に動作し、レスポンスを返すこと")
   void searchProducts() {
     // 準備 (Arrange)
-    Product product =
-        new Product(
-            ProductId.generate(),
-            "Test Product",
-            "Test Description",
-            Price.of(1000),
-            new CategoryId("cat-1"));
+    Product product = new Product(
+        ProductId.generate(),
+        "Test Product",
+        "Test Description",
+        Price.of(1000),
+        new CategoryId("cat-1"));
     when(productRepository.search(any())).thenReturn(List.of(product));
 
     ProductSearchRequest request = new ProductSearchRequest("Test", null, 500L, 2000L);
@@ -62,5 +61,42 @@ class ProductControllerTest {
 
     // Verify interaction with Repository through the Service
     verify(productRepository).search(any());
+  }
+
+  @Test
+  @DisplayName("商品詳細取得APIが正常に動作し、商品情報を返すこと")
+  void getProduct() {
+    // 準備 (Arrange)
+    ProductId productId = ProductId.generate();
+    Product product = new Product(
+        productId,
+        "Test Product",
+        "Test Description",
+        Price.of(1000),
+        new CategoryId("cat-1"));
+    when(productRepository.findById(productId)).thenReturn(java.util.Optional.of(product));
+
+    // 実行 (Act)
+    ResponseEntity<ProductResponse> responseEntity = productController.get(productId.getValue());
+
+    // 検証 (Assert)
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    ProductResponse body = responseEntity.getBody();
+    assertThat(body).isNotNull();
+    assertThat(body.id()).isEqualTo(productId.getValue());
+    assertThat(body.name()).isEqualTo("Test Product");
+  }
+
+  @Test
+  @DisplayName("存在しない商品の詳細を取得しようとした場合、404を返すこと")
+  void getProductNotFound() {
+    // 準備 (Arrange)
+    when(productRepository.findById(any(ProductId.class))).thenReturn(java.util.Optional.empty());
+
+    // 実行 (Act)
+    ResponseEntity<ProductResponse> responseEntity = productController.get("unknown-id");
+
+    // 検証 (Assert)
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
   }
 }

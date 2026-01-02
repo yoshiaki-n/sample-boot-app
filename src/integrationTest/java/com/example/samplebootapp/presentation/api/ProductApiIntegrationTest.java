@@ -16,16 +16,14 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class ProductApiIntegrationTest {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
   @Test
   @DisplayName("商品一覧取得APIの統合テスト: ステータスコード200と正しいJSONレスポンスが返ること")
-  @Sql(
-      scripts = {"/db/testdata/delete_products.sql", "/db/testdata/insert_products.sql"},
-      executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-  @Sql(
-      scripts = "/db/testdata/delete_products.sql",
-      executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(scripts = { "/db/testdata/delete_products.sql",
+      "/db/testdata/insert_products.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  @Sql(scripts = "/db/testdata/delete_products.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
   void testGetProducts() throws Exception {
     mockMvc
         .perform(get("/api/products"))
@@ -46,5 +44,26 @@ public class ProductApiIntegrationTest {
         .andExpect(jsonPath("$[2].name").value("Tech Book"))
         .andExpect(jsonPath("$[2].price").value(3000))
         .andExpect(jsonPath("$[2].categoryId").value("C002"));
+  }
+
+  @Test
+  @DisplayName("商品詳細取得APIの統合テスト: 存在するID指定でステータスコード200と正しいJSONレスポンスが返ること")
+  @Sql(scripts = { "/db/testdata/delete_products.sql",
+      "/db/testdata/insert_products.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  @Sql(scripts = "/db/testdata/delete_products.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+  void testGetProductById() throws Exception {
+    mockMvc
+        .perform(get("/api/products/P001"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value("P001"))
+        .andExpect(jsonPath("$.name").value("Smartphone"))
+        .andExpect(jsonPath("$.price").value(100000))
+        .andExpect(jsonPath("$.categoryId").value("C001"));
+  }
+
+  @Test
+  @DisplayName("商品詳細取得APIの統合テスト: 存在しないID指定でステータスコード404が返ること")
+  void testGetProductByIdNotFound() throws Exception {
+    mockMvc.perform(get("/api/products/P999")).andExpect(status().isNotFound());
   }
 }
