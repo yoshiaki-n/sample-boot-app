@@ -144,7 +144,6 @@ task integrationTest(type: Test) {
     classpath = sourceSets.integrationTest.runtimeClasspath
     useJUnitPlatform()
     shouldRunAfter test
-    finalizedBy jacocoTestReport
 }
 
 // 適応度関数テスト (ArchUnit)
@@ -170,12 +169,12 @@ jacoco {
 }
 
 jacocoTestReport {
-    dependsOn test, integrationTest
+    dependsOn test
     reports {
         xml.required = true
         html.required = true
     }
-    executionData(test, integrationTest)
+    executionData(test)
 }
 
 task jacocoRootReport(type: JacocoReport) {
