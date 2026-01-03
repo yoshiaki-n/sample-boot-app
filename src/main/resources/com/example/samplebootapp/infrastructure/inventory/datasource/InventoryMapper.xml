@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.samplebootapp.infrastructure.inventory.datasource.InventoryMapper">
+
+    <resultMap id="inventoryResultMap" type="com.example.samplebootapp.domain.inventory.model.Inventory">
+        <constructor>
+            <idArg column="product_id" javaType="com.example.samplebootapp.domain.product.model.ProductId" typeHandler="com.example.samplebootapp.infrastructure.product.datasource.typehandler.ProductIdTypeHandler"/>
+            <arg column="quantity" javaType="java.lang.Integer"/>
+            <arg column="version" javaType="java.lang.Long"/>
+        </constructor>
+    </resultMap>
+
+    <select id="findByProductId" resultMap="inventoryResultMap">
+        SELECT
+            product_id,
+            quantity,
+            version
+        FROM
+            inventory_inventories
+        WHERE
+            product_id = #{productId, typeHandler=com.example.samplebootapp.infrastructure.product.datasource.typehandler.ProductIdTypeHandler}
+    </select>
+
+    <update id="update">
+        UPDATE inventory_inventories
+        SET
+            quantity = #{quantity},
+            version = version + 1
+        WHERE
+            product_id = #{id, typeHandler=com.example.samplebootapp.infrastructure.product.datasource.typehandler.ProductIdTypeHandler}
+        AND
+            version = #{version}
+    </update>
+
+</mapper>
