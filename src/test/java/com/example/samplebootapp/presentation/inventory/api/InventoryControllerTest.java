@@ -19,47 +19,49 @@ import org.springframework.http.ResponseEntity;
 
 class InventoryControllerTest {
 
-    private InventoryRepository inventoryRepository;
-    private InventoryController inventoryController;
-    private InventoryCommandService inventoryCommandService;
+  private InventoryRepository inventoryRepository;
+  private InventoryController inventoryController;
+  private InventoryCommandService inventoryCommandService;
 
-    @BeforeEach
-    void setUp() {
-        inventoryRepository = mock(InventoryRepository.class);
-        inventoryCommandService = mock(InventoryCommandService.class);
-        InventoryQueryService inventoryQueryService = new InventoryQueryService(inventoryRepository);
-        inventoryController = new InventoryController(inventoryQueryService, inventoryCommandService);
-    }
+  @BeforeEach
+  void setUp() {
+    inventoryRepository = mock(InventoryRepository.class);
+    inventoryCommandService = mock(InventoryCommandService.class);
+    InventoryQueryService inventoryQueryService = new InventoryQueryService(inventoryRepository);
+    inventoryController = new InventoryController(inventoryQueryService, inventoryCommandService);
+  }
 
-    @Test
-    @DisplayName("在庫数確認APIが正常に動作し、在庫情報を返すこと")
-    void getQuantity() {
-        // 準備 (Arrange)
-        ProductId productId = ProductId.generate();
-        Inventory inventory = new Inventory(productId, 50, 0L);
-        when(inventoryRepository.findByProductId(productId)).thenReturn(Optional.of(inventory));
+  @Test
+  @DisplayName("在庫数確認APIが正常に動作し、在庫情報を返すこと")
+  void getQuantity() {
+    // 準備 (Arrange)
+    ProductId productId = ProductId.generate();
+    Inventory inventory = new Inventory(productId, 50, 0L);
+    when(inventoryRepository.findByProductId(productId)).thenReturn(Optional.of(inventory));
 
-        // 実行 (Act)
-        ResponseEntity<InventoryResponse> responseEntity = inventoryController.getQuantity(productId.getValue());
+    // 実行 (Act)
+    ResponseEntity<InventoryResponse> responseEntity =
+        inventoryController.getQuantity(productId.getValue());
 
-        // 検証 (Assert)
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        InventoryResponse body = responseEntity.getBody();
-        assertThat(body).isNotNull();
-        assertThat(body.productId()).isEqualTo(productId.getValue());
-        assertThat(body.quantity()).isEqualTo(50);
-    }
+    // 検証 (Assert)
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    InventoryResponse body = responseEntity.getBody();
+    assertThat(body).isNotNull();
+    assertThat(body.productId()).isEqualTo(productId.getValue());
+    assertThat(body.quantity()).isEqualTo(50);
+  }
 
-    @Test
-    @DisplayName("存在しない商品の在庫を確認しようとした場合、404を返すこと")
-    void getQuantityNotFound() {
-        // 準備 (Arrange)
-        when(inventoryRepository.findByProductId(any(ProductId.class))).thenReturn(Optional.empty());
+  @Test
+  @DisplayName("存在しない商品の在庫を確認しようとした場合、404を返すこと")
+  void getQuantityNotFound() {
+    // 準備 (Arrange)
+    when(inventoryRepository.findByProductId(any(ProductId.class))).thenReturn(Optional.empty());
 
-        // 実行 (Act)
-        ResponseEntity<InventoryResponse> responseEntity = inventoryController.getQuantity("unknown-id");
+    // 実行 (Act)
+    ResponseEntity<InventoryResponse> responseEntity =
+        inventoryController.getQuantity("unknown-id");
 
-        // 検証 (Assert)
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
+    // 検証 (Assert)
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+  }
 }

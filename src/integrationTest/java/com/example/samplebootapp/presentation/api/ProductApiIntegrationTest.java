@@ -16,14 +16,16 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class ProductApiIntegrationTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("商品一覧取得APIの統合テスト: ステータスコード200と正しいJSONレスポンスが返ること")
-  @Sql(scripts = { "/db/testdata/delete_products.sql",
-      "/db/testdata/insert_products.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-  @Sql(scripts = "/db/testdata/delete_products.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(
+      scripts = {"/db/testdata/delete_products.sql", "/db/testdata/insert_products.sql"},
+      executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  @Sql(
+      scripts = "/db/testdata/delete_products.sql",
+      executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
   void testGetProducts() throws Exception {
     mockMvc
         .perform(get("/api/products"))
@@ -48,9 +50,12 @@ public class ProductApiIntegrationTest {
 
   @Test
   @DisplayName("商品詳細取得APIの統合テスト: 存在するID指定でステータスコード200と正しいJSONレスポンスが返ること")
-  @Sql(scripts = { "/db/testdata/delete_products.sql",
-      "/db/testdata/insert_products.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-  @Sql(scripts = "/db/testdata/delete_products.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(
+      scripts = {"/db/testdata/delete_products.sql", "/db/testdata/insert_products.sql"},
+      executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  @Sql(
+      scripts = "/db/testdata/delete_products.sql",
+      executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
   void testGetProductById() throws Exception {
     mockMvc
         .perform(get("/api/products/P001"))
