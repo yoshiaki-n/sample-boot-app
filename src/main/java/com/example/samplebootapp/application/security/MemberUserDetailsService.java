@@ -15,6 +15,12 @@ public class MemberUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    /**
+     * コンストラクタ.
+     *
+     * @param memberRepository 会員リポジトリ
+     */
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     public MemberUserDetailsService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

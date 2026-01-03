@@ -16,6 +16,7 @@ public class UserQueryService {
     @SuppressWarnings("PMD.SingularField")
     private final MemberRepository memberRepository;
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     public UserQueryService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
