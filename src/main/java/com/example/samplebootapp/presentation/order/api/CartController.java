@@ -24,6 +24,7 @@ public class CartController {
   private final CartCommandService cartCommandService;
   private final CartQueryService cartQueryService;
 
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
   public CartController(CartCommandService cartCommandService, CartQueryService cartQueryService) {
     this.cartCommandService = cartCommandService;
     this.cartQueryService = cartQueryService;

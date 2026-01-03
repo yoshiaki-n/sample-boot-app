@@ -15,7 +15,7 @@ public class CartResponse {
 
   public CartResponse(String cartId, List<CartItemResponse> items) {
     this.cartId = cartId;
-    this.items = items;
+    this.items = items != null ? new java.util.ArrayList<>(items) : new java.util.ArrayList<>();
   }
 
   public static CartResponse from(Cart cart) {
@@ -30,6 +30,6 @@ public class CartResponse {
   }
 
   public List<CartItemResponse> getItems() {
-    return items;
+    return java.util.Collections.unmodifiableList(items);
   }
 }
