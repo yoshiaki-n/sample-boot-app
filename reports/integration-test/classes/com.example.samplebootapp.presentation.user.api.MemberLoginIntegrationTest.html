@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - MemberLoginIntegrationTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>MemberLoginIntegrationTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.samplebootapp.presentation.user.api.html">com.example.samplebootapp.presentation.user.api</a> &gt; MemberLoginIntegrationTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.419s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">ログインAPI: 誤ったパスワードでログイン失敗する</td>
+<td class="success">testLoginFailure()</td>
+<td class="success">0.206s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">ログインAPI: 正しいパスワードでログイン成功し、JSESSIONIDクッキーが返される</td>
+<td class="success">testLoginSuccess()</td>
+<td class="success">0.213s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre id="class-stdout">2026-01-03 15:19:53.778  INFO 3092 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.user.api.MemberLoginIntegrationTest]: MemberLoginIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-01-03 15:19:53.788  INFO 3092 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.user.api.MemberLoginIntegrationTest
+2026-01-03 15:19:53.889 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-01-03 15:19:53.889 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] ==&gt; Parameters: 019b8471-9120-7593-9d54-91530cb9c191(String), LoginUser(String), login_test@example.com(String), $2a$10$SkNOQzDtfLlFJC1ypHHorOtQwwNSoxQxKaA7k6tRUAtiHWOukH/He(String)
+2026-01-03 15:19:53.890 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] &lt;==    Updates: 1
+2026-01-03 15:19:53.894 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [69593399143471f881d972e64b917a21,9730141bf08e0c4a] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
+2026-01-03 15:19:53.894 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [69593399143471f881d972e64b917a21,9730141bf08e0c4a] ==&gt; Parameters: login_test@example.com(String)
+2026-01-03 15:19:53.896 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [69593399143471f881d972e64b917a21,9730141bf08e0c4a] &lt;==      Total: 1
+2026-01-03 15:19:53.988 DEBUG 3092 --- [    Test worker] c.e.s.p.s.JsonAuthenticationFilter       : [69593399143471f881d972e64b917a21,9730141bf08e0c4a] Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@c5b3aa1, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-01-03T15:19:53.988168620Z]]]
+2026-01-03 15:19:54.103 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-01-03 15:19:54.105 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] ==&gt; Parameters: 019b8471-91f7-7769-8e99-da633040d9e5(String), FailUser(String), fail_login@example.com(String), $2a$10$MHUy93Cl4Lffb9fT9eXixuE3B4povu3BFlgd94RPxGPSo0/oQcru.(String)
+2026-01-03 15:19:54.106 DEBUG 3092 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [,] &lt;==    Updates: 1
+2026-01-03 15:19:54.110 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959339a6960e48f07a1b38479c508ba,e00b4b17bc5a0db9] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
+2026-01-03 15:19:54.110 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959339a6960e48f07a1b38479c508ba,e00b4b17bc5a0db9] ==&gt; Parameters: fail_login@example.com(String)
+2026-01-03 15:19:54.112 DEBUG 3092 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959339a6960e48f07a1b38479c508ba,e00b4b17bc5a0db9] &lt;==      Total: 1
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 3, 2026, 3:19:54 PM</p>
+</div>
+</div>
+</body>
+</html>
