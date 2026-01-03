@@ -26,4 +26,13 @@ public interface MemberMapper {
      */
     @org.apache.ibatis.annotations.Select("SELECT * FROM user_members WHERE email = #{email}")
     Member findByEmail(String email);
+
+    /**
+     * IDで会員を検索します.
+     *
+     * @param id ID
+     * @return 会員
+     */
+    @org.apache.ibatis.annotations.Select("SELECT * FROM user_members WHERE id = #{id}")
+    Member findById(String id);
 }

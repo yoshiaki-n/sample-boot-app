@@ -21,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberApplicationService memberApplicationService;
+    private final com.example.samplebootapp.application.user.query.UserQueryService userQueryService;
 
-    public MemberController(MemberApplicationService memberApplicationService) {
+    public MemberController(MemberApplicationService memberApplicationService,
+            com.example.samplebootapp.application.user.query.UserQueryService userQueryService) {
         this.memberApplicationService = memberApplicationService;
+        this.userQueryService = userQueryService;
     }
 
     /**
@@ -38,5 +41,23 @@ public class MemberController {
         memberApplicationService.register(
                 request.getName(), request.getEmail(), request.getPassword());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /**
+     * ログイン中の会員情報を取得します.
+     *
+     * @param principal 認証情報
+     * @return 会員情報
+     */
+    @org.springframework.web.bind.annotation.GetMapping("/me")
+    @Operation(summary = "会員情報取得", description = "ログイン中の会員情報を取得します。")
+    public ResponseEntity<com.example.samplebootapp.presentation.user.response.UserResponse> me(
+            @org.springframework.security.core.annotation.AuthenticationPrincipal com.example.samplebootapp.application.security.MemberUserDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        com.example.samplebootapp.presentation.user.response.UserResponse response = userQueryService
+                .findById(principal.getMember().getId());
+        return ResponseEntity.ok(response);
     }
 }

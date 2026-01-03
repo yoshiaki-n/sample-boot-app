@@ -33,4 +33,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Member findByEmail(String email) {
         return memberMapper.findByEmail(email);
     }
+
+    @Override
+    public Member findById(String id) {
+        return memberMapper.findById(id);
+    }
 }

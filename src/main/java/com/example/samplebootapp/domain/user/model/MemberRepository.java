@@ -19,4 +19,12 @@ public interface MemberRepository {
      * @return 会員（存在しない場合はnull）
      */
     Member findByEmail(String email);
+
+    /**
+     * IDで会員を検索します.
+     *
+     * @param id ID
+     * @return 会員（存在しない場合はnull）
+     */
+    Member findById(String id);
 }

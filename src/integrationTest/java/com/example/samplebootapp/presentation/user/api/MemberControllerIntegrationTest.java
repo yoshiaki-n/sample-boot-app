@@ -59,4 +59,39 @@ class MemberControllerIntegrationTest {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     assertThat(encoder.matches("Password123!", storedPassword)).isTrue();
   }
+
+  @Test
+  @DisplayName("会員情報取得API: ログイン後に自分の情報を取得できること")
+  void testLoginAndGetMe() throws Exception {
+    // 準備: ユーザーを登録
+    MemberRequest request = new MemberRequest();
+    request.setName("テスト太郎");
+    request.setEmail("taro@example.com");
+    request.setPassword("Password123!");
+
+    mockMvc.perform(post("/api/users/")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isCreated());
+
+    // ログイン
+    Map<String, String> loginMap = Map.of("email", "taro@example.com", "password", "Password123!");
+    var loginResult = mockMvc.perform(post("/api/users/login")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(loginMap)))
+        .andExpect(status().isOk())
+        .andReturn();
+
+    // Cookieを取得
+    var cookie = loginResult.getResponse().getCookie("JSESSIONID");
+
+    // 実行: 自分の情報を取得
+    mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/users/me")
+        .cookie(cookie))
+        .andExpect(status().isOk())
+        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.name").value("テスト太郎"))
+        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.email")
+            .value("taro@example.com"))
+        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.id").exists());
+  }
 }
