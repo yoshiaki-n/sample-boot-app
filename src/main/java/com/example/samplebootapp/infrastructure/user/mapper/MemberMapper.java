@@ -35,4 +35,20 @@ public interface MemberMapper {
      */
     @org.apache.ibatis.annotations.Select("SELECT * FROM user_members WHERE id = #{id}")
     Member findById(String id);
+
+    /**
+     * 会員情報を更新します.
+     *
+     * @param member 会員
+     */
+    @org.apache.ibatis.annotations.Update("UPDATE user_members SET name = #{name}, email = #{email} WHERE id = #{id}")
+    void update(Member member);
+
+    /**
+     * 会員を削除します.
+     *
+     * @param member 会員
+     */
+    @org.apache.ibatis.annotations.Delete("DELETE FROM user_members WHERE id = #{id}")
+    void delete(Member member);
 }

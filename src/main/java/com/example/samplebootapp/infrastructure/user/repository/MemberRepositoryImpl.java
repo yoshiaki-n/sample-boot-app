@@ -38,4 +38,14 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Member findById(String id) {
         return memberMapper.findById(id);
     }
+
+    @Override
+    public void update(Member member) {
+        memberMapper.update(member);
+    }
+
+    @Override
+    public void delete(Member member) {
+        memberMapper.delete(member);
+    }
 }

@@ -48,4 +48,35 @@ public class MemberApplicationService {
         // リポジトリに保存
         memberRepository.register(member);
     }
+
+    /**
+     * 会員情報を更新します.
+     *
+     * @param id    会員ID
+     * @param name  氏名
+     * @param email メールアドレス
+     */
+    @Transactional
+    public void update(String id, String name, String email) {
+        Member member = memberRepository.findById(id);
+        if (member == null) {
+            throw new IllegalArgumentException("会員が見つかりません: " + id);
+        }
+        member.update(name, email);
+        memberRepository.update(member);
+    }
+
+    /**
+     * 会員を退会します.
+     *
+     * @param id 会員ID
+     */
+    @Transactional
+    public void withdraw(String id) {
+        Member member = memberRepository.findById(id);
+        if (member == null) {
+            throw new IllegalArgumentException("会員が見つかりません: " + id);
+        }
+        memberRepository.delete(member);
+    }
 }

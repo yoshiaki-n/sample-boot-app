@@ -17,6 +17,11 @@ import com.example.samplebootapp.application.user.query.UserQueryService;
 import com.example.samplebootapp.presentation.user.response.UserResponse;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
+import com.example.samplebootapp.presentation.user.request.MemberUpdateRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 /**
  * 会員APIコントローラ.
  */
@@ -66,5 +71,43 @@ public class MemberController {
         UserResponse response = userQueryService
                 .findById(principal.getMember().getId());
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * ログイン中の会員情報を更新します.
+     *
+     * @param principal 認証情報
+     * @param request   会員更新リクエスト
+     * @return レスポンス（ボディなし）
+     */
+    @PutMapping("/me")
+    @Operation(summary = "会員情報更新", description = "ログイン中の会員情報を更新します。")
+    public ResponseEntity<Void> update(
+            @AuthenticationPrincipal MemberUserDetails principal,
+            @RequestBody @Validated MemberUpdateRequest request) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        memberApplicationService.update(
+                principal.getMember().getId(), request.getName(), request.getEmail());
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * ログイン中の会員を退会します.
+     *
+     * @param principal 認証情報
+     * @return レスポンス（ボディなし）
+     */
+    @DeleteMapping("/me")
+    @Operation(summary = "会員退会", description = "ログイン中の会員を退会します。退会後はログアウトされます。")
+    public ResponseEntity<Void> withdraw(
+            @AuthenticationPrincipal MemberUserDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        memberApplicationService.withdraw(principal.getMember().getId());
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok().build();
     }
 }

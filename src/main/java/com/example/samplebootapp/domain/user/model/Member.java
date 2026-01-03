@@ -60,4 +60,15 @@ public class Member extends AggregateRootBase<String> implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    /**
+     * 会員情報を更新します.
+     *
+     * @param name  氏名
+     * @param email メールアドレス
+     */
+    public void update(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }
