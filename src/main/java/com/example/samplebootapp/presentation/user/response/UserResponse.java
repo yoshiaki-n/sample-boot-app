@@ -5,9 +5,9 @@ package com.example.samplebootapp.presentation.user.response;
  */
 public class UserResponse {
 
-    private String id;
-    private String name;
-    private String email;
+    private final String id;
+    private final String name;
+    private final String email;
 
     /**
      * コンストラクタ.

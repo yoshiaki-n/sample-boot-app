@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.samplebootapp.application.security.MemberUserDetails;
+import com.example.samplebootapp.application.user.query.UserQueryService;
+import com.example.samplebootapp.presentation.user.response.UserResponse;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 /**
  * 会員APIコントローラ.
  */
@@ -20,11 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "会員", description = "会員に関連する操作を提供します。")
 public class MemberController {
 
+    @SuppressWarnings("PMD.SingularField")
     private final MemberApplicationService memberApplicationService;
-    private final com.example.samplebootapp.application.user.query.UserQueryService userQueryService;
+    @SuppressWarnings("PMD.SingularField")
+    private final UserQueryService userQueryService;
 
     public MemberController(MemberApplicationService memberApplicationService,
-            com.example.samplebootapp.application.user.query.UserQueryService userQueryService) {
+            UserQueryService userQueryService) {
         this.memberApplicationService = memberApplicationService;
         this.userQueryService = userQueryService;
     }
@@ -51,12 +58,12 @@ public class MemberController {
      */
     @org.springframework.web.bind.annotation.GetMapping("/me")
     @Operation(summary = "会員情報取得", description = "ログイン中の会員情報を取得します。")
-    public ResponseEntity<com.example.samplebootapp.presentation.user.response.UserResponse> me(
-            @org.springframework.security.core.annotation.AuthenticationPrincipal com.example.samplebootapp.application.security.MemberUserDetails principal) {
+    public ResponseEntity<UserResponse> me(
+            @AuthenticationPrincipal MemberUserDetails principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        com.example.samplebootapp.presentation.user.response.UserResponse response = userQueryService
+        UserResponse response = userQueryService
                 .findById(principal.getMember().getId());
         return ResponseEntity.ok(response);
     }

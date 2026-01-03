@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserQueryService {
 
+    @SuppressWarnings("PMD.SingularField")
     private final MemberRepository memberRepository;
 
     public UserQueryService(MemberRepository memberRepository) {
