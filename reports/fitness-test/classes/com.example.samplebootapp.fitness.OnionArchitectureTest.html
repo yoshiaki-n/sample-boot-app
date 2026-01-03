@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">3.130s</div>
+<div class="counter">3.369s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,7 +81,9 @@ domain models ('..domain..')
 domain services ('..domain..service..')
 application services ('..application..')
 adapter 'infrastructure' ('..infrastructure..')
-adapter 'presentation' ('..presentation..')' was violated (12 times):
+adapter 'presentation' ('..presentation..')' was violated (22 times):
+Constructor &lt;com.example.samplebootapp.config.SecurityConfig.&lt;init&gt;(com.example.samplebootapp.application.security.MemberUserDetailsService)&gt; has parameter of type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
+Field &lt;com.example.samplebootapp.config.SecurityConfig.memberUserDetailsService&gt; has type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.addChild(com.example.samplebootapp.presentation.product.api.CategoryResponse)&gt; in (CategoryQueryService.java:48)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; has generic return type &lt;java.util.List&lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt;&gt; with type argument depending on &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt; in (CategoryQueryService.java:0)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; references method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.from(com.example.samplebootapp.domain.product.model.Category)&gt; in (CategoryQueryService.java:35)
@@ -94,6 +96,14 @@ Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServ
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:44)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:46)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:48)
+Method &lt;com.example.samplebootapp.application.user.query.UserQueryService.findById(java.lang.String)&gt; calls constructor &lt;com.example.samplebootapp.presentation.user.response.UserResponse.&lt;init&gt;(java.lang.String, java.lang.String, java.lang.String)&gt; in (UserQueryService.java:35)
+Method &lt;com.example.samplebootapp.application.user.query.UserQueryService.findById(java.lang.String)&gt; has return type &lt;com.example.samplebootapp.presentation.user.response.UserResponse&gt; in (UserQueryService.java:0)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls constructor &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.&lt;init&gt;()&gt; in (SecurityConfig.java:50)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationFailureHandler(org.springframework.security.web.authentication.AuthenticationFailureHandler)&gt; in (SecurityConfig.java:62)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationManager(org.springframework.security.authentication.AuthenticationManager)&gt; in (SecurityConfig.java:51)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationSuccessHandler(org.springframework.security.web.authentication.AuthenticationSuccessHandler)&gt; in (SecurityConfig.java:55)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setFilterProcessesUrl(java.lang.String)&gt; in (SecurityConfig.java:54)
+Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setSecurityContextRepository(org.springframework.security.web.context.SecurityContextRepository)&gt; in (SecurityConfig.java:52)
 	at com.tngtech.archunit.lang.ArchRule$Assertions.assertNoViolation(ArchRule.java:94)
 	at com.tngtech.archunit.lang.ArchRule$Assertions.check(ArchRule.java:86)
 	at com.tngtech.archunit.library.Architectures$LayeredArchitecture.check(Architectures.java:347)
@@ -119,7 +129,7 @@ Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServ
 </thead>
 <tr>
 <td class="failures">onion_architecture_is_respected</td>
-<td class="failures">3.130s</td>
+<td class="failures">3.369s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -127,7 +137,7 @@ Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServ
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">15:27:56.812 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
+<pre id="class-stdout">15:25:18.675 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -140,7 +150,7 @@ Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServ
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 2, 2026, 3:28:00 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 3, 2026, 3:25:22 PM</p>
 </div>
 </div>
 </body>
