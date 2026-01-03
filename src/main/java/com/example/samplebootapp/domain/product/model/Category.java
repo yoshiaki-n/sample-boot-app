@@ -5,8 +5,10 @@ import jakarta.validation.constraints.NotNull;
 
 /** カテゴリエンティティ. */
 public class Category extends EntityBase<CategoryId> {
+  private static final long serialVersionUID = 1L;
 
-  @NotNull private String name;
+  @NotNull
+  private String name;
   private CategoryId parentId;
 
   public Category(@NotNull CategoryId id, @NotNull String name, CategoryId parentId) {
