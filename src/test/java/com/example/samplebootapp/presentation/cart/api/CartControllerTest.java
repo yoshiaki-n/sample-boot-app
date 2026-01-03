@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.samplebootapp.application.cart.command.CartCommandService;
+import com.example.samplebootapp.application.cart.query.CartQueryService;
 import com.example.samplebootapp.presentation.cart.request.CartAddRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,9 @@ class CartControllerTest {
 
     @Mock
     private CartCommandService cartCommandService;
+
+    @Mock
+    private CartQueryService cartQueryService;
 
     @InjectMocks
     private CartController cartController;
@@ -53,5 +57,23 @@ class CartControllerTest {
                 .andExpect(status().isOk());
 
         verify(cartCommandService).addItem("test-user-001", "prod_001", 1);
+    }
+
+    @Test
+    @DisplayName("カート参照API: 正常系")
+    void getCart_success() throws Exception {
+        // 準備
+        com.example.samplebootapp.presentation.cart.response.CartResponse response = new com.example.samplebootapp.presentation.cart.response.CartResponse(
+                "cart-1", java.util.Collections.emptyList());
+
+        org.mockito.Mockito.when(cartQueryService.getCart("test-user-001")).thenReturn(response);
+
+        // 実行 & 検証
+        mockMvc
+                .perform(
+                        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/cart"))
+                .andExpect(status().isOk())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.cartId")
+                        .value("cart-1"));
     }
 }

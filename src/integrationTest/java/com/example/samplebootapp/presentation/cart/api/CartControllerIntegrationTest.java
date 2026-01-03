@@ -49,4 +49,30 @@ class CartControllerIntegrationTest {
         // 簡易的にDB確認は省略するか、Mapperで検索して確認
         // ここではエラーにならないこと（200 OK）を確認
     }
+
+    @Test
+    @DisplayName("カート参照API: 正常系 (統合テスト)")
+    void getCart_success_integration() throws Exception {
+        // 準備 (Arrange)
+        // 事前にデータを投入
+        CartAddRequest request = new CartAddRequest();
+        request.setProductId("prod_002");
+        request.setQuantity(3);
+
+        mockMvc.perform(
+                post("/api/cart/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk());
+
+        // 実行 (Act) & 検証 (Assert)
+        mockMvc
+                .perform(
+                        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/cart"))
+                .andExpect(status().isOk())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
+                        .jsonPath("$.items[0].productId").value("prod_002"))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
+                        .jsonPath("$.items[0].quantity").value(3));
+    }
 }
