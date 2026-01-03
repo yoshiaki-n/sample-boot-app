@@ -23,9 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class MemberLoginIntegrationTest {
 
-  @Autowired private MockMvc mockMvc;
-  @Autowired private MemberRepository memberRepository;
-  @Autowired private PasswordEncoder passwordEncoder;
+  @Autowired
+  private MockMvc mockMvc;
+  @Autowired
+  private MemberRepository memberRepository;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
