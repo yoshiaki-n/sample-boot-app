@@ -17,7 +17,8 @@ Spring Boot サンプルアプリケーション
     - [1.3.6. APIドキュメント (OpenAPI)](#136-apiドキュメント-openapi)
   - [1.4. 運用管理・モニタリング](#14-運用管理モニタリング)
     - [1.4.1. メトリクス確認 (Prometheus)](#141-メトリクス確認-prometheus)
-  - [1.5. ディレクトリ構成](#15-ディレクトリ構成)
+  - [1.5. HotSpotの分析](#15-hotspotの分析)
+  - [1.6. ディレクトリ構成](#16-ディレクトリ構成)
 
 ## 1.1. プロジェクト概要
 
@@ -128,16 +129,16 @@ docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway
 
 **全削除 (Clean)**
 ```bash
-docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password clean
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password -cleanDisabled=false clean
 ```
 
 **状況確認 (Info)**
+
 ```bash
 docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password info
 ```
 
 
-```
 
 ### 1.3.6. APIドキュメント (OpenAPI)
 
@@ -163,7 +164,24 @@ Prometheusを使用してアプリケーションの稼働状況を確認でき�
 3.  **Status > Targets** メニューで、`spring-boot-app` の State が `UP` になっていることを確認してください。
 4.  **Graph** タブでメトリクス名（例: `http_server_requests_seconds_count`）を入力して `Execute` を押すと、グラフや値を確認できます。
 
-## 1.5. ディレクトリ構成
+## 1.5. HotSpotの分析
+
+コードの変更をHotSpotの確認を行うには、(git-truck)[https://github.com/git-truck/git-truck] を使う。
+git-truckを使うには、事前にnpmをインストールしておく必要がある。 　
+
+git-truckのインストールコマンドは以下の通り。
+
+```bash
+npm install -g git-truck
+```
+git-truckの使用方法は以下の通り。
+
+```bash
+git truck
+```
+上記のコマンドを実行すると、ブラウザにgit-truckのUIが表示されます。
+
+## 1.6. ディレクトリ構成
 
 主なディレクトリの役割です。
 
