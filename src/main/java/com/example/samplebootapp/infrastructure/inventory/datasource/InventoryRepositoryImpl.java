@@ -4,6 +4,7 @@ import com.example.samplebootapp.domain.inventory.model.Inventory;
 import com.example.samplebootapp.domain.inventory.model.InventoryRepository;
 import com.example.samplebootapp.domain.product.model.ProductId;
 import java.util.Optional;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,5 +22,13 @@ public class InventoryRepositoryImpl implements InventoryRepository {
     @Override
     public Optional<Inventory> findByProductId(ProductId productId) {
         return inventoryMapper.findByProductId(productId);
+    }
+
+    @Override
+    public void save(Inventory inventory) {
+        int updatedCount = inventoryMapper.update(inventory);
+        if (updatedCount == 0) {
+            throw new OptimisticLockingFailureException("以前に他のユーザーによって更新されています。");
+        }
     }
 }

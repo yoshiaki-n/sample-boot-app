@@ -18,4 +18,11 @@ public interface InventoryRepository {
      * @return 在庫（存在しない場合はOptional.empty）
      */
     Optional<Inventory> findByProductId(ProductId productId);
+
+    /**
+     * 在庫を保存します.
+     *
+     * @param inventory 在庫
+     */
+    void save(Inventory inventory);
 }

@@ -19,4 +19,12 @@ public interface InventoryMapper {
      * @return 在庫（Optional）
      */
     Optional<Inventory> findByProductId(@Param("productId") ProductId productId);
+
+    /**
+     * 在庫を更新します.
+     *
+     * @param inventory 在庫
+     * @return 更新件数
+     */
+    int update(Inventory inventory);
 }

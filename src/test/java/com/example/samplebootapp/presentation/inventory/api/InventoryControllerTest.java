@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.example.samplebootapp.application.inventory.command.InventoryCommandService;
 import com.example.samplebootapp.application.inventory.query.InventoryQueryService;
 import com.example.samplebootapp.domain.inventory.model.Inventory;
 import com.example.samplebootapp.domain.inventory.model.InventoryRepository;
@@ -20,12 +21,14 @@ class InventoryControllerTest {
 
     private InventoryRepository inventoryRepository;
     private InventoryController inventoryController;
+    private InventoryCommandService inventoryCommandService;
 
     @BeforeEach
     void setUp() {
         inventoryRepository = mock(InventoryRepository.class);
+        inventoryCommandService = mock(InventoryCommandService.class);
         InventoryQueryService inventoryQueryService = new InventoryQueryService(inventoryRepository);
-        inventoryController = new InventoryController(inventoryQueryService);
+        inventoryController = new InventoryController(inventoryQueryService, inventoryCommandService);
     }
 
     @Test
@@ -33,7 +36,7 @@ class InventoryControllerTest {
     void getQuantity() {
         // 準備 (Arrange)
         ProductId productId = ProductId.generate();
-        Inventory inventory = new Inventory(productId, 50);
+        Inventory inventory = new Inventory(productId, 50, 0L);
         when(inventoryRepository.findByProductId(productId)).thenReturn(Optional.of(inventory));
 
         // 実行 (Act)

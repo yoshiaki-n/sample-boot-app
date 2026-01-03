@@ -29,7 +29,7 @@ class InventoryQueryServiceTest {
     void findByProductId() {
         // 準備 (Arrange)
         ProductId productId = ProductId.generate();
-        Inventory inventory = new Inventory(productId, 100);
+        Inventory inventory = new Inventory(productId, 100, 0L);
 
         when(inventoryRepository.findByProductId(productId)).thenReturn(Optional.of(inventory));
 
