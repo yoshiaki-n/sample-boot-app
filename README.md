@@ -14,9 +14,6 @@ Spring Boot サンプルアプリケーション
     - [1.3.3. コードフォーマット](#133-コードフォーマット)
     - [1.3.4. 開発環境DB接続](#134-開発環境db接続)
     - [1.3.5. データベースマイグレーション](#135-データベースマイグレーション)
-    - [1.3.6. APIドキュメント (OpenAPI)](#136-apiドキュメント-openapi)
-  - [1.4. 運用管理・モニタリング](#14-運用管理モニタリング)
-    - [1.4.1. メトリクス確認 (Prometheus)](#141-メトリクス確認-prometheus)
   - [1.5. ディレクトリ構成](#15-ディレクトリ構成)
 
 ## 1.1. プロジェクト概要
@@ -162,6 +159,23 @@ Prometheusを使用してアプリケーションの稼働状況を確認でき�
 2.  ブラウザで [http://localhost:9090](http://localhost:9090) にアクセスします。
 3.  **Status > Targets** メニューで、`spring-boot-app` の State が `UP` になっていることを確認してください。
 4.  **Graph** タブでメトリクス名（例: `http_server_requests_seconds_count`）を入力して `Execute` を押すと、グラフや値を確認できます。
+
+## HotSpot確認
+
+コードの変更をHotSpotの確認を行うには、git-truckを使う。
+git-truckを使うには、事前にnpmをインストールしておく必要がある。 　
+
+git-truckのインストールコマンドは以下の通り。
+
+```bash
+npm install -g git-truck
+```
+git-truckの使用方法は以下の通り。
+
+```bash
+git truck
+```
+上記のコマンドを実行すると、ブラウザにgit-truckのUIが表示されます。
 
 ## 1.5. ディレクトリ構成
 
