@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan("com.example.samplebootapp.infrastructure.product.datasource")
+@MapperScan("com.example.samplebootapp.infrastructure")
 public class MyBatisConfig {
 
   @Bean
@@ -18,10 +18,10 @@ public class MyBatisConfig {
     sessionFactory.setDataSource(dataSource);
     sessionFactory.setMapperLocations(
         new PathMatchingResourcePatternResolver()
-            .getResources(
-                "classpath*:com/example/samplebootapp/infrastructure/**/datasource/*.xml"));
-    sessionFactory.setTypeHandlersPackage(
-        "com.example.samplebootapp.infrastructure.product.datasource.typehandler");
+            .getResources("classpath*:com/example/samplebootapp/infrastructure/**/*.xml"));
+    sessionFactory.setTypeHandlersPackage("com.example.samplebootapp.infrastructure");
     return sessionFactory.getObject();
   }
 }
+
+```
