@@ -15,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * セキュリティ設定クラス.
- */
+/** セキュリティ設定クラス. */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -54,31 +52,39 @@ public class SecurityConfig {
     jsonFilter.setSecurityContextRepository(
         new org.springframework.security.web.context.HttpSessionSecurityContextRepository());
     jsonFilter.setFilterProcessesUrl("/api/users/login");
-    jsonFilter.setAuthenticationSuccessHandler((req, res, auth) -> {
-      res.setStatus(HttpServletResponse.SC_OK);
-      res.setCharacterEncoding("UTF-8");
-      res.setContentType("application/json");
-      res.getWriter().write("{\"message\":\"Login Successful\"}");
-    });
-    jsonFilter.setAuthenticationFailureHandler((req, res, ex) -> {
-      res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      res.setCharacterEncoding("UTF-8");
-      res.setContentType("application/json");
-      res.getWriter().write("{\"message\":\"Login Failed\"}");
-    });
+    jsonFilter.setAuthenticationSuccessHandler(
+        (req, res, auth) -> {
+          res.setStatus(HttpServletResponse.SC_OK);
+          res.setCharacterEncoding("UTF-8");
+          res.setContentType("application/json");
+          res.getWriter().write("{\"message\":\"Login Successful\"}");
+        });
+    jsonFilter.setAuthenticationFailureHandler(
+        (req, res, ex) -> {
+          res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+          res.setCharacterEncoding("UTF-8");
+          res.setContentType("application/json");
+          res.getWriter().write("{\"message\":\"Login Failed\"}");
+        });
 
     http
         // CSRF対策は一旦無効化（API動作優先）
         .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            // ログインAPIは誰でもアクセス可能
-            .requestMatchers("/api/users/login").permitAll()
-            // 会員登録APIは誰でもアクセス可能
-            .requestMatchers("/api/users/").permitAll()
-            // 商品APIも既存テストのため許可
-            .requestMatchers("/api/products/**").permitAll()
-            // その他は認証が必要
-            .anyRequest().authenticated())
+        .authorizeHttpRequests(
+            auth ->
+                auth
+                    // ログインAPIは誰でもアクセス可能
+                    .requestMatchers("/api/users/login")
+                    .permitAll()
+                    // 会員登録APIは誰でもアクセス可能
+                    .requestMatchers("/api/users/")
+                    .permitAll()
+                    // 商品APIも既存テストのため許可
+                    .requestMatchers("/api/products/**")
+                    .permitAll()
+                    // その他は認証が必要
+                    .anyRequest()
+                    .authenticated())
         .addFilterBefore(jsonFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

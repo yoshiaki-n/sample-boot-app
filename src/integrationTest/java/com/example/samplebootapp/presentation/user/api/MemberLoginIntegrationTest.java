@@ -1,7 +1,6 @@
 package com.example.samplebootapp.presentation.user.api;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,10 +12,9 @@ import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class MemberLoginIntegrationTest {
 
-  @Autowired
-  private MockMvc mockMvc;
-  @Autowired
-  private MemberRepository memberRepository;
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+  @Autowired private MockMvc mockMvc;
+  @Autowired private MemberRepository memberRepository;
+  @Autowired private PasswordEncoder passwordEncoder;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
@@ -49,13 +44,16 @@ class MemberLoginIntegrationTest {
     loginRequest.put("password", password);
 
     // 実行 & 検証
-    mockMvc.perform(post("/api/users/login")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(loginRequest)))
+    mockMvc
+        .perform(
+            post("/api/users/login")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(loginRequest)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.message").value("Login Successful"))
-        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.request()
-            .sessionAttribute("SPRING_SECURITY_CONTEXT", org.hamcrest.Matchers.notNullValue()));
+        .andExpect(
+            org.springframework.test.web.servlet.result.MockMvcResultMatchers.request()
+                .sessionAttribute("SPRING_SECURITY_CONTEXT", org.hamcrest.Matchers.notNullValue()));
   }
 
   @Test
@@ -74,12 +72,15 @@ class MemberLoginIntegrationTest {
     loginRequest.put("password", "WrongPassword");
 
     // 実行 & 検証
-    mockMvc.perform(post("/api/users/login")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(loginRequest)))
+    mockMvc
+        .perform(
+            post("/api/users/login")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(loginRequest)))
         .andExpect(status().isUnauthorized())
         .andExpect(jsonPath("$.message").value("Login Failed"))
-        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.request()
-            .sessionAttribute("SPRING_SECURITY_CONTEXT", org.hamcrest.Matchers.nullValue()));
+        .andExpect(
+            org.springframework.test.web.servlet.result.MockMvcResultMatchers.request()
+                .sessionAttribute("SPRING_SECURITY_CONTEXT", org.hamcrest.Matchers.nullValue()));
   }
 }

@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 会員アプリケーションサービス.
  *
- * <p>
- * 会員に関するユースケース（登録・更新・退会）を実装します。
+ * <p>会員に関するユースケース（登録・更新・退会）を実装します。
  */
 @Service
 public class MemberApplicationService {
@@ -34,8 +33,8 @@ public class MemberApplicationService {
   /**
    * 会員登録を行います.
    *
-   * @param name        氏名
-   * @param email       メールアドレス
+   * @param name 氏名
+   * @param email メールアドレス
    * @param rawPassword パスワード（平文）
    */
   @Transactional
@@ -53,8 +52,8 @@ public class MemberApplicationService {
   /**
    * 会員情報を更新します.
    *
-   * @param id    会員ID
-   * @param name  氏名
+   * @param id 会員ID
+   * @param name 氏名
    * @param email メールアドレス
    */
   @Transactional

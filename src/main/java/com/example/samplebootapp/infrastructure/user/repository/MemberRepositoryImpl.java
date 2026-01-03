@@ -6,46 +6,44 @@ import com.example.samplebootapp.infrastructure.user.mapper.MemberMapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.stereotype.Repository;
 
-/**
- * 会員リポジトリ実装クラス.
- */
+/** 会員リポジトリ実装クラス. */
 @Repository
 public class MemberRepositoryImpl implements MemberRepository {
 
-    private final MemberMapper memberMapper;
+  private final MemberMapper memberMapper;
 
-    /**
-     * コンストラクタ.
-     *
-     * @param memberMapper 会員Mapper
-     */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
-    public MemberRepositoryImpl(MemberMapper memberMapper) {
-        this.memberMapper = memberMapper;
-    }
+  /**
+   * コンストラクタ.
+   *
+   * @param memberMapper 会員Mapper
+   */
+  @SuppressFBWarnings("EI_EXPOSE_REP2")
+  public MemberRepositoryImpl(MemberMapper memberMapper) {
+    this.memberMapper = memberMapper;
+  }
 
-    @Override
-    public void register(Member member) {
-        memberMapper.insert(member);
-    }
+  @Override
+  public void register(Member member) {
+    memberMapper.insert(member);
+  }
 
-    @Override
-    public Member findByEmail(String email) {
-        return memberMapper.findByEmail(email);
-    }
+  @Override
+  public Member findByEmail(String email) {
+    return memberMapper.findByEmail(email);
+  }
 
-    @Override
-    public Member findById(String id) {
-        return memberMapper.findById(id);
-    }
+  @Override
+  public Member findById(String id) {
+    return memberMapper.findById(id);
+  }
 
-    @Override
-    public void update(Member member) {
-        memberMapper.update(member);
-    }
+  @Override
+  public void update(Member member) {
+    memberMapper.update(member);
+  }
 
-    @Override
-    public void delete(Member member) {
-        memberMapper.delete(member);
-    }
+  @Override
+  public void delete(Member member) {
+    memberMapper.delete(member);
+  }
 }

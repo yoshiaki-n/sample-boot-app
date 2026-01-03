@@ -8,26 +8,22 @@ public class Product extends AggregateRootBase<ProductId> {
 
   private static final long serialVersionUID = 1L;
 
-  @NotNull
-  private String name;
+  @NotNull private String name;
 
-  @NotNull
-  private String description;
+  @NotNull private String description;
 
-  @NotNull
-  private Price price;
+  @NotNull private Price price;
 
-  @NotNull
-  private CategoryId categoryId;
+  @NotNull private CategoryId categoryId;
 
   /**
    * コンストラクタ.
    *
-   * @param id          商品ID
-   * @param name        商品名
+   * @param id 商品ID
+   * @param name 商品名
    * @param description 商品説明
-   * @param price       価格
-   * @param categoryId  カテゴリID
+   * @param price 価格
+   * @param categoryId カテゴリID
    */
   public Product(
       @NotNull ProductId id,
@@ -54,7 +50,7 @@ public class Product extends AggregateRootBase<ProductId> {
   /**
    * 商品詳細（名称と説明）を更新します.
    *
-   * @param name        新しい商品名
+   * @param name 新しい商品名
    * @param description 新しい商品説明
    */
   public void updateDetail(@NotNull String name, @NotNull String description) {
