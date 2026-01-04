@@ -8,6 +8,8 @@ import java.io.Serializable;
 /** カート商品レスポンス. */
 public class CartItemResponse implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   @Schema(description = "商品ID", example = "prod-001")
   private String productId;
 

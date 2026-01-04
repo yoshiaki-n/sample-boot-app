@@ -6,6 +6,8 @@ import java.io.Serializable;
 /** ユーザー情報レスポンス. */
 public class UserResponse implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   @Schema(description = "ユーザーID", example = "user-001")
   private final String id;
 
@@ -18,8 +20,8 @@ public class UserResponse implements Serializable {
   /**
    * コンストラクタ.
    *
-   * @param id ID
-   * @param name 氏名
+   * @param id    ID
+   * @param name  氏名
    * @param email メールアドレス
    */
   public UserResponse(String id, String name, String email) {
