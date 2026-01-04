@@ -20,8 +20,8 @@ public class UserResponse implements Serializable {
   /**
    * コンストラクタ.
    *
-   * @param id    ID
-   * @param name  氏名
+   * @param id ID
+   * @param name 氏名
    * @param email メールアドレス
    */
   public UserResponse(String id, String name, String email) {

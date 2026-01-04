@@ -56,7 +56,8 @@ public class CartController {
   @ResponseStatus(HttpStatus.OK)
   public void updateItemQuantity(
       @org.springframework.web.bind.annotation.PathVariable String itemId,
-      @RequestBody @Validated com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request) {
+      @RequestBody @Validated
+          com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request) {
     // 簡易的にユーザーID固定
     String userId = TEST_USER_ID;
     cartCommandService.updateItemQuantity(userId, itemId, request.getQuantity());
