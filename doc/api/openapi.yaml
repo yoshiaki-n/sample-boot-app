@@ -1,0 +1,372 @@
+openapi: 3.0.1
+info:
+  title: サンプル ブート アプリケーション API
+  description: サンプルアプリケーションのAPI仕様書です。
+  version: v0.0.1
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: 在庫
+  description: 在庫に関連する操作を提供します。
+- name: Cart
+  description: カートAPI
+- name: 商品
+  description: 商品に関連する操作を提供します。
+- name: 会員
+  description: 会員に関連する操作を提供します。
+paths:
+  /api/users/me:
+    get:
+      tags:
+      - 会員
+      summary: 会員情報取得
+      description: ログイン中の会員情報を取得します。
+      operationId: me
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+    put:
+      tags:
+      - 会員
+      summary: 会員情報更新
+      description: ログイン中の会員情報を更新します。
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+      - 会員
+      summary: 会員退会
+      description: ログイン中の会員を退会します。退会後はログアウトされます。
+      operationId: withdraw
+      responses:
+        "200":
+          description: OK
+  /api/users/:
+    post:
+      tags:
+      - 会員
+      summary: 会員登録
+      description: 新しい会員を登録します。
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemberRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/inventory/reservations:
+    post:
+      tags:
+      - 在庫
+      summary: 在庫引き当て
+      description: 指定された商品の在庫を引き当て（確保）します。
+      operationId: reserve
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InventoryReservationRequest"
+        required: true
+      responses:
+        "409":
+          description: 競合エラー
+        "400":
+          description: 入力エラーまたは在庫不足
+        "200":
+          description: 引き当て成功
+        "404":
+          description: 商品が見つかりません
+  /api/cart/items:
+    post:
+      tags:
+      - Cart
+      summary: カート追加
+      description: カートに商品を追加します。
+      operationId: addItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartAddRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/products:
+    get:
+      tags:
+      - 商品
+      summary: 商品検索
+      description: 検索条件に基づいて商品を検索します。
+      operationId: search
+      parameters:
+      - name: request
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/ProductSearchRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductResponse"
+  /api/products/{productId}:
+    get:
+      tags:
+      - 商品
+      summary: 商品詳細取得
+      description: 指定されたIDの商品の詳細情報を返します。
+      operationId: get
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductResponse"
+  /api/products/categories:
+    get:
+      tags:
+      - 商品
+      summary: カテゴリ一覧取得
+      description: 商品カテゴリの階層構造を返します。
+      operationId: listCategories
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryResponse"
+  /api/inventory/products/{productId}:
+    get:
+      tags:
+      - 在庫
+      summary: 在庫数確認
+      description: 指定された商品の現在の在庫数を返します。
+      operationId: getQuantity
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InventoryResponse"
+  /api/cart:
+    get:
+      tags:
+      - Cart
+      summary: カート参照
+      description: 現在のユーザーのカート内の商品一覧を返します。
+      operationId: getCart
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CartResponse"
+components:
+  schemas:
+    MemberUpdateRequest:
+      required:
+      - email
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    MemberRequest:
+      required:
+      - email
+      - name
+      - password
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: 氏名
+          example: 山田 太郎
+        email:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: メールアドレス
+          example: taro.yamada@example.com
+        password:
+          maxLength: 255
+          minLength: 8
+          pattern: "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$"
+          type: string
+          description: パスワード
+          example: Password123!
+      description: 会員登録リクエスト
+    InventoryReservationRequest:
+      required:
+      - productId
+      - quantity
+      type: object
+      properties:
+        productId:
+          type: string
+          description: 商品ID
+          example: prod-001
+        quantity:
+          minimum: 1
+          type: integer
+          description: 引き当て数
+          format: int32
+          example: 1
+      description: 在庫引き当てリクエスト
+    CartAddRequest:
+      required:
+      - productId
+      type: object
+      properties:
+        productId:
+          type: string
+          description: 商品ID
+          example: prod_001
+        quantity:
+          minimum: 1
+          type: integer
+          description: 数量
+          format: int32
+          example: 1
+      description: カート追加リクエスト
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    ProductSearchRequest:
+      type: object
+      properties:
+        keyword:
+          type: string
+          description: 検索キーワード
+          example: ペン
+        categoryId:
+          type: string
+          description: カテゴリID
+          example: C001
+        minPrice:
+          type: integer
+          description: 最低価格
+          format: int64
+          example: 100
+        maxPrice:
+          type: integer
+          description: 最高価格
+          format: int64
+          example: 1000
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 商品ID
+          example: P001
+        name:
+          type: string
+          description: 商品名
+          example: ボールペン
+        description:
+          type: string
+          description: 商品説明
+          example: 書きやすいボールペンです。
+        price:
+          type: number
+          description: 価格
+          example: 150
+        categoryId:
+          type: string
+          description: カテゴリID
+          example: C001
+    CategoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: カテゴリID
+          example: categoryId
+        name:
+          type: string
+          description: カテゴリ名
+          example: カテゴリ名
+        children:
+          type: array
+          description: 子カテゴリ
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+    InventoryResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: 商品ID
+          example: P001
+        quantity:
+          type: integer
+          description: 在庫数
+          format: int32
+          example: 100
+    CartItemResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    CartResponse:
+      type: object
+      properties:
+        cartId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CartItemResponse"

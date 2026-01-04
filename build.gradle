@@ -16,6 +16,8 @@ plugins {
     id 'org.sonarqube' version '6.0.1.5171'
     // アーキテクチャ可視化
     id 'org.dddjava.jig-gradle-plugin' version '2025.11.1'
+    // OpenAPI Generator
+    id "org.openapi.generator" version "7.10.0"
 }
 
 apply from: 'gradle/spotless.gradle'
@@ -281,4 +283,11 @@ javadoc {
 jig {
     // デフォルトは main ソースセット
     modelPattern = '.*'
+}
+
+openApiGenerate {
+    generatorName = "html2"
+    inputSpec = "$rootDir/doc/api/openapi.yaml"
+    outputDir = "$rootDir/doc/api/html"
+    validateSpec = false
 }
