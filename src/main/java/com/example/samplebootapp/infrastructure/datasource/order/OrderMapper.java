@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface OrderMapper {
-    void insertOrder(Order order);
+  void insertOrder(Order order);
 
-    void insertOrderItems(@Param("orderId") String orderId, @Param("items") List<OrderItem> items);
+  void insertOrderItems(@Param("orderId") String orderId, @Param("items") List<OrderItem> items);
 }

@@ -28,82 +28,78 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class OrderCommandServiceTest {
 
-    @Mock
-    private OrderRepository orderRepository;
-    @Mock
-    private CartRepository cartRepository;
-    @Mock
-    private ProductRepository productRepository;
-    @Mock
-    private InventoryCommandService inventoryCommandService;
+  @Mock private OrderRepository orderRepository;
+  @Mock private CartRepository cartRepository;
+  @Mock private ProductRepository productRepository;
+  @Mock private InventoryCommandService inventoryCommandService;
 
-    @InjectMocks
-    private OrderCommandService orderCommandService;
+  @InjectMocks private OrderCommandService orderCommandService;
 
-    private Cart cart;
-    private Product product;
+  private Cart cart;
+  private Product product;
 
-    @BeforeEach
-    void setUp() {
-        cart = Cart.create("user-1");
-        // カートにアイテム追加
-        cart.addItem("prod-1", 2);
+  @BeforeEach
+  void setUp() {
+    cart = Cart.create("user-1");
+    // カートにアイテム追加
+    cart.addItem("prod-1", 2);
 
-        product = new Product(
-                new ProductId("prod-1"),
-                "Test Product",
-                "Description",
-                Price.of(1000),
-                new CategoryId("cat-1"));
-    }
+    product =
+        new Product(
+            new ProductId("prod-1"),
+            "Test Product",
+            "Description",
+            Price.of(1000),
+            new CategoryId("cat-1"));
+  }
 
-    @Test
-    @DisplayName("注文確定_正常系")
-    void placeOrder_success() {
-        // Arrange
-        when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
-        when(productRepository.findById(new ProductId("prod-1"))).thenReturn(Optional.of(product));
+  @Test
+  @DisplayName("注文確定_正常系")
+  void placeOrder_success() {
+    // Arrange
+    when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
+    when(productRepository.findById(new ProductId("prod-1"))).thenReturn(Optional.of(product));
 
-        // Act
-        String orderId = orderCommandService.placeOrder("user-1");
+    // Act
+    String orderId = orderCommandService.placeOrder("user-1");
 
-        // Assert
-        assertThat(orderId).isNotNull();
+    // Assert
+    assertThat(orderId).isNotNull();
 
-        // 在庫引き当て確認
-        verify(inventoryCommandService).allocate("prod-1", 2);
+    // 在庫引き当て確認
+    verify(inventoryCommandService).allocate("prod-1", 2);
 
-        // 注文保存確認
-        verify(orderRepository).save(any(Order.class));
+    // 注文保存確認
+    verify(orderRepository).save(any(Order.class));
 
-        // カートクリアと保存確認
-        assertThat(cart.getItems()).isEmpty();
-        verify(cartRepository).save(cart);
-    }
+    // カートクリアと保存確認
+    assertThat(cart.getItems()).isEmpty();
+    verify(cartRepository).save(cart);
+  }
 
-    @Test
-    @DisplayName("注文確定_カートが空の場合エラー")
-    void placeOrder_emptyCart() {
-        // Arrange
-        cart.clear(); // 空にする
-        when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
+  @Test
+  @DisplayName("注文確定_カートが空の場合エラー")
+  void placeOrder_emptyCart() {
+    // Arrange
+    cart.clear(); // 空にする
+    when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
 
-        // Act & Assert
-        assertThatThrownBy(() -> orderCommandService.placeOrder("user-1"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Cart is empty");
-    }
+    // Act & Assert
+    assertThatThrownBy(() -> orderCommandService.placeOrder("user-1"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Cart is empty");
+  }
 
-    @Test
-    @DisplayName("注文確定_商品が見つからない場合エラー")
-    void placeOrder_productNotFound() {
-        // Arrange
-        when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
-        when(productRepository.findById(new ProductId("prod-1"))).thenReturn(Optional.empty());
+  @Test
+  @DisplayName("注文確定_商品が見つからない場合エラー")
+  void placeOrder_productNotFound() {
+    // Arrange
+    when(cartRepository.findByUserId("user-1")).thenReturn(Optional.of(cart));
+    when(productRepository.findById(new ProductId("prod-1"))).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThatThrownBy(() -> orderCommandService.placeOrder("user-1"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Product not found: prod-1");
-    }
+    // Act & Assert
+    assertThatThrownBy(() -> orderCommandService.placeOrder("user-1"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Product not found: prod-1");
+  }
 }
