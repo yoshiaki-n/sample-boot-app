@@ -11,10 +11,12 @@ import java.util.Objects;
 /** カテゴリレスポンス. */
 public class CategoryResponse {
 
+  private static final String CATEGORY_NAME_DESC = "カテゴリ名";
+
   @Schema(description = "カテゴリID", example = "categoryId")
   private final String id;
 
-  @Schema(description = "カテゴリ名", example = "カテゴリ名")
+  @Schema(description = CATEGORY_NAME_DESC, example = CATEGORY_NAME_DESC)
   private final String name;
 
   @Schema(description = "子カテゴリ")
@@ -23,13 +25,13 @@ public class CategoryResponse {
   /**
    * コンストラクタ.
    *
-   * @param id カテゴリID
-   * @param name カテゴリ名
+   * @param id       カテゴリID
+   * @param name     カテゴリ名
    * @param children 子カテゴリ
    */
   public CategoryResponse(
       @Schema(description = "カテゴリID", example = "categoryId") String id,
-      @Schema(description = "カテゴリ名", example = "カテゴリ名") String name,
+      @Schema(description = CATEGORY_NAME_DESC, example = CATEGORY_NAME_DESC) String name,
       List<CategoryResponse> children) {
     this.id = id;
     this.name = name;

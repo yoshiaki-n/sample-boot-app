@@ -27,6 +27,6 @@ public class CategoryDto {
   }
 
   public List<CategoryDto> getChildren() {
-    return children;
+    return new java.util.ArrayList<>(children);
   }
 }

@@ -9,7 +9,7 @@ public class CartDto {
 
   public CartDto(String cartId, List<CartItemDto> items) {
     this.cartId = cartId;
-    this.items = items;
+    this.items = items != null ? new java.util.ArrayList<>(items) : new java.util.ArrayList<>();
   }
 
   public String getCartId() {
@@ -17,6 +17,6 @@ public class CartDto {
   }
 
   public List<CartItemDto> getItems() {
-    return items;
+    return new java.util.ArrayList<>(items);
   }
 }
