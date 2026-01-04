@@ -43,6 +43,7 @@ public class OrderCommandService {
      * @param userId ユーザーID
      * @return 注文ID
      */
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public String placeOrder(String userId) {
         // 1. カート取得
         Cart cart = cartRepository.findByUserId(userId)

@@ -9,6 +9,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private final OrderMapper orderMapper;
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     public OrderRepositoryImpl(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
     }

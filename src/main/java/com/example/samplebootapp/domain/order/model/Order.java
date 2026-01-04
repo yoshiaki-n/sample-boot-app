@@ -26,7 +26,7 @@ public class Order {
         this.id = id;
         this.userId = userId;
         this.status = status;
-        this.items = items;
+        this.items = new java.util.ArrayList<>(items);
         this.totalAmount = totalAmount;
         this.orderedAt = orderedAt;
     }
@@ -68,7 +68,7 @@ public class Order {
     }
 
     public List<OrderItem> getItems() {
-        return items;
+        return new java.util.ArrayList<>(items);
     }
 
     public int getTotalAmount() {
