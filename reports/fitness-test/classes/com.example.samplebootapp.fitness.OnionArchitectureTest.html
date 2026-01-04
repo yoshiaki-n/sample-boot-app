@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">1</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">3.434s</div>
+<div class="counter">3.640s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,12 +61,58 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
+<a href="#">Failed tests</a>
+</li>
+<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard output</a>
 </li>
 </ul>
+<div class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="onion_architecture_is_respected"></a>
+<h3 class="failures">onion_architecture_is_respected</h3>
+<span class="code">
+<pre id="test-message-onion_architecture_is_respected">java.lang.AssertionError: Architecture Violation [Priority: MEDIUM] - Rule 'Onion architecture consisting of (optional)
+domain models ('..domain..')
+domain services ('..domain..service..')
+application services ('..application..')
+adapter 'infrastructure' ('..infrastructure..')
+adapter 'presentation' ('..presentation..')' was violated (18 times):
+Constructor &lt;com.example.samplebootapp.application.order.query.OrderQueryService.&lt;init&gt;(com.example.samplebootapp.infrastructure.datasource.order.OrderMapper)&gt; has parameter of type &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderMapper&gt; in (OrderQueryService.java:0)
+Field &lt;com.example.samplebootapp.application.order.query.OrderQueryService.orderMapper&gt; has type &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderMapper&gt; in (OrderQueryService.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.getOrder(java.lang.String, java.lang.String)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderMapper.selectByIdAndUserId(java.lang.String, java.lang.String)&gt; in (OrderQueryService.java:42)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.getOrder(java.lang.String, java.lang.String)&gt; has generic return type &lt;java.util.Optional&lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse&gt;&gt; with type argument depending on &lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse&gt; in (OrderQueryService.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.getOrders(java.lang.String)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderMapper.selectByUserId(java.lang.String)&gt; in (OrderQueryService.java:30)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.getOrders(java.lang.String)&gt; has generic return type &lt;java.util.List&lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse&gt;&gt; with type argument depending on &lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse&gt; in (OrderQueryService.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls constructor &lt;com.example.samplebootapp.presentation.order.api.response.OrderItemResponse.&lt;init&gt;(java.lang.String, int, int)&gt; in (OrderQueryService.java:55)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls constructor &lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse.&lt;init&gt;(java.lang.String, java.time.LocalDateTime, int, com.example.samplebootapp.domain.order.model.OrderStatus, java.util.List)&gt; in (OrderQueryService.java:62)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData.getId()&gt; in (OrderQueryService.java:59)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData.getItems()&gt; in (OrderQueryService.java:51)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData.getOrderedAt()&gt; in (OrderQueryService.java:60)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData.getStatus()&gt; in (OrderQueryService.java:62)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData.getTotalAmount()&gt; in (OrderQueryService.java:61)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderItemData.getPrice()&gt; in (OrderQueryService.java:55)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderItemData.getProductName()&gt; in (OrderQueryService.java:55)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; calls method &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderItemData.getQuantity()&gt; in (OrderQueryService.java:55)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; has parameter of type &lt;com.example.samplebootapp.infrastructure.datasource.order.OrderData&gt; in (OrderQueryService.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.OrderQueryService.toResponse(com.example.samplebootapp.infrastructure.datasource.order.OrderData)&gt; has return type &lt;com.example.samplebootapp.presentation.order.api.response.OrderResponse&gt; in (OrderQueryService.java:0)
+	at com.tngtech.archunit.lang.ArchRule$Assertions.assertNoViolation(ArchRule.java:94)
+	at com.tngtech.archunit.lang.ArchRule$Assertions.check(ArchRule.java:86)
+	at com.tngtech.archunit.library.Architectures$LayeredArchitecture.check(Architectures.java:347)
+	at com.tngtech.archunit.library.Architectures$OnionArchitecture.check(Architectures.java:1039)
+	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:167)
+	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:150)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="test-message-onion_architecture_is_respected">Copy</button>
+</span>
+</div>
+</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -78,16 +124,16 @@
 </tr>
 </thead>
 <tr>
-<td class="success">onion_architecture_is_respected</td>
-<td class="success">3.434s</td>
-<td class="success">passed</td>
+<td class="failures">onion_architecture_is_respected</td>
+<td class="failures">3.640s</td>
+<td class="failures">failed</td>
 </tr>
 </table>
 </div>
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">01:46:35.788 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
+<pre id="class-stdout">15:24:46.950 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -100,7 +146,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:46:39 AM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 3:24:50 PM</p>
 </div>
 </div>
 </body>
