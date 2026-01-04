@@ -38,6 +38,19 @@ public class OrderController {
     return ResponseEntity.ok(orders);
   }
 
+  @GetMapping("/{orderId}")
+  @Operation(summary = "注文詳細", description = "指定された注文の詳細情報を返します。")
+  public ResponseEntity<OrderResponse> get(
+      @AuthenticationPrincipal UserDetails userDetails,
+      @org.springframework.web.bind.annotation.PathVariable("orderId") String orderId) {
+    // TODO: 本来は UserDetails から安全に ID を取り出す仕組みが必要だが、簡易的に Username を ID とする
+    String userId = userDetails.getUsername();
+    return orderQueryService
+        .getOrder(orderId, userId)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
   @PostMapping
   @Operation(summary = "注文確定", description = "カートの内容で注文を作成し、在庫を引き当てて確定します。")
   public ResponseEntity<Void> placeOrder(@AuthenticationPrincipal UserDetails userDetails) {
