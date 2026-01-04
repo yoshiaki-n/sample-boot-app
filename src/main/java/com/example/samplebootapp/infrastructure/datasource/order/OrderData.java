@@ -56,10 +56,12 @@ public class OrderData {
         this.orderedAt = orderedAt;
     }
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP")
     public List<OrderItemData> getItems() {
         return items;
     }
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     public void setItems(List<OrderItemData> items) {
         this.items = items;
     }

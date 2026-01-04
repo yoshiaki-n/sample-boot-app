@@ -15,6 +15,7 @@ public class OrderQueryService {
 
     private final OrderMapper orderMapper;
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
     public OrderQueryService(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
     }

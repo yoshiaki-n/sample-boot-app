@@ -92,7 +92,7 @@ class OrderControllerTest {
   @Test
   @DisplayName("注文確定_正常系")
   void placeOrder_success() throws Exception {
-    doNothing().when(orderCommandService).placeOrder(any());
+    when(orderCommandService.placeOrder(any())).thenReturn("ord-123");
 
     mockMvc
         .perform(post("/api/orders"))

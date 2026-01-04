@@ -15,9 +15,18 @@ import java.util.List;
  * @param items       注文明細リスト
  */
 public record OrderResponse(
-        @Schema(description = "注文ID", example = "ord-12345") String id,
-        @Schema(description = "注文日時", example = "2023-01-01T12:00:00") LocalDateTime orderedAt,
-        @Schema(description = "合計金額", example = "6000") int totalAmount,
-        @Schema(description = "注文ステータス", example = "ORDERED") OrderStatus status,
-        @Schema(description = "注文明細リスト") List<OrderItemResponse> items) {
+                @Schema(description = "注文ID", example = "ord-12345") String id,
+                @Schema(description = "注文日時", example = "2023-01-01T12:00:00") LocalDateTime orderedAt,
+                @Schema(description = "合計金額", example = "6000") int totalAmount,
+                @Schema(description = "注文ステータス", example = "ORDERED") OrderStatus status,
+                @Schema(description = "注文明細リスト") List<OrderItemResponse> items) {
+        public OrderResponse {
+                items = items != null ? java.util.List.copyOf(items) : java.util.List.of();
+        }
+
+        @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP")
+        @Override
+        public List<OrderItemResponse> items() {
+                return items;
+        }
 }
