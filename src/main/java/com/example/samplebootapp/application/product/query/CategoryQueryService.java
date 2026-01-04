@@ -3,7 +3,7 @@ package com.example.samplebootapp.application.product.query;
 import com.example.samplebootapp.domain.product.model.Category;
 import com.example.samplebootapp.domain.product.model.CategoryId;
 import com.example.samplebootapp.domain.product.model.CategoryRepository;
-import com.example.samplebootapp.presentation.product.api.CategoryResponse;
+import com.example.samplebootapp.domain.product.model.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,28 +27,30 @@ public class CategoryQueryService {
    *
    * @return カテゴリリスト（階層構造）
    */
-  public List<CategoryResponse> listCategories() {
+  public List<CategoryDto> listCategories() {
     List<Category> allCategories = categoryRepository.findAll();
 
     // IDでマップ化
-    Map<CategoryId, CategoryResponse> responseMap =
-        allCategories.stream().collect(Collectors.toMap(Category::getId, CategoryResponse::from));
+    Map<CategoryId, CategoryDto> dtoMap = allCategories.stream()
+        .collect(
+            Collectors.toMap(
+                Category::getId, c -> new CategoryDto(c.getId().getValue(), c.getName())));
 
-    List<CategoryResponse> rootCategories = new ArrayList<>();
+    List<CategoryDto> rootCategories = new ArrayList<>();
 
     for (Category category : allCategories) {
-      CategoryResponse response = responseMap.get(category.getId());
+      CategoryDto dto = dtoMap.get(category.getId());
       CategoryId parentId = category.getParentId();
 
       if (parentId == null) {
-        rootCategories.add(response);
+        rootCategories.add(dto);
       } else {
-        CategoryResponse parent = responseMap.get(parentId);
+        CategoryDto parent = dtoMap.get(parentId);
         if (parent != null) {
-          parent.addChild(response);
+          parent.addChild(dto);
         } else {
           // 親が見つからない場合はルートとして扱う（データ整合性の問題だが、APIとしては表示する）
-          rootCategories.add(response);
+          rootCategories.add(dto);
         }
       }
     }

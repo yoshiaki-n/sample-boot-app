@@ -1,5 +1,6 @@
 package com.example.samplebootapp.presentation.product.api;
 
+import com.example.samplebootapp.application.product.query.CategoryDto;
 import com.example.samplebootapp.domain.product.model.Category;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class CategoryResponse {
   /**
    * コンストラクタ.
    *
-   * @param id カテゴリID
-   * @param name カテゴリ名
+   * @param id       カテゴリID
+   * @param name     カテゴリ名
    * @param children 子カテゴリ
    */
   public CategoryResponse(String id, String name, List<CategoryResponse> children) {
@@ -31,6 +32,20 @@ public class CategoryResponse {
     this.name = name;
     // EI_EXPOSE_REP2対策: 防御的コピー
     this.children = new ArrayList<>(children);
+  }
+
+  /**
+   * DTOからレスポンスを生成します.
+   *
+   * @param dto カテゴリDTO
+   * @return レスポンス
+   */
+  public static CategoryResponse from(CategoryDto dto) {
+    List<CategoryResponse> children = new ArrayList<>();
+    if (dto.getChildren() != null) {
+      children = dto.getChildren().stream().map(CategoryResponse::from).toList();
+    }
+    return new CategoryResponse(dto.getId(), dto.getName(), children);
   }
 
   /**

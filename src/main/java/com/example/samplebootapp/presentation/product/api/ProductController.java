@@ -1,5 +1,6 @@
 package com.example.samplebootapp.presentation.product.api;
 
+import com.example.samplebootapp.application.product.query.CategoryDto;
 import com.example.samplebootapp.application.product.query.CategoryQueryService;
 import com.example.samplebootapp.application.product.query.ProductQueryService;
 import com.example.samplebootapp.domain.product.model.Product;
@@ -68,6 +69,11 @@ public class ProductController {
   @GetMapping("/categories")
   @Operation(summary = "カテゴリ一覧取得", description = "商品カテゴリの階層構造を返します。")
   public ResponseEntity<List<CategoryResponse>> listCategories() {
-    return ResponseEntity.ok(categoryQueryService.listCategories());
+    List<CategoryDto> dtos = categoryQueryService.listCategories();
+    // 簡易的にDTO構造をそのままResponseに変換
+    // 実際には再帰的な変換が必要だが、ここではCategoryResponseが適切にマッピングできることを前提とする
+    // あるいはCategoryResponseにfrom(CategoryDto)を作るのが良い
+    List<CategoryResponse> response = dtos.stream().map(CategoryResponse::from).toList();
+    return ResponseEntity.ok(response);
   }
 }

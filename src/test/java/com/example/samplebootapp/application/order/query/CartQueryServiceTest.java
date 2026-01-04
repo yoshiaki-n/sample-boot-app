@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartRepository;
-import com.example.samplebootapp.presentation.order.response.CartResponse;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,9 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CartQueryServiceTest {
 
-  @Mock private CartRepository cartRepository;
+  @Mock
+  private CartRepository cartRepository;
 
-  @InjectMocks private CartQueryService cartQueryService;
+  @InjectMocks
+  private CartQueryService cartQueryService;
 
   @Test
   @DisplayName("カート取得: カートが存在する場合、正しくマッピングされたレスポンスが返る")
@@ -32,7 +33,7 @@ class CartQueryServiceTest {
     when(cartRepository.findByUserId(userId)).thenReturn(Optional.of(cart));
 
     // 実行
-    CartResponse response = cartQueryService.getCart(userId);
+    CartDto response = cartQueryService.getCart(userId);
 
     // 検証
     assertThat(response.getCartId()).isEqualTo(cart.getId().getValue());
@@ -49,7 +50,7 @@ class CartQueryServiceTest {
     when(cartRepository.findByUserId(userId)).thenReturn(Optional.empty());
 
     // 実行
-    CartResponse response = cartQueryService.getCart(userId);
+    CartDto response = cartQueryService.getCart(userId);
 
     // 検証
     assertThat(response.getCartId()).isEmpty(); // または null 確認など実装に合わせて

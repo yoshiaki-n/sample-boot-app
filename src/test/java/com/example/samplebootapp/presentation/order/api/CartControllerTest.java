@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.samplebootapp.application.order.command.CartCommandService;
 import com.example.samplebootapp.application.order.query.CartQueryService;
+import com.example.samplebootapp.application.order.query.CartDto;
 import com.example.samplebootapp.presentation.order.request.CartAddRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +25,14 @@ class CartControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock private CartCommandService cartCommandService;
+  @Mock
+  private CartCommandService cartCommandService;
 
-  @Mock private CartQueryService cartQueryService;
+  @Mock
+  private CartQueryService cartQueryService;
 
-  @InjectMocks private CartController cartController;
+  @InjectMocks
+  private CartController cartController;
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -60,9 +64,8 @@ class CartControllerTest {
   @DisplayName("カート参照API: 正常系")
   void getCart_success() throws Exception {
     // 準備
-    com.example.samplebootapp.presentation.order.response.CartResponse response =
-        new com.example.samplebootapp.presentation.order.response.CartResponse(
-            "cart-1", java.util.Collections.emptyList());
+    CartDto response = new CartDto(
+        "cart-1", java.util.Collections.emptyList());
 
     org.mockito.Mockito.when(cartQueryService.getCart("test-user-001")).thenReturn(response);
 

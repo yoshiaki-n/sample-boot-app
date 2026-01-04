@@ -2,7 +2,7 @@ package com.example.samplebootapp.application.user.query;
 
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.domain.user.model.MemberRepository;
-import com.example.samplebootapp.presentation.user.response.UserResponse;
+import com.example.samplebootapp.domain.user.model.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +25,13 @@ public class UserQueryService {
    * @param id ユーザーID
    * @return ユーザーレスポンス
    */
-  public UserResponse findById(String id) {
+  public UserDto findById(String id) {
     Member member = memberRepository.findById(id);
     if (member == null) {
       // 本来はNotFoundExceptionなどを投げるべきだが、
       // 認証済みユーザーのIDで検索するため、ここに来ることは通常あり得ない
       return null;
     }
-    return new UserResponse(member.getId(), member.getName(), member.getEmail());
+    return new UserDto(member.getId(), member.getName(), member.getEmail());
   }
 }

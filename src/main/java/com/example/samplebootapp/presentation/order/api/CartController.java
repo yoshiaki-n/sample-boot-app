@@ -1,5 +1,6 @@
 package com.example.samplebootapp.presentation.order.api;
 
+import com.example.samplebootapp.application.order.query.CartDto;
 import com.example.samplebootapp.application.order.command.CartCommandService;
 import com.example.samplebootapp.application.order.query.CartQueryService;
 import com.example.samplebootapp.presentation.order.request.CartAddRequest;
@@ -35,7 +36,8 @@ public class CartController {
   public CartResponse getCart() {
     // 簡易的にユーザーID固定
     String userId = "test-user-001";
-    return cartQueryService.getCart(userId);
+    CartDto dto = cartQueryService.getCart(userId);
+    return CartResponse.from(dto);
   }
 
   @Operation(summary = "カート追加", description = "カートに商品を追加します。")

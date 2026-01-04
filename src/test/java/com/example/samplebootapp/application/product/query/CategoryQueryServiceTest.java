@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import com.example.samplebootapp.domain.product.model.Category;
 import com.example.samplebootapp.domain.product.model.CategoryId;
 import com.example.samplebootapp.domain.product.model.CategoryRepository;
-import com.example.samplebootapp.presentation.product.api.CategoryResponse;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +17,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CategoryQueryServiceTest {
 
-  @Mock private CategoryRepository categoryRepository;
+  @Mock
+  private CategoryRepository categoryRepository;
 
-  @InjectMocks private CategoryQueryService categoryQueryService;
+  @InjectMocks
+  private CategoryQueryService categoryQueryService;
 
   @Test
   @DisplayName("カテゴリ一覧を階層構造で取得できること")
@@ -37,7 +38,7 @@ class CategoryQueryServiceTest {
     when(categoryRepository.findAll()).thenReturn(List.of(root, child, grandChild));
 
     // Act
-    List<CategoryResponse> result = categoryQueryService.listCategories();
+    List<CategoryDto> result = categoryQueryService.listCategories();
 
     // Assert
     assertThat(result).hasSize(1);

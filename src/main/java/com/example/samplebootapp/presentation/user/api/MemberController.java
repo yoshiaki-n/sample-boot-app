@@ -2,6 +2,7 @@ package com.example.samplebootapp.presentation.user.api;
 
 import com.example.samplebootapp.application.security.MemberUserDetails;
 import com.example.samplebootapp.application.user.MemberApplicationService;
+import com.example.samplebootapp.application.user.query.UserDto;
 import com.example.samplebootapp.application.user.query.UserQueryService;
 import com.example.samplebootapp.presentation.user.request.MemberRequest;
 import com.example.samplebootapp.presentation.user.request.MemberUpdateRequest;
@@ -63,7 +64,8 @@ public class MemberController {
     if (principal == null) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-    UserResponse response = userQueryService.findById(principal.getMember().getId());
+    UserDto dto = userQueryService.findById(principal.getMember().getId());
+    UserResponse response = new UserResponse(dto.getId(), dto.getName(), dto.getEmail());
     return ResponseEntity.ok(response);
   }
 
@@ -71,7 +73,7 @@ public class MemberController {
    * ログイン中の会員情報を更新します.
    *
    * @param principal 認証情報
-   * @param request 会員更新リクエスト
+   * @param request   会員更新リクエスト
    * @return レスポンス（ボディなし）
    */
   @PutMapping("/me")

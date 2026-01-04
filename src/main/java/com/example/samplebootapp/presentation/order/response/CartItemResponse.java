@@ -1,5 +1,6 @@
 package com.example.samplebootapp.presentation.order.response;
 
+import com.example.samplebootapp.application.order.query.CartItemDto;
 import com.example.samplebootapp.domain.order.model.CartItem;
 
 /** カート商品レスポンス. */
@@ -15,6 +16,10 @@ public class CartItemResponse {
 
   public static CartItemResponse from(CartItem cartItem) {
     return new CartItemResponse(cartItem.getProductId(), cartItem.getQuantity());
+  }
+
+  public static CartItemResponse from(CartItemDto dto) {
+    return new CartItemResponse(dto.getProductId(), dto.getQuantity());
   }
 
   public String getProductId() {

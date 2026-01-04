@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.samplebootapp.application.security.MemberUserDetails;
 import com.example.samplebootapp.application.user.MemberApplicationService;
+import com.example.samplebootapp.application.user.query.UserDto;
 import com.example.samplebootapp.application.user.query.UserQueryService;
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.presentation.user.request.MemberUpdateRequest;
@@ -37,12 +38,10 @@ class MemberControllerTest {
     memberApplicationService = mock(MemberApplicationService.class);
     userQueryService = mock(UserQueryService.class);
     MemberController controller = new MemberController(memberApplicationService, userQueryService);
-    mockMvc =
-        MockMvcBuilders.standaloneSetup(controller)
-            .setCustomArgumentResolvers(
-                new org.springframework.security.web.method.annotation
-                    .AuthenticationPrincipalArgumentResolver())
-            .build();
+    mockMvc = MockMvcBuilders.standaloneSetup(controller)
+        .setCustomArgumentResolvers(
+            new org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver())
+        .build();
   }
 
   @Test
@@ -60,7 +59,7 @@ class MemberControllerTest {
     SecurityContextHolder.setContext(securityContext);
 
     when(userQueryService.findById("user-id"))
-        .thenReturn(new UserResponse("user-id", "Test User", "test@example.com"));
+        .thenReturn(new UserDto("user-id", "Test User", "test@example.com"));
 
     mockMvc
         .perform(get("/api/users/me"))
