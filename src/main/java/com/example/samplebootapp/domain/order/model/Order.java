@@ -32,7 +32,7 @@ public class Order {
    * 注文を生成します.
    *
    * @param userId ユーザーID
-   * @param items 注文明細リスト
+   * @param items  注文明細リスト
    * @return 注文
    */
   public static Order create(String userId, List<OrderItem> items) {

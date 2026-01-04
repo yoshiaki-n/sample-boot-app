@@ -1,10 +1,22 @@
 package com.example.samplebootapp.presentation.order.api;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.samplebootapp.application.order.command.OrderCommandService;
+import com.example.samplebootapp.application.order.query.OrderQueryService;
+import com.example.samplebootapp.domain.order.model.OrderStatus;
+import com.example.samplebootapp.presentation.order.api.response.OrderItemResponse;
+import com.example.samplebootapp.presentation.order.api.response.OrderResponse;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +24,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.MethodParameter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,65 +39,66 @@ class OrderControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock private OrderCommandService orderCommandService;
+  @Mock
+  private OrderCommandService orderCommandService;
+  @Mock
+  private OrderQueryService orderQueryService;
 
-  @InjectMocks private OrderController orderController;
+  @InjectMocks
+  private OrderController orderController;
 
   @BeforeEach
   void setUp() {
-    mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(orderController)
+        .setCustomArgumentResolvers(
+            new HandlerMethodArgumentResolver() {
+              @Override
+              public boolean supportsParameter(MethodParameter parameter) {
+                return parameter.hasParameterAnnotation(AuthenticationPrincipal.class);
+              }
+
+              @Override
+              public Object resolveArgument(
+                  MethodParameter parameter,
+                  ModelAndViewContainer mavContainer,
+                  NativeWebRequest webRequest,
+                  WebDataBinderFactory binderFactory) {
+                return new User("test-user", "", Collections.emptyList());
+              }
+            })
+        .build();
   }
 
   @Test
-  @DisplayName("注文確定API: 正常系")
+  @DisplayName("注文履歴_正常系")
+  void list_success() throws Exception {
+    OrderResponse orderResponse = new OrderResponse(
+        "ord-1",
+        LocalDateTime.now(),
+        1000,
+        OrderStatus.ORDERED,
+        List.of(new OrderItemResponse("item1", 1000, 1)));
+    when(orderQueryService.getOrders("test-user")).thenReturn(List.of(orderResponse));
+
+    mockMvc
+        .perform(get("/api/orders"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].id").value("ord-1"))
+        .andExpect(jsonPath("$[0].totalAmount").value(1000));
+
+    verify(orderQueryService).getOrders("test-user");
+  }
+
+  @Test
+  @DisplayName("注文確定_正常系")
   void placeOrder_success() throws Exception {
-    // 実行 & 検証
-    // AuthenticationPrincipalのモックはMockMvc standalone setupでは少し工夫が必要だが、
-    // ここでは簡易的にControllerのロジックが userDetails.getUsername() を呼ぶ前提で
-    // CustomArgumentResolverを使うか、あるいは SecurityContextHolder を設定するかなどが必要。
-    // しかし standaloneSetup では SecurityContext はデフォルトでは効かない。
-    // Controllerの実装をみると @AuthenticationPrincipal UserDetails userDetails を引数にとっている。
-    // MockMvc でこれを再現するには CustomArgumentResolver を登録するか、
-    // あるいはシンプルに認証Principalを注入できる仕組みを使う。
+    doNothing().when(orderCommandService).placeOrder(any());
 
-    // 今回は簡易的に、Controllerのテストとして「呼び出しが行われること」を確認したいが、
-    // 引数の解決ができないとエラーになる可能性がある。
-    // MockMvcBuilders.standaloneSetup(...).setCustomArgumentResolvers(...) で解決できる。
+    mockMvc
+        .perform(post("/api/orders"))
+        .andDo(org.springframework.test.web.servlet.result.MockMvcResultHandlers.print())
+        .andExpect(status().isOk());
 
-    // しかし、一番手っ取り早いのは、テスト用の ArgumentResolver を作ること。
-    // ここでは匿名クラスで簡易実装する。
-
-    mockMvc =
-        MockMvcBuilders.standaloneSetup(orderController)
-            .setCustomArgumentResolvers(
-                new org.springframework.web.method.support.HandlerMethodArgumentResolver() {
-                  @Override
-                  public boolean supportsParameter(
-                      org.springframework.core.MethodParameter parameter) {
-                    return org.springframework.security.core.annotation.AuthenticationPrincipal
-                        .class
-                        .isAssignableFrom(
-                            parameter
-                                .getParameterAnnotation(
-                                    org.springframework.security.core.annotation
-                                        .AuthenticationPrincipal.class)
-                                .annotationType());
-                  }
-
-                  @Override
-                  public Object resolveArgument(
-                      org.springframework.core.MethodParameter parameter,
-                      org.springframework.web.method.support.ModelAndViewContainer mavContainer,
-                      org.springframework.web.context.request.NativeWebRequest webRequest,
-                      org.springframework.web.bind.support.WebDataBinderFactory binderFactory) {
-                    return new org.springframework.security.core.userdetails.User(
-                        "test-user", "password", java.util.Collections.emptyList());
-                  }
-                })
-            .build();
-
-    mockMvc.perform(post("/api/orders")).andExpect(status().isOk());
-
-    verify(orderCommandService).placeOrder("test-user");
+    verify(orderCommandService).placeOrder(any());
   }
 }

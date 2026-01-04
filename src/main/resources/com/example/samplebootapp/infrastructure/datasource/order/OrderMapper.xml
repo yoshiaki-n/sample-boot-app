@@ -15,4 +15,35 @@
         </foreach>
     </insert>
 
+    <resultMap id="OrderResultMap" type="com.example.samplebootapp.infrastructure.datasource.order.OrderData">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="status" column="status"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="orderedAt" column="ordered_at"/>
+        <collection property="items" ofType="com.example.samplebootapp.infrastructure.datasource.order.OrderItemData">
+            <result property="productId" column="product_id"/>
+            <result property="productName" column="product_name"/>
+            <result property="price" column="price"/>
+            <result property="quantity" column="quantity"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByUserId" resultMap="OrderResultMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.status,
+            o.total_amount,
+            o.ordered_at,
+            oi.product_id,
+            oi.product_name,
+            oi.price,
+            oi.quantity
+        FROM order_orders o
+        JOIN order_order_items oi ON o.id = oi.order_id
+        WHERE o.user_id = #{userId}
+        ORDER BY o.ordered_at DESC
+    </select>
+
 </mapper>
