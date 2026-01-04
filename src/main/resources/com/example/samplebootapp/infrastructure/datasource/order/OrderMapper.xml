@@ -46,4 +46,20 @@
         ORDER BY o.ordered_at DESC
     </select>
 
+    <select id="selectByIdAndUserId" resultMap="OrderResultMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.status,
+            o.total_amount,
+            o.ordered_at,
+            oi.product_id,
+            oi.product_name,
+            oi.price,
+            oi.quantity
+        FROM order_orders o
+        JOIN order_order_items oi ON o.id = oi.order_id
+        WHERE o.id = #{id} AND o.user_id = #{userId}
+    </select>
+
 </mapper>

@@ -13,4 +13,6 @@ public interface OrderMapper {
   void insertOrderItems(@Param("orderId") String orderId, @Param("items") List<OrderItem> items);
 
   List<OrderData> selectByUserId(@Param("userId") String userId);
+
+  OrderData selectByIdAndUserId(@Param("id") String id, @Param("userId") String userId);
 }
