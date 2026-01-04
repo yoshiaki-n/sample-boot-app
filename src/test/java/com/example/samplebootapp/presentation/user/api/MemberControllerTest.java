@@ -15,7 +15,6 @@ import com.example.samplebootapp.application.user.query.UserDto;
 import com.example.samplebootapp.application.user.query.UserQueryService;
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.presentation.user.request.MemberUpdateRequest;
-import com.example.samplebootapp.presentation.user.response.UserResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,10 +37,12 @@ class MemberControllerTest {
     memberApplicationService = mock(MemberApplicationService.class);
     userQueryService = mock(UserQueryService.class);
     MemberController controller = new MemberController(memberApplicationService, userQueryService);
-    mockMvc = MockMvcBuilders.standaloneSetup(controller)
-        .setCustomArgumentResolvers(
-            new org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver())
-        .build();
+    mockMvc =
+        MockMvcBuilders.standaloneSetup(controller)
+            .setCustomArgumentResolvers(
+                new org.springframework.security.web.method.annotation
+                    .AuthenticationPrincipalArgumentResolver())
+            .build();
   }
 
   @Test

@@ -2,7 +2,6 @@ package com.example.samplebootapp.application.user.query;
 
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.domain.user.model.MemberRepository;
-import com.example.samplebootapp.domain.user.model.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

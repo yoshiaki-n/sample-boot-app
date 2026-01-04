@@ -2,8 +2,8 @@ package com.example.samplebootapp.application.order.query;
 
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartRepository;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +30,10 @@ public class CartQueryService {
 
     if (cartOpt.isPresent()) {
       Cart cart = cartOpt.get();
-      List<CartItemDto> items = cart.getItems().stream()
-          .map(
-              item -> new CartItemDto(
-                  item.getProductId(), item.getQuantity()))
-          .toList();
+      List<CartItemDto> items =
+          cart.getItems().stream()
+              .map(item -> new CartItemDto(item.getProductId(), item.getQuantity()))
+              .toList();
       return new CartDto(cart.getId().getValue(), items);
     } else {
       // カートが存在しない場合は空のレスポンスを返す（要件に合わせて調整）

@@ -17,11 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CategoryQueryServiceTest {
 
-  @Mock
-  private CategoryRepository categoryRepository;
+  @Mock private CategoryRepository categoryRepository;
 
-  @InjectMocks
-  private CategoryQueryService categoryQueryService;
+  @InjectMocks private CategoryQueryService categoryQueryService;
 
   @Test
   @DisplayName("カテゴリ一覧を階層構造で取得できること")

@@ -3,7 +3,6 @@ package com.example.samplebootapp.application.product.query;
 import com.example.samplebootapp.domain.product.model.Category;
 import com.example.samplebootapp.domain.product.model.CategoryId;
 import com.example.samplebootapp.domain.product.model.CategoryRepository;
-import com.example.samplebootapp.domain.product.model.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +30,11 @@ public class CategoryQueryService {
     List<Category> allCategories = categoryRepository.findAll();
 
     // IDでマップ化
-    Map<CategoryId, CategoryDto> dtoMap = allCategories.stream()
-        .collect(
-            Collectors.toMap(
-                Category::getId, c -> new CategoryDto(c.getId().getValue(), c.getName())));
+    Map<CategoryId, CategoryDto> dtoMap =
+        allCategories.stream()
+            .collect(
+                Collectors.toMap(
+                    Category::getId, c -> new CategoryDto(c.getId().getValue(), c.getName())));
 
     List<CategoryDto> rootCategories = new ArrayList<>();
 
