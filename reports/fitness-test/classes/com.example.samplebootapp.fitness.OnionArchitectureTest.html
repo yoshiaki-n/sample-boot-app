@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">1</div>
+<div class="counter">0</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">3.884s</div>
+<div class="counter">3.434s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox failures" id="successRate">
-<div class="percent">0%</div>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,73 +61,12 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a href="#">Failed tests</a>
-</li>
-<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard output</a>
 </li>
 </ul>
-<div class="tab">
-<h2>Failed tests</h2>
-<div class="test">
-<a name="onion_architecture_is_respected"></a>
-<h3 class="failures">onion_architecture_is_respected</h3>
-<span class="code">
-<pre id="test-message-onion_architecture_is_respected">java.lang.AssertionError: Architecture Violation [Priority: MEDIUM] - Rule 'Onion architecture consisting of (optional)
-domain models ('..domain..')
-domain services ('..domain..service..')
-application services ('..application..')
-adapter 'infrastructure' ('..infrastructure..')
-adapter 'presentation' ('..presentation..')' was violated (33 times):
-Constructor &lt;com.example.samplebootapp.config.SecurityConfig.&lt;init&gt;(com.example.samplebootapp.application.security.MemberUserDetailsService)&gt; has parameter of type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
-Field &lt;com.example.samplebootapp.config.SecurityConfig.memberUserDetailsService&gt; has type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls constructor &lt;com.example.samplebootapp.presentation.order.response.CartResponse.&lt;init&gt;(java.lang.String, java.util.List)&gt; in (CartQueryService.java:37)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.from(com.example.samplebootapp.domain.order.model.Cart)&gt; in (CartQueryService.java:32)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; has return type &lt;com.example.samplebootapp.presentation.order.response.CartResponse&gt; in (CartQueryService.java:0)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartItemResponse.getProductId()&gt; in (CartQueryServiceTest.java:40)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartItemResponse.getQuantity()&gt; in (CartQueryServiceTest.java:41)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getCartId()&gt; in (CartQueryServiceTest.java:38)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:39)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:40)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:41)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_notFound()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getCartId()&gt; in (CartQueryServiceTest.java:55)
-Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_notFound()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:56)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.addChild(com.example.samplebootapp.presentation.product.api.CategoryResponse)&gt; in (CategoryQueryService.java:48)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; has generic return type &lt;java.util.List&lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt;&gt; with type argument depending on &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt; in (CategoryQueryService.java:0)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; references method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.from(com.example.samplebootapp.domain.product.model.Category)&gt; in (CategoryQueryService.java:35)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:45)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:46)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:47)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:47)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:48)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getChildren()&gt; in (CategoryQueryServiceTest.java:48)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:44)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:46)
-Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryServiceTest.testListCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.getId()&gt; in (CategoryQueryServiceTest.java:48)
-Method &lt;com.example.samplebootapp.application.user.query.UserQueryService.findById(java.lang.String)&gt; calls constructor &lt;com.example.samplebootapp.presentation.user.response.UserResponse.&lt;init&gt;(java.lang.String, java.lang.String, java.lang.String)&gt; in (UserQueryService.java:35)
-Method &lt;com.example.samplebootapp.application.user.query.UserQueryService.findById(java.lang.String)&gt; has return type &lt;com.example.samplebootapp.presentation.user.response.UserResponse&gt; in (UserQueryService.java:0)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls constructor &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.&lt;init&gt;()&gt; in (SecurityConfig.java:50)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationFailureHandler(org.springframework.security.web.authentication.AuthenticationFailureHandler)&gt; in (SecurityConfig.java:62)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationManager(org.springframework.security.authentication.AuthenticationManager)&gt; in (SecurityConfig.java:51)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setAuthenticationSuccessHandler(org.springframework.security.web.authentication.AuthenticationSuccessHandler)&gt; in (SecurityConfig.java:55)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setFilterProcessesUrl(java.lang.String)&gt; in (SecurityConfig.java:54)
-Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)&gt; calls method &lt;com.example.samplebootapp.presentation.security.JsonAuthenticationFilter.setSecurityContextRepository(org.springframework.security.web.context.SecurityContextRepository)&gt; in (SecurityConfig.java:52)
-	at com.tngtech.archunit.lang.ArchRule$Assertions.assertNoViolation(ArchRule.java:94)
-	at com.tngtech.archunit.lang.ArchRule$Assertions.check(ArchRule.java:86)
-	at com.tngtech.archunit.library.Architectures$LayeredArchitecture.check(Architectures.java:347)
-	at com.tngtech.archunit.library.Architectures$OnionArchitecture.check(Architectures.java:1039)
-	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:167)
-	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:150)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-</pre>
-<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="test-message-onion_architecture_is_respected">Copy</button>
-</span>
-</div>
-</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -139,16 +78,16 @@ Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(o
 </tr>
 </thead>
 <tr>
-<td class="failures">onion_architecture_is_respected</td>
-<td class="failures">3.884s</td>
-<td class="failures">failed</td>
+<td class="success">onion_architecture_is_respected</td>
+<td class="success">3.434s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">01:20:38.592 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
+<pre id="class-stdout">01:46:35.788 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -161,7 +100,7 @@ Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(o
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:20:42 AM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:46:39 AM</p>
 </div>
 </div>
 </body>
