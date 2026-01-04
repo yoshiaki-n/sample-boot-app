@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">1</div>
+<div class="counter">0</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.986s</div>
+<div class="counter">0.727s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox failures" id="successRate">
-<div class="percent">50%</div>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,40 +61,12 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a href="#">Failed tests</a>
-</li>
-<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard output</a>
 </li>
 </ul>
-<div class="tab">
-<h2>Failed tests</h2>
-<div class="test">
-<a name="testLoginAndGetMe()"></a>
-<h3 class="failures">会員情報取得API: ログイン後に自分の情報を取得できること</h3>
-<span class="code">
-<pre id="test-message-testLoginAndGetMe()">java.lang.NullPointerException: Cannot invoke &quot;jakarta.servlet.http.Cookie.getName()&quot; because &quot;c&quot; is null
-	at org.springframework.mock.web.MockHttpServletRequest.lambda$encodeCookies$0(MockHttpServletRequest.java:1014)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.mock.web.MockHttpServletRequest.encodeCookies(MockHttpServletRequest.java:1015)
-	at org.springframework.mock.web.MockHttpServletRequest.setCookies(MockHttpServletRequest.java:1008)
-	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.buildRequest(AbstractMockHttpServletRequestBuilder.java:938)
-	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:170)
-	at com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest.testLoginAndGetMe(MemberControllerIntegrationTest.java:93)
-</pre>
-<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="test-message-testLoginAndGetMe()">Copy</button>
-</span>
-</div>
-</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -107,15 +79,15 @@
 </tr>
 </thead>
 <tr>
-<td class="failures">会員情報取得API: ログイン後に自分の情報を取得できること</td>
-<td class="failures">testLoginAndGetMe()</td>
-<td class="failures">0.658s</td>
-<td class="failures">failed</td>
+<td class="success">会員情報取得API: ログイン後に自分の情報を取得できること</td>
+<td class="success">testLoginAndGetMe()</td>
+<td class="success">0.497s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">会員登録API: 正常に登録でき、DBに保存されること</td>
 <td class="success">testRegister()</td>
-<td class="success">0.328s</td>
+<td class="success">0.230s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -123,91 +95,21 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">2026-01-04 01:24:05.538  INFO 3114 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest]: MemberControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-01-04 01:24:05.573  INFO 3114 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest
-2026-01-04 01:24:05.772 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c135b59c7a47f944459d9533ab07,af9b5126347dccf5] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
-2026-01-04 01:24:05.773 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c135b59c7a47f944459d9533ab07,af9b5126347dccf5] ==&gt; Parameters: 019b869a-ba0b-74e0-a4bd-d55485f1fb89(String), テスト太郎(String), taro@example.com(String), $2a$10$PmomroVcDcRd2B/gRJrC0O2Ct9HTR0UxbnkF70PSzqsazYBbVsRN6(String)
-2026-01-04 01:24:05.774 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c135b59c7a47f944459d9533ab07,af9b5126347dccf5] &lt;==    Updates: 1
-2026-01-04 01:24:06.070 DEBUG 3114 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c1358dbd020e397fee3291fac3e7,26b2442fcdd6563c] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
-2026-01-04 01:24:06.071 DEBUG 3114 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c1358dbd020e397fee3291fac3e7,26b2442fcdd6563c] ==&gt; Parameters: taro@example.com(String)
-2026-01-04 01:24:06.074 DEBUG 3114 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c1358dbd020e397fee3291fac3e7,26b2442fcdd6563c] &lt;==      Total: 1
-2026-01-04 01:24:06.210 DEBUG 3114 --- [    Test worker] c.e.s.p.s.JsonAuthenticationFilter       : [6959c1358dbd020e397fee3291fac3e7,26b2442fcdd6563c] Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@5f2f2237, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-01-04T01:24:06.209537641Z]]]
-
-MockHttpServletRequest:
-      HTTP Method = POST
-      Request URI = /api/users/
-       Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;79&quot;]
-             Body = {&quot;name&quot;:&quot;テスト太郎&quot;,&quot;email&quot;:&quot;taro@example.com&quot;,&quot;password&quot;:&quot;Password123!&quot;}
-    Session Attrs = {}
-
-Handler:
-             Type = com.example.samplebootapp.presentation.user.api.MemberController
-           Method = com.example.samplebootapp.presentation.user.api.MemberController#register(MemberRequest)
-
-Async:
-    Async started = false
-     Async result = null
-
-Resolved Exception:
-             Type = null
-
-ModelAndView:
-        View name = null
-             View = null
-            Model = null
-
-FlashMap:
-       Attributes = null
-
-MockHttpServletResponse:
-           Status = 201
-    Error message = null
-          Headers = [X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
-     Content type = null
-             Body = 
-    Forwarded URL = null
-   Redirected URL = null
-          Cookies = []
-
-MockHttpServletRequest:
-      HTTP Method = POST
-      Request URI = /api/users/login
-       Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;54&quot;]
-             Body = {&quot;password&quot;:&quot;Password123!&quot;,&quot;email&quot;:&quot;taro@example.com&quot;}
-    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@5f2f2237, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-01-04T01:24:06.209537641Z]]]]}
-
-Handler:
-             Type = null
-
-Async:
-    Async started = false
-     Async result = null
-
-Resolved Exception:
-             Type = null
-
-ModelAndView:
-        View name = null
-             View = null
-            Model = null
-
-FlashMap:
-       Attributes = null
-
-MockHttpServletResponse:
-           Status = 200
-    Error message = null
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
-     Content type = application/json;charset=UTF-8
-             Body = {&quot;message&quot;:&quot;Login Successful&quot;}
-    Forwarded URL = null
-   Redirected URL = null
-          Cookies = []
-2026-01-04 01:24:06.395 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c136154c98117f1c02d8f3713837,11c2aea9ee80f79e] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
-2026-01-04 01:24:06.396 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c136154c98117f1c02d8f3713837,11c2aea9ee80f79e] ==&gt; Parameters: 019b869a-bc7b-77ce-b31a-31b78a322e95(String), テスト花子(String), hanako@example.com(String), $2a$10$Jo0ysp3Sfe2quWtn.sxa6e4XiUNq2C4lXzIBRiEnE0wT7R2IO7.Vu(String)
-2026-01-04 01:24:06.397 DEBUG 3114 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c136154c98117f1c02d8f3713837,11c2aea9ee80f79e] &lt;==    Updates: 1
+<pre id="class-stdout">2026-01-04 01:56:02.358  INFO 3099 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest]: MemberControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-01-04 01:56:02.396  INFO 3099 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest
+2026-01-04 01:56:02.552 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b290e0bbbbe61e531ffc987321,d287c36de1deaf73] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-01-04 01:56:02.553 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b290e0bbbbe61e531ffc987321,d287c36de1deaf73] ==&gt; Parameters: 019b86b7-f978-7329-b5ed-46680238a67e(String), テスト太郎(String), taro@example.com(String), $2a$10$LybAGhJi4zC3vElyXRCbGu6Ev6pidLZbJZLRLjjr/NBbFMz8QykAS(String)
+2026-01-04 01:56:02.555 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b290e0bbbbe61e531ffc987321,d287c36de1deaf73] &lt;==    Updates: 1
+2026-01-04 01:56:02.775 DEBUG 3099 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c8b2b768a265a059086372d5b73e,01adb4d0907e22fb] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
+2026-01-04 01:56:02.775 DEBUG 3099 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c8b2b768a265a059086372d5b73e,01adb4d0907e22fb] ==&gt; Parameters: taro@example.com(String)
+2026-01-04 01:56:02.778 DEBUG 3099 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6959c8b2b768a265a059086372d5b73e,01adb4d0907e22fb] &lt;==      Total: 1
+2026-01-04 01:56:02.874 DEBUG 3099 --- [    Test worker] c.e.s.p.s.JsonAuthenticationFilter       : [6959c8b2b768a265a059086372d5b73e,01adb4d0907e22fb] Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@1cd80de2, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-01-04T01:56:02.873406083Z]]]
+2026-01-04 01:56:02.886 DEBUG 3099 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6959c8b2e3bdde94581d32d6ee6f26a3,69e8766f7723c284] ==&gt;  Preparing: SELECT * FROM user_members WHERE id = ?
+2026-01-04 01:56:02.886 DEBUG 3099 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6959c8b2e3bdde94581d32d6ee6f26a3,69e8766f7723c284] ==&gt; Parameters: 019b86b7-f978-7329-b5ed-46680238a67e(String)
+2026-01-04 01:56:02.888 DEBUG 3099 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6959c8b2e3bdde94581d32d6ee6f26a3,69e8766f7723c284] &lt;==      Total: 1
+2026-01-04 01:56:03.002 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b2afebd16ce4cf114c3c4b8c30,2d3eddba897791a8] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-01-04 01:56:03.002 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b2afebd16ce4cf114c3c4b8c30,2d3eddba897791a8] ==&gt; Parameters: 019b86b7-fb39-7153-94cc-927207779b18(String), テスト花子(String), hanako@example.com(String), $2a$10$JcXtIbWLDBTgLF6uj7sU0OHEy/uhmulTRG2Wg2jDg/wxFcNPnck0q(String)
+2026-01-04 01:56:03.004 DEBUG 3099 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6959c8b2afebd16ce4cf114c3c4b8c30,2d3eddba897791a8] &lt;==    Updates: 1
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -220,7 +122,7 @@ MockHttpServletResponse:
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:24:07 AM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:56:03 AM</p>
 </div>
 </div>
 </body>
