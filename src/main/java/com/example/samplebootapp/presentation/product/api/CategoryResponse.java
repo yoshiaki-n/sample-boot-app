@@ -23,11 +23,14 @@ public class CategoryResponse {
   /**
    * コンストラクタ.
    *
-   * @param id カテゴリID
-   * @param name カテゴリ名
+   * @param id       カテゴリID
+   * @param name     カテゴリ名
    * @param children 子カテゴリ
    */
-  public CategoryResponse(String id, String name, List<CategoryResponse> children) {
+  public CategoryResponse(
+      @Schema(description = "カテゴリID", example = "categoryId") String id,
+      @Schema(description = "カテゴリ名", example = "カテゴリ名") String name,
+      List<CategoryResponse> children) {
     this.id = id;
     this.name = name;
     // EI_EXPOSE_REP2対策: 防御的コピー

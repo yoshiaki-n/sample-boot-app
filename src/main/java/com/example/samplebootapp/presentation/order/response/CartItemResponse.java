@@ -2,11 +2,15 @@ package com.example.samplebootapp.presentation.order.response;
 
 import com.example.samplebootapp.application.order.query.CartItemDto;
 import com.example.samplebootapp.domain.order.model.CartItem;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
 
 /** カート商品レスポンス. */
-public class CartItemResponse {
+public class CartItemResponse implements Serializable {
 
+  @Schema(description = "商品ID", example = "prod-001")
   private String productId;
+  @Schema(description = "数量", example = "1")
   private int quantity;
 
   public CartItemResponse(String productId, int quantity) {

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 /** 会員APIコントローラ. */
 @RestController
 @RequestMapping("/api/users")
-@Tag(name = "会員", description = "会員に関連する操作を提供します。")
+@Tag(name = "会員コンテキスト (User Context)", description = "会員に関連する操作を提供します。")
 public class MemberController {
 
   @SuppressWarnings("PMD.SingularField")
@@ -73,7 +73,7 @@ public class MemberController {
    * ログイン中の会員情報を更新します.
    *
    * @param principal 認証情報
-   * @param request 会員更新リクエスト
+   * @param request   会員更新リクエスト
    * @return レスポンス（ボディなし）
    */
   @PutMapping("/me")

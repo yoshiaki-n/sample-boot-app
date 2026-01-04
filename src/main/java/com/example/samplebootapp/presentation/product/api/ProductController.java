@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /** 商品APIコントローラ. */
 @RestController
 @RequestMapping("/api/products")
-@Tag(name = "商品", description = "商品に関連する操作を提供します。")
+@Tag(name = "商品コンテキスト (Product Context)", description = "商品に関連する操作を提供します。")
 public class ProductController {
 
   private final ProductQueryService productQueryService;

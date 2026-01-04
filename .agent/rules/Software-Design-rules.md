@@ -19,3 +19,10 @@ trigger: always_on
 - JavaDocの先頭１行で概要を書きピリオドで終わること。
 - CheckStyleの関係で、句点の代わりにピリオドを使うこと。
 
+# OpenAPIドキュメントのルール
+
+Controllerクラスでは、OpenAPIのドキュメントを分かりやすく出すために、以下のルールを遵守すること。
+
+- io.swagger.v3.oas.annotations.tags.Tagでコンテキスト毎にグループ化できるようにしたください。
+- io.swagger.v3.oas.annotations.Operationでdoc/api-list.mdのAPIの名前や説明を追加してください。
+- リクエスト、レスポンスは、項目の日本語の説明とExampleが出るようにしてください。
