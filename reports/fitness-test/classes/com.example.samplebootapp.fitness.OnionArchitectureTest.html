@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">3.369s</div>
+<div class="counter">3.884s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,9 +81,20 @@ domain models ('..domain..')
 domain services ('..domain..service..')
 application services ('..application..')
 adapter 'infrastructure' ('..infrastructure..')
-adapter 'presentation' ('..presentation..')' was violated (22 times):
+adapter 'presentation' ('..presentation..')' was violated (33 times):
 Constructor &lt;com.example.samplebootapp.config.SecurityConfig.&lt;init&gt;(com.example.samplebootapp.application.security.MemberUserDetailsService)&gt; has parameter of type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
 Field &lt;com.example.samplebootapp.config.SecurityConfig.memberUserDetailsService&gt; has type &lt;com.example.samplebootapp.application.security.MemberUserDetailsService&gt; in (SecurityConfig.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls constructor &lt;com.example.samplebootapp.presentation.order.response.CartResponse.&lt;init&gt;(java.lang.String, java.util.List)&gt; in (CartQueryService.java:37)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.from(com.example.samplebootapp.domain.order.model.Cart)&gt; in (CartQueryService.java:32)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; has return type &lt;com.example.samplebootapp.presentation.order.response.CartResponse&gt; in (CartQueryService.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartItemResponse.getProductId()&gt; in (CartQueryServiceTest.java:40)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartItemResponse.getQuantity()&gt; in (CartQueryServiceTest.java:41)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getCartId()&gt; in (CartQueryServiceTest.java:38)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:39)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:40)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:41)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_notFound()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getCartId()&gt; in (CartQueryServiceTest.java:55)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_notFound()&gt; calls method &lt;com.example.samplebootapp.presentation.order.response.CartResponse.getItems()&gt; in (CartQueryServiceTest.java:56)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; calls method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.addChild(com.example.samplebootapp.presentation.product.api.CategoryResponse)&gt; in (CategoryQueryService.java:48)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; has generic return type &lt;java.util.List&lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt;&gt; with type argument depending on &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse&gt; in (CategoryQueryService.java:0)
 Method &lt;com.example.samplebootapp.application.product.query.CategoryQueryService.listCategories()&gt; references method &lt;com.example.samplebootapp.presentation.product.api.CategoryResponse.from(com.example.samplebootapp.domain.product.model.Category)&gt; in (CategoryQueryService.java:35)
@@ -129,7 +140,7 @@ Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(o
 </thead>
 <tr>
 <td class="failures">onion_architecture_is_respected</td>
-<td class="failures">3.369s</td>
+<td class="failures">3.884s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -137,7 +148,7 @@ Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(o
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">15:25:18.675 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
+<pre id="class-stdout">01:20:38.592 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -150,7 +161,7 @@ Method &lt;com.example.samplebootapp.config.SecurityConfig.securityFilterChain(o
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 3, 2026, 3:25:22 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 4, 2026, 1:20:42 AM</p>
 </div>
 </div>
 </body>
