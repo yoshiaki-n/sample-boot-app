@@ -12,6 +12,7 @@ public class CartResponse implements Serializable {
 
   @Schema(description = "カートID", example = "cart-001")
   private String cartId;
+
   @Schema(description = "カート内商品リスト")
   private List<CartItemResponse> items;
 
@@ -21,14 +22,14 @@ public class CartResponse implements Serializable {
   }
 
   public static CartResponse from(Cart cart) {
-    List<CartItemResponse> itemResponses = cart.getItems().stream().map(CartItemResponse::from)
-        .collect(Collectors.toList());
+    List<CartItemResponse> itemResponses =
+        cart.getItems().stream().map(CartItemResponse::from).collect(Collectors.toList());
     return new CartResponse(cart.getId().getValue(), itemResponses);
   }
 
   public static CartResponse from(CartDto dto) {
-    List<CartItemResponse> itemResponses = dto.getItems().stream().map(CartItemResponse::from)
-        .collect(Collectors.toList());
+    List<CartItemResponse> itemResponses =
+        dto.getItems().stream().map(CartItemResponse::from).collect(Collectors.toList());
     return new CartResponse(dto.getCartId(), itemResponses);
   }
 

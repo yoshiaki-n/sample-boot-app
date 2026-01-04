@@ -73,7 +73,7 @@ public class MemberController {
    * ログイン中の会員情報を更新します.
    *
    * @param principal 認証情報
-   * @param request   会員更新リクエスト
+   * @param request 会員更新リクエスト
    * @return レスポンス（ボディなし）
    */
   @PutMapping("/me")

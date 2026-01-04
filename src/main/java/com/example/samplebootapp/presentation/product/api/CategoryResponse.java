@@ -23,8 +23,8 @@ public class CategoryResponse {
   /**
    * コンストラクタ.
    *
-   * @param id       カテゴリID
-   * @param name     カテゴリ名
+   * @param id カテゴリID
+   * @param name カテゴリ名
    * @param children 子カテゴリ
    */
   public CategoryResponse(

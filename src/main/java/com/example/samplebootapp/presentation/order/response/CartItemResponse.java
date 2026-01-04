@@ -10,6 +10,7 @@ public class CartItemResponse implements Serializable {
 
   @Schema(description = "商品ID", example = "prod-001")
   private String productId;
+
   @Schema(description = "数量", example = "1")
   private int quantity;
 

@@ -8,16 +8,18 @@ public class UserResponse implements Serializable {
 
   @Schema(description = "ユーザーID", example = "user-001")
   private final String id;
+
   @Schema(description = "氏名", example = "山田 太郎")
   private final String name;
+
   @Schema(description = "メールアドレス", example = "taro.yamada@example.com")
   private final String email;
 
   /**
    * コンストラクタ.
    *
-   * @param id    ID
-   * @param name  氏名
+   * @param id ID
+   * @param name 氏名
    * @param email メールアドレス
    */
   public UserResponse(String id, String name, String email) {

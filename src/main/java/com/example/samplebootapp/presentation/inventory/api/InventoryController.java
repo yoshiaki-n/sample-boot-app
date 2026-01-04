@@ -58,9 +58,18 @@ public class InventoryController {
   @PostMapping("/reservations")
   @Operation(summary = "在庫引き当て", description = "指定された商品の在庫を引き当て（確保）します。")
   @ApiResponse(responseCode = "200", description = "引き当て成功")
-  @ApiResponse(responseCode = "400", description = "入力エラーまたは在庫不足", content = @Content(schema = @Schema(hidden = true)))
-  @ApiResponse(responseCode = "409", description = "競合エラー", content = @Content(schema = @Schema(hidden = true)))
-  @ApiResponse(responseCode = "404", description = "商品が見つかりません", content = @Content(schema = @Schema(hidden = true)))
+  @ApiResponse(
+      responseCode = "400",
+      description = "入力エラーまたは在庫不足",
+      content = @Content(schema = @Schema(hidden = true)))
+  @ApiResponse(
+      responseCode = "409",
+      description = "競合エラー",
+      content = @Content(schema = @Schema(hidden = true)))
+  @ApiResponse(
+      responseCode = "404",
+      description = "商品が見つかりません",
+      content = @Content(schema = @Schema(hidden = true)))
   public ResponseEntity<Void> reserve(@RequestBody @Validated InventoryReservationRequest request) {
     inventoryCommandService.allocate(request.getProductId(), request.getQuantity());
     return ResponseEntity.ok().build();
