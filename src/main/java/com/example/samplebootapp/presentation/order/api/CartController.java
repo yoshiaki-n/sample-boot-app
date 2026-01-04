@@ -48,4 +48,15 @@ public class CartController {
     String userId = "test-user-001";
     cartCommandService.addItem(userId, request.getProductId(), request.getQuantity());
   }
+
+  @Operation(summary = "カート商品数量変更", description = "カート内の商品の数量を変更します。")
+  @org.springframework.web.bind.annotation.PutMapping("/items/{itemId}")
+  @ResponseStatus(HttpStatus.OK)
+  public void updateItemQuantity(
+      @org.springframework.web.bind.annotation.PathVariable String itemId,
+      @RequestBody @Validated com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request) {
+    // 簡易的にユーザーID固定
+    String userId = "test-user-001";
+    cartCommandService.updateItemQuantity(userId, itemId, request.getQuantity());
+  }
 }
