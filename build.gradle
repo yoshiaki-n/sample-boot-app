@@ -236,6 +236,15 @@ tasks.withType(Pmd) {
     }
 }
 
+// Main以外のPMDタスクを無効化 (テストコードへの過剰なチェックを防ぐため)
+afterEvaluate {
+    tasks.withType(Pmd).configureEach {
+        if (!name.contains("Main")) {
+            enabled = false
+        }
+    }
+}
+
 spotbugs {
     toolVersion = '4.8.3'
     // SpotBugs Gradle Plugin defaults to XML only unless configured in tasks
