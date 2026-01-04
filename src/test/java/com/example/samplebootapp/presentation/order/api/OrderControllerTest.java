@@ -38,45 +38,44 @@ class OrderControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock
-  private OrderCommandService orderCommandService;
-  @Mock
-  private OrderQueryService orderQueryService;
+  @Mock private OrderCommandService orderCommandService;
+  @Mock private OrderQueryService orderQueryService;
 
-  @InjectMocks
-  private OrderController orderController;
+  @InjectMocks private OrderController orderController;
 
   @BeforeEach
   void setUp() {
-    mockMvc = MockMvcBuilders.standaloneSetup(orderController)
-        .setCustomArgumentResolvers(
-            new HandlerMethodArgumentResolver() {
-              @Override
-              public boolean supportsParameter(MethodParameter parameter) {
-                return parameter.hasParameterAnnotation(AuthenticationPrincipal.class);
-              }
+    mockMvc =
+        MockMvcBuilders.standaloneSetup(orderController)
+            .setCustomArgumentResolvers(
+                new HandlerMethodArgumentResolver() {
+                  @Override
+                  public boolean supportsParameter(MethodParameter parameter) {
+                    return parameter.hasParameterAnnotation(AuthenticationPrincipal.class);
+                  }
 
-              @Override
-              public Object resolveArgument(
-                  MethodParameter parameter,
-                  ModelAndViewContainer mavContainer,
-                  NativeWebRequest webRequest,
-                  WebDataBinderFactory binderFactory) {
-                return new User("test-user", "", Collections.emptyList());
-              }
-            })
-        .build();
+                  @Override
+                  public Object resolveArgument(
+                      MethodParameter parameter,
+                      ModelAndViewContainer mavContainer,
+                      NativeWebRequest webRequest,
+                      WebDataBinderFactory binderFactory) {
+                    return new User("test-user", "", Collections.emptyList());
+                  }
+                })
+            .build();
   }
 
   @Test
   @DisplayName("注文履歴_正常系")
   void list_success() throws Exception {
-    OrderResponse orderResponse = new OrderResponse(
-        "ord-1",
-        LocalDateTime.now(),
-        1000,
-        OrderStatus.ORDERED,
-        List.of(new OrderItemResponse("item1", 1000, 1)));
+    OrderResponse orderResponse =
+        new OrderResponse(
+            "ord-1",
+            LocalDateTime.now(),
+            1000,
+            OrderStatus.ORDERED,
+            List.of(new OrderItemResponse("item1", 1000, 1)));
     when(orderQueryService.getOrders("test-user")).thenReturn(List.of(orderResponse));
 
     mockMvc
@@ -91,13 +90,15 @@ class OrderControllerTest {
   @Test
   @DisplayName("注文詳細取得_正常系")
   void get_success() throws Exception {
-    OrderResponse orderResponse = new OrderResponse(
-        "ord-1",
-        LocalDateTime.now(),
-        1000,
-        OrderStatus.ORDERED,
-        List.of(new OrderItemResponse("item1", 1000, 1)));
-    when(orderQueryService.getOrder("ord-1", "test-user")).thenReturn(java.util.Optional.of(orderResponse));
+    OrderResponse orderResponse =
+        new OrderResponse(
+            "ord-1",
+            LocalDateTime.now(),
+            1000,
+            OrderStatus.ORDERED,
+            List.of(new OrderItemResponse("item1", 1000, 1)));
+    when(orderQueryService.getOrder("ord-1", "test-user"))
+        .thenReturn(java.util.Optional.of(orderResponse));
 
     mockMvc
         .perform(get("/api/orders/ord-1"))
@@ -113,9 +114,7 @@ class OrderControllerTest {
   void get_notFound() throws Exception {
     when(orderQueryService.getOrder("ord-999", "test-user")).thenReturn(java.util.Optional.empty());
 
-    mockMvc
-        .perform(get("/api/orders/ord-999"))
-        .andExpect(status().isNotFound());
+    mockMvc.perform(get("/api/orders/ord-999")).andExpect(status().isNotFound());
 
     verify(orderQueryService).getOrder("ord-999", "test-user");
   }

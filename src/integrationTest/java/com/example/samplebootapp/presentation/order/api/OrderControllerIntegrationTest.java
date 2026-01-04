@@ -31,214 +31,210 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class OrderControllerIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private InventoryRepository inventoryRepository;
+  @Autowired private MockMvc mockMvc;
+  @Autowired private JdbcTemplate jdbcTemplate;
+  @Autowired private OrderRepository orderRepository;
+  @Autowired private CartRepository cartRepository;
+  @Autowired private ProductRepository productRepository;
+  @Autowired private InventoryRepository inventoryRepository;
 
-    @BeforeEach
-    void setUp() {
-        // データクリア
-        // テーブル作成 (存在しない場合)
-        jdbcTemplate.execute(
-                "CREATE TABLE IF NOT EXISTS order_orders ("
-                        + "id VARCHAR(255) PRIMARY KEY, "
-                        + "user_id VARCHAR(255) NOT NULL, "
-                        + "status VARCHAR(50) NOT NULL, "
-                        + "total_amount INTEGER NOT NULL, "
-                        + "ordered_at TIMESTAMP NOT NULL"
-                        + ")");
+  @BeforeEach
+  void setUp() {
+    // データクリア
+    // テーブル作成 (存在しない場合)
+    jdbcTemplate.execute(
+        "CREATE TABLE IF NOT EXISTS order_orders ("
+            + "id VARCHAR(255) PRIMARY KEY, "
+            + "user_id VARCHAR(255) NOT NULL, "
+            + "status VARCHAR(50) NOT NULL, "
+            + "total_amount INTEGER NOT NULL, "
+            + "ordered_at TIMESTAMP NOT NULL"
+            + ")");
 
-        jdbcTemplate.execute(
-                "CREATE TABLE IF NOT EXISTS order_order_items ("
-                        + "order_id VARCHAR(255) NOT NULL, "
-                        + "product_id VARCHAR(255) NOT NULL, "
-                        + "product_name VARCHAR(255) NOT NULL, "
-                        + "price INTEGER NOT NULL, "
-                        + "quantity INTEGER NOT NULL, "
-                        + "FOREIGN KEY (order_id) REFERENCES order_orders(id)"
-                        + ")");
-    }
+    jdbcTemplate.execute(
+        "CREATE TABLE IF NOT EXISTS order_order_items ("
+            + "order_id VARCHAR(255) NOT NULL, "
+            + "product_id VARCHAR(255) NOT NULL, "
+            + "product_name VARCHAR(255) NOT NULL, "
+            + "price INTEGER NOT NULL, "
+            + "quantity INTEGER NOT NULL, "
+            + "FOREIGN KEY (order_id) REFERENCES order_orders(id)"
+            + ")");
+  }
 
-    @Test
-    @DisplayName("注文確定_正常に注文が作成され在庫が減りカートが空になる")
-    @WithMockUser(username = "test-user-order", roles = "USER")
-    void placeOrder_success() throws Exception {
-        // 1. 準備 (Arrange)
-        // カテゴリ作成
-        jdbcTemplate.update(
-                "INSERT INTO product_categories (id, name) VALUES (?, ?)", "cat-1", "Test Category");
+  @Test
+  @DisplayName("注文確定_正常に注文が作成され在庫が減りカートが空になる")
+  @WithMockUser(username = "test-user-order", roles = "USER")
+  void placeOrder_success() throws Exception {
+    // 1. 準備 (Arrange)
+    // カテゴリ作成
+    jdbcTemplate.update(
+        "INSERT INTO product_categories (id, name) VALUES (?, ?)", "cat-1", "Test Category");
 
-        // 商品作成
-        ProductId productId = new ProductId("prod-order-1");
-        jdbcTemplate.update(
-                "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
-                "prod-order-1",
-                "Order Test Product",
-                "Desc",
-                1000,
-                "cat-1");
+    // 商品作成
+    ProductId productId = new ProductId("prod-order-1");
+    jdbcTemplate.update(
+        "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
+        "prod-order-1",
+        "Order Test Product",
+        "Desc",
+        1000,
+        "cat-1");
 
-        // 在庫作成
-        jdbcTemplate.update(
-                "INSERT INTO inventory_inventories (product_id, quantity, version) VALUES (?, ?, ?)",
-                "prod-order-1",
-                10,
-                1);
+    // 在庫作成
+    jdbcTemplate.update(
+        "INSERT INTO inventory_inventories (product_id, quantity, version) VALUES (?, ?, ?)",
+        "prod-order-1",
+        10,
+        1);
 
-        // カート作成
-        Cart cart = Cart.create("test-user-order");
-        cart.addItem("prod-order-1", 2);
-        cartRepository.save(cart);
+    // カート作成
+    Cart cart = Cart.create("test-user-order");
+    cart.addItem("prod-order-1", 2);
+    cartRepository.save(cart);
 
-        // 2. 実行 (Act)
-        mockMvc
-                .perform(
-                        post("/api/orders")
-                                .with(user("test-user-order").roles("USER"))
-                                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+    // 2. 実行 (Act)
+    mockMvc
+        .perform(
+            post("/api/orders")
+                .with(user("test-user-order").roles("USER"))
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
 
-        // 3. 検証 (Assert)
-        Integer count = jdbcTemplate.queryForObject(
-                "SELECT count(*) FROM order_orders WHERE user_id = ?",
-                Integer.class,
-                "test-user-order");
-        assertThat(count).isEqualTo(1);
+    // 3. 検証 (Assert)
+    Integer count =
+        jdbcTemplate.queryForObject(
+            "SELECT count(*) FROM order_orders WHERE user_id = ?",
+            Integer.class,
+            "test-user-order");
+    assertThat(count).isEqualTo(1);
 
-        Integer itemCount = jdbcTemplate.queryForObject(
-                "SELECT count(*) FROM order_order_items oi JOIN order_orders o ON oi.order_id = o.id WHERE o.user_id = ?",
-                Integer.class,
-                "test-user-order");
-        assertThat(itemCount).isEqualTo(1);
+    Integer itemCount =
+        jdbcTemplate.queryForObject(
+            "SELECT count(*) FROM order_order_items oi JOIN order_orders o ON oi.order_id = o.id WHERE o.user_id = ?",
+            Integer.class,
+            "test-user-order");
+    assertThat(itemCount).isEqualTo(1);
 
-        // 在庫が減っているか確認 (10 -> 8)
-        Inventory inventory = inventoryRepository.findByProductId(productId).orElseThrow();
-        assertThat(inventory.getQuantity()).isEqualTo(8);
+    // 在庫が減っているか確認 (10 -> 8)
+    Inventory inventory = inventoryRepository.findByProductId(productId).orElseThrow();
+    assertThat(inventory.getQuantity()).isEqualTo(8);
 
-        // カートが空になっているか確認
-        Cart updatedCart = cartRepository.findByUserId("test-user-order").orElseThrow();
-        assertThat(updatedCart.getItems()).isEmpty();
-    }
+    // カートが空になっているか確認
+    Cart updatedCart = cartRepository.findByUserId("test-user-order").orElseThrow();
+    assertThat(updatedCart.getItems()).isEmpty();
+  }
 
-    @Test
-    @DisplayName("注文履歴取得_正常系")
-    @WithMockUser(username = "test-user-order-list", roles = "USER")
-    void list_success() throws Exception {
-        // 1. 準備 (Arrange)
-        // カテゴリ作成
-        jdbcTemplate.update(
-                "INSERT INTO product_categories (id, name) VALUES (?, ?)",
-                "cat-list-1",
-                "List Test Category");
+  @Test
+  @DisplayName("注文履歴取得_正常系")
+  @WithMockUser(username = "test-user-order-list", roles = "USER")
+  void list_success() throws Exception {
+    // 1. 準備 (Arrange)
+    // カテゴリ作成
+    jdbcTemplate.update(
+        "INSERT INTO product_categories (id, name) VALUES (?, ?)",
+        "cat-list-1",
+        "List Test Category");
 
-        // 商品作成
-        jdbcTemplate.update(
-                "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
-                "prod-1",
-                "Product 1",
-                "Desc",
-                1000,
-                "cat-list-1");
+    // 商品作成
+    jdbcTemplate.update(
+        "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
+        "prod-1",
+        "Product 1",
+        "Desc",
+        1000,
+        "cat-list-1");
 
-        // 注文データ作成
-        jdbcTemplate.update(
-                "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
-                "ord-list-1",
-                "test-user-order-list",
-                "ORDERED",
-                2000,
-                java.time.LocalDateTime.of(2023, 1, 1, 12, 0, 0));
+    // 注文データ作成
+    jdbcTemplate.update(
+        "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
+        "ord-list-1",
+        "test-user-order-list",
+        "ORDERED",
+        2000,
+        java.time.LocalDateTime.of(2023, 1, 1, 12, 0, 0));
 
-        jdbcTemplate.update(
-                "INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)",
-                "ord-list-1",
-                "prod-1",
-                "Product 1",
-                1000,
-                2);
+    jdbcTemplate.update(
+        "INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)",
+        "ord-list-1",
+        "prod-1",
+        "Product 1",
+        1000,
+        2);
 
-        // 2. 実行 (Act)
-        mockMvc
-                .perform(get("/api/orders").with(user("test-user-order-list").roles("USER")))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value("ord-list-1"))
-                .andExpect(jsonPath("$[0].totalAmount").value(2000))
-                .andExpect(jsonPath("$[0].items[0].name").value("Product 1"))
-                .andExpect(jsonPath("$[0].items[0].quantity").value(2));
-    }
+    // 2. 実行 (Act)
+    mockMvc
+        .perform(get("/api/orders").with(user("test-user-order-list").roles("USER")))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].id").value("ord-list-1"))
+        .andExpect(jsonPath("$[0].totalAmount").value(2000))
+        .andExpect(jsonPath("$[0].items[0].name").value("Product 1"))
+        .andExpect(jsonPath("$[0].items[0].quantity").value(2));
+  }
 
-    @Test
-    @DisplayName("注文詳細取得_正常系")
-    @WithMockUser(username = "test-user-order-detail", roles = "USER")
-    void get_success() throws Exception {
-        // 1. 準備 (Arrange)
-        // カテゴリ作成
-        jdbcTemplate.update(
-                "INSERT INTO product_categories (id, name) VALUES (?, ?)",
-                "cat-detail-1",
-                "Detail Test Category");
+  @Test
+  @DisplayName("注文詳細取得_正常系")
+  @WithMockUser(username = "test-user-order-detail", roles = "USER")
+  void get_success() throws Exception {
+    // 1. 準備 (Arrange)
+    // カテゴリ作成
+    jdbcTemplate.update(
+        "INSERT INTO product_categories (id, name) VALUES (?, ?)",
+        "cat-detail-1",
+        "Detail Test Category");
 
-        // 商品作成
-        jdbcTemplate.update(
-                "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
-                "prod-detail-1",
-                "Detail Product 1",
-                "Desc",
-                1000,
-                "cat-detail-1");
+    // 商品作成
+    jdbcTemplate.update(
+        "INSERT INTO product_products (id, name, description, price_amount, category_id) VALUES (?, ?, ?, ?, ?)",
+        "prod-detail-1",
+        "Detail Product 1",
+        "Desc",
+        1000,
+        "cat-detail-1");
 
-        // 注文データ作成
-        jdbcTemplate.update(
-                "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
-                "ord-detail-1",
-                "test-user-order-detail",
-                "ORDERED",
-                1000,
-                java.time.LocalDateTime.of(2023, 1, 1, 12, 0, 0));
+    // 注文データ作成
+    jdbcTemplate.update(
+        "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
+        "ord-detail-1",
+        "test-user-order-detail",
+        "ORDERED",
+        1000,
+        java.time.LocalDateTime.of(2023, 1, 1, 12, 0, 0));
 
-        jdbcTemplate.update(
-                "INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)",
-                "ord-detail-1",
-                "prod-detail-1",
-                "Detail Product 1",
-                1000,
-                1);
+    jdbcTemplate.update(
+        "INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)",
+        "ord-detail-1",
+        "prod-detail-1",
+        "Detail Product 1",
+        1000,
+        1);
 
-        // 2. 実行 (Act) & 3. 検証 (Assert)
-        mockMvc
-                .perform(get("/api/orders/ord-detail-1").with(user("test-user-order-detail").roles("USER")))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("ord-detail-1"))
-                .andExpect(jsonPath("$.totalAmount").value(1000))
-                .andExpect(jsonPath("$.items[0].name").value("Detail Product 1"));
-    }
+    // 2. 実行 (Act) & 3. 検証 (Assert)
+    mockMvc
+        .perform(get("/api/orders/ord-detail-1").with(user("test-user-order-detail").roles("USER")))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value("ord-detail-1"))
+        .andExpect(jsonPath("$.totalAmount").value(1000))
+        .andExpect(jsonPath("$.items[0].name").value("Detail Product 1"));
+  }
 
-    @Test
-    @DisplayName("注文詳細取得_他人の注文は取得できない")
-    @WithMockUser(username = "test-user-other", roles = "USER")
-    void get_notFound_accessingOtherUsersOrder() throws Exception {
-        // 1. 準備 (Arrange)
-        // 他人の注文データ作成
-        jdbcTemplate.update(
-                "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
-                "ord-other-1",
-                "test-user-original",
-                "ORDERED",
-                1000,
-                java.time.LocalDateTime.now());
+  @Test
+  @DisplayName("注文詳細取得_他人の注文は取得できない")
+  @WithMockUser(username = "test-user-other", roles = "USER")
+  void get_notFound_accessingOtherUsersOrder() throws Exception {
+    // 1. 準備 (Arrange)
+    // 他人の注文データ作成
+    jdbcTemplate.update(
+        "INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)",
+        "ord-other-1",
+        "test-user-original",
+        "ORDERED",
+        1000,
+        java.time.LocalDateTime.now());
 
-        // 2. 実行 (Act) & 3. 検証 (Assert)
-        mockMvc
-                .perform(get("/api/orders/ord-other-1").with(user("test-user-other").roles("USER")))
-                .andExpect(status().isNotFound());
-    }
+    // 2. 実行 (Act) & 3. 検証 (Assert)
+    mockMvc
+        .perform(get("/api/orders/ord-other-1").with(user("test-user-other").roles("USER")))
+        .andExpect(status().isNotFound());
+  }
 }

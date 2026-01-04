@@ -35,7 +35,7 @@ public class OrderQueryService {
    * 指定された注文IDの注文詳細を取得します.
    *
    * @param orderId 注文ID
-   * @param userId  ユーザーID
+   * @param userId ユーザーID
    * @return 注文詳細 (存在しない場合は空)
    */
   public java.util.Optional<OrderResponse> getOrder(String orderId, String userId) {
@@ -47,11 +47,13 @@ public class OrderQueryService {
   }
 
   private OrderResponse toResponse(OrderData order) {
-    List<OrderItemResponse> itemResponses = order.getItems().stream()
-        .map(
-            item -> new OrderItemResponse(
-                item.getProductName(), item.getPrice(), item.getQuantity()))
-        .toList();
+    List<OrderItemResponse> itemResponses =
+        order.getItems().stream()
+            .map(
+                item ->
+                    new OrderItemResponse(
+                        item.getProductName(), item.getPrice(), item.getQuantity()))
+            .toList();
 
     return new OrderResponse(
         order.getId(),
