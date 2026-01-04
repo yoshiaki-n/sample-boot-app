@@ -17,9 +17,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CartCommandServiceTest {
 
-  @Mock private CartRepository cartRepository;
+  @Mock
+  private CartRepository cartRepository;
 
-  @InjectMocks private CartCommandService cartCommandService;
+  @InjectMocks
+  private CartCommandService cartCommandService;
 
   @Test
   @DisplayName("カート追加: 新規カート作成")
@@ -36,5 +38,23 @@ class CartCommandServiceTest {
 
     // 検証 (Assert)
     verify(cartRepository).save(any(Cart.class));
+  }
+
+  @Test
+  @DisplayName("カート削除: 既存カートから商品削除")
+  void removeItem_success() {
+    // 準備
+    String userId = "user1";
+    String productId = "prod1";
+    Cart cart = Cart.create(userId);
+    cart.addItem(productId, 1);
+
+    when(cartRepository.findByUserId(userId)).thenReturn(Optional.of(cart));
+
+    // 実行
+    cartCommandService.removeItem(userId, productId);
+
+    // 検証
+    verify(cartRepository).save(cart);
   }
 }

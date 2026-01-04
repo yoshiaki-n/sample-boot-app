@@ -18,9 +18,9 @@ public class CartCommandService {
   /**
    * カートに商品を追加します。
    *
-   * @param userId ユーザーID
+   * @param userId    ユーザーID
    * @param productId 商品ID
-   * @param quantity 数量
+   * @param quantity  数量
    */
   public void addItem(String userId, String productId, int quantity) {
     Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> Cart.create(userId));
@@ -33,17 +33,32 @@ public class CartCommandService {
   /**
    * カート内の商品の数量を変更します。
    *
-   * @param userId ユーザーID
+   * @param userId    ユーザーID
    * @param productId 商品ID
-   * @param quantity 数量
+   * @param quantity  数量
    */
   public void updateItemQuantity(String userId, String productId, int quantity) {
-    Cart cart =
-        cartRepository
-            .findByUserId(userId)
-            .orElseThrow(() -> new IllegalArgumentException("Cart not found for user: " + userId));
+    Cart cart = cartRepository
+        .findByUserId(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Cart not found for user: " + userId));
 
     cart.changeQuantity(productId, quantity);
+
+    cartRepository.save(cart);
+  }
+
+  /**
+   * カートから商品を削除します。
+   *
+   * @param userId    ユーザーID
+   * @param productId 商品ID
+   */
+  public void removeItem(String userId, String productId) {
+    Cart cart = cartRepository
+        .findByUserId(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Cart not found for user: " + userId));
+
+    cart.removeItem(productId);
 
     cartRepository.save(cart);
   }
