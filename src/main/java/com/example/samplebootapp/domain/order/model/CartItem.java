@@ -5,9 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import org.springframework.util.Assert;
 
-/**
- * カート内商品.
- */
+/** カート内商品. */
 public class CartItem extends ValueObjectBase<CartItem> implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -19,7 +17,7 @@ public class CartItem extends ValueObjectBase<CartItem> implements Serializable 
    * コンストラクタ.
    *
    * @param productId 商品ID
-   * @param quantity  数量
+   * @param quantity 数量
    */
   public CartItem(String productId, int quantity) {
     Assert.hasText(productId, "productId must not be empty");

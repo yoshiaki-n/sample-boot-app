@@ -3,16 +3,12 @@ package com.example.samplebootapp.application.order.query;
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartRepository;
 import com.example.samplebootapp.presentation.order.response.CartResponse;
-
+import java.util.Collections;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Optional;
-
-/**
- * カート参照サービス.
- */
+/** カート参照サービス. */
 @Service
 @Transactional(readOnly = true)
 public class CartQueryService {

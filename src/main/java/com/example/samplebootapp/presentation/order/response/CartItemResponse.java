@@ -2,9 +2,7 @@ package com.example.samplebootapp.presentation.order.response;
 
 import com.example.samplebootapp.domain.order.model.CartItem;
 
-/**
- * カート商品レスポンス.
- */
+/** カート商品レスポンス. */
 public class CartItemResponse {
 
   private String productId;

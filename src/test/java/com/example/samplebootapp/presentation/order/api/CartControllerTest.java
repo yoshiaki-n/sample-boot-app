@@ -24,14 +24,11 @@ class CartControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock
-  private CartCommandService cartCommandService;
+  @Mock private CartCommandService cartCommandService;
 
-  @Mock
-  private CartQueryService cartQueryService;
+  @Mock private CartQueryService cartQueryService;
 
-  @InjectMocks
-  private CartController cartController;
+  @InjectMocks private CartController cartController;
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -63,8 +60,9 @@ class CartControllerTest {
   @DisplayName("カート参照API: 正常系")
   void getCart_success() throws Exception {
     // 準備
-    com.example.samplebootapp.presentation.order.response.CartResponse response = new com.example.samplebootapp.presentation.order.response.CartResponse(
-        "cart-1", java.util.Collections.emptyList());
+    com.example.samplebootapp.presentation.order.response.CartResponse response =
+        new com.example.samplebootapp.presentation.order.response.CartResponse(
+            "cart-1", java.util.Collections.emptyList());
 
     org.mockito.Mockito.when(cartQueryService.getCart("test-user-001")).thenReturn(response);
 
@@ -73,7 +71,8 @@ class CartControllerTest {
         .perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/cart"))
         .andExpect(status().isOk())
-        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.cartId")
-            .value("cart-1"));
+        .andExpect(
+            org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.cartId")
+                .value("cart-1"));
   }
 }

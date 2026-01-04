@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.util.Assert;
 
-/**
- * カート集約ルート.
- */
+/** カート集約ルート. */
 public class Cart extends AggregateRootBase<CartId> implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -28,9 +26,9 @@ public class Cart extends AggregateRootBase<CartId> implements Serializable {
   /**
    * コンストラクタ.
    *
-   * @param id     カートID
+   * @param id カートID
    * @param userId ユーザーID
-   * @param items  カート内商品リスト
+   * @param items カート内商品リスト
    */
   public Cart(CartId id, String userId, List<CartItem> items) {
     super(id);
@@ -50,19 +48,17 @@ public class Cart extends AggregateRootBase<CartId> implements Serializable {
   }
 
   /**
-   * カートに商品を追加します.
-   * 既に同じ商品がある場合は数量を加算します.
+   * カートに商品を追加します. 既に同じ商品がある場合は数量を加算します.
    *
    * @param productId 商品ID
-   * @param quantity  数量
+   * @param quantity 数量
    */
   public void addItem(String productId, int quantity) {
     Assert.hasText(productId, "productId must not be empty");
     Assert.isTrue(quantity > 0, "quantity must be greater than 0");
 
-    Optional<CartItem> existingItem = items.stream()
-        .filter(item -> item.getProductId().equals(productId))
-        .findFirst();
+    Optional<CartItem> existingItem =
+        items.stream().filter(item -> item.getProductId().equals(productId)).findFirst();
 
     if (existingItem.isPresent()) {
       CartItem item = existingItem.get();
@@ -86,7 +82,7 @@ public class Cart extends AggregateRootBase<CartId> implements Serializable {
    * 商品の数量を変更します.
    *
    * @param productId 商品ID
-   * @param quantity  新しい数量
+   * @param quantity 新しい数量
    */
   public void changeQuantity(String productId, int quantity) {
     if (quantity <= 0) {

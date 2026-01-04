@@ -18,13 +18,12 @@ public class CartCommandService {
   /**
    * カートに商品を追加します。
    *
-   * @param userId    ユーザーID
+   * @param userId ユーザーID
    * @param productId 商品ID
-   * @param quantity  数量
+   * @param quantity 数量
    */
   public void addItem(String userId, String productId, int quantity) {
-    Cart cart = cartRepository.findByUserId(userId)
-        .orElseGet(() -> Cart.create(userId));
+    Cart cart = cartRepository.findByUserId(userId).orElseGet(() -> Cart.create(userId));
 
     cart.addItem(productId, quantity);
 

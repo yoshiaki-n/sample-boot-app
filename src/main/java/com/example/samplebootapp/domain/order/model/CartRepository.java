@@ -2,9 +2,7 @@ package com.example.samplebootapp.domain.order.model;
 
 import java.util.Optional;
 
-/**
- * カートリポジトリ.
- */
+/** カートリポジトリ. */
 public interface CartRepository {
 
   /**

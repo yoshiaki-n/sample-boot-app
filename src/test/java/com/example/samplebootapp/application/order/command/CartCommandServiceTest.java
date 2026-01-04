@@ -17,11 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CartCommandServiceTest {
 
-  @Mock
-  private CartRepository cartRepository;
+  @Mock private CartRepository cartRepository;
 
-  @InjectMocks
-  private CartCommandService cartCommandService;
+  @InjectMocks private CartCommandService cartCommandService;
 
   @Test
   @DisplayName("カート追加: 新規カート作成")

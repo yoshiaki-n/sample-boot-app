@@ -1,15 +1,12 @@
 package com.example.samplebootapp.application.order.query;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.example.samplebootapp.application.order.query.CartQueryService;
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartRepository;
 import com.example.samplebootapp.presentation.order.response.CartResponse;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,11 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CartQueryServiceTest {
 
-  @Mock
-  private CartRepository cartRepository;
+  @Mock private CartRepository cartRepository;
 
-  @InjectMocks
-  private CartQueryService cartQueryService;
+  @InjectMocks private CartQueryService cartQueryService;
 
   @Test
   @DisplayName("カート取得: カートが存在する場合、正しくマッピングされたレスポンスが返る")

@@ -20,11 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class CartControllerIntegrationTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @Autowired
-  private CartMapper cartMapper;
+  @Autowired private CartMapper cartMapper;
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -58,10 +56,11 @@ class CartControllerIntegrationTest {
     request.setProductId("prod_002");
     request.setQuantity(3);
 
-    mockMvc.perform(
-        post("/api/cart/items")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(request)))
+    mockMvc
+        .perform(
+            post("/api/cart/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
 
     // 実行 (Act) & 検証 (Assert)
@@ -69,9 +68,13 @@ class CartControllerIntegrationTest {
         .perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/cart"))
         .andExpect(status().isOk())
-        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
-            .jsonPath("$.items[0].productId").value("prod_002"))
-        .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
-            .jsonPath("$.items[0].quantity").value(3));
+        .andExpect(
+            org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath(
+                    "$.items[0].productId")
+                .value("prod_002"))
+        .andExpect(
+            org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath(
+                    "$.items[0].quantity")
+                .value(3));
   }
 }
