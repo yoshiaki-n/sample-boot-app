@@ -13,36 +13,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class OrderQueryService {
 
-    private final OrderMapper orderMapper;
+  private final OrderMapper orderMapper;
 
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
-    public OrderQueryService(OrderMapper orderMapper) {
-        this.orderMapper = orderMapper;
-    }
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
+  public OrderQueryService(OrderMapper orderMapper) {
+    this.orderMapper = orderMapper;
+  }
 
-    /**
-     * ユーザーの注文履歴を取得します.
-     *
-     * @param userId ユーザーID
-     * @return 注文履歴リスト
-     */
-    public List<OrderResponse> getOrders(String userId) {
-        List<OrderData> orders = orderMapper.selectByUserId(userId);
-        return orders.stream().map(this::toResponse).toList();
-    }
+  /**
+   * ユーザーの注文履歴を取得します.
+   *
+   * @param userId ユーザーID
+   * @return 注文履歴リスト
+   */
+  public List<OrderResponse> getOrders(String userId) {
+    List<OrderData> orders = orderMapper.selectByUserId(userId);
+    return orders.stream().map(this::toResponse).toList();
+  }
 
-    private OrderResponse toResponse(OrderData order) {
-        List<OrderItemResponse> itemResponses = order.getItems().stream()
-                .map(
-                        item -> new OrderItemResponse(
-                                item.getProductName(), item.getPrice(), item.getQuantity()))
-                .toList();
+  private OrderResponse toResponse(OrderData order) {
+    List<OrderItemResponse> itemResponses =
+        order.getItems().stream()
+            .map(
+                item ->
+                    new OrderItemResponse(
+                        item.getProductName(), item.getPrice(), item.getQuantity()))
+            .toList();
 
-        return new OrderResponse(
-                order.getId(),
-                order.getOrderedAt(),
-                order.getTotalAmount(),
-                order.getStatus(),
-                itemResponses);
-    }
+    return new OrderResponse(
+        order.getId(),
+        order.getOrderedAt(),
+        order.getTotalAmount(),
+        order.getStatus(),
+        itemResponses);
+  }
 }

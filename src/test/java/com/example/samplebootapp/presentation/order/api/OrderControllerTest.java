@@ -1,7 +1,6 @@
 package com.example.samplebootapp.presentation.order.api;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,57 +26,56 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ExtendWith(MockitoExtension.class)
 class OrderControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock
-  private OrderCommandService orderCommandService;
-  @Mock
-  private OrderQueryService orderQueryService;
+  @Mock private OrderCommandService orderCommandService;
+  @Mock private OrderQueryService orderQueryService;
 
-  @InjectMocks
-  private OrderController orderController;
+  @InjectMocks private OrderController orderController;
 
   @BeforeEach
   void setUp() {
-    mockMvc = MockMvcBuilders.standaloneSetup(orderController)
-        .setCustomArgumentResolvers(
-            new HandlerMethodArgumentResolver() {
-              @Override
-              public boolean supportsParameter(MethodParameter parameter) {
-                return parameter.hasParameterAnnotation(AuthenticationPrincipal.class);
-              }
+    mockMvc =
+        MockMvcBuilders.standaloneSetup(orderController)
+            .setCustomArgumentResolvers(
+                new HandlerMethodArgumentResolver() {
+                  @Override
+                  public boolean supportsParameter(MethodParameter parameter) {
+                    return parameter.hasParameterAnnotation(AuthenticationPrincipal.class);
+                  }
 
-              @Override
-              public Object resolveArgument(
-                  MethodParameter parameter,
-                  ModelAndViewContainer mavContainer,
-                  NativeWebRequest webRequest,
-                  WebDataBinderFactory binderFactory) {
-                return new User("test-user", "", Collections.emptyList());
-              }
-            })
-        .build();
+                  @Override
+                  public Object resolveArgument(
+                      MethodParameter parameter,
+                      ModelAndViewContainer mavContainer,
+                      NativeWebRequest webRequest,
+                      WebDataBinderFactory binderFactory) {
+                    return new User("test-user", "", Collections.emptyList());
+                  }
+                })
+            .build();
   }
 
   @Test
   @DisplayName("注文履歴_正常系")
   void list_success() throws Exception {
-    OrderResponse orderResponse = new OrderResponse(
-        "ord-1",
-        LocalDateTime.now(),
-        1000,
-        OrderStatus.ORDERED,
-        List.of(new OrderItemResponse("item1", 1000, 1)));
+    OrderResponse orderResponse =
+        new OrderResponse(
+            "ord-1",
+            LocalDateTime.now(),
+            1000,
+            OrderStatus.ORDERED,
+            List.of(new OrderItemResponse("item1", 1000, 1)));
     when(orderQueryService.getOrders("test-user")).thenReturn(List.of(orderResponse));
 
     mockMvc
