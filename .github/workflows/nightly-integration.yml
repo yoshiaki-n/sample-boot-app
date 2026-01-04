@@ -48,6 +48,13 @@ jobs:
       - name: Run Integration Tests
         run: ./gradlew integrationTest
 
+      - name: Upload Integration Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-report
+          path: build/reports/tests/integrationTest
+
       - name: Deploy to GitHub Pages
         if: always() # テスト失敗時もレポートは見たい
         uses: peaceiris/actions-gh-pages@v3

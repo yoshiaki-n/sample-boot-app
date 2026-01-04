@@ -30,6 +30,13 @@ jobs:
       - name: Run Fitness Tests
         run: ./gradlew fitnessTest
 
+      - name: Upload Fitness Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fitness-test-report
+          path: build/reports/tests/fitnessTest
+
       - name: Deploy to GitHub Pages
         if: always() # テスト失敗時もレポートは見たい
         uses: peaceiris/actions-gh-pages@v3
