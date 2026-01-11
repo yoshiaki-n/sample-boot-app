@@ -75,6 +75,7 @@ Spring Boot サンプルアプリケーション
 | `test` | **単体テスト**を実行し、**単体テストのカバレッジレポート**を生成します。外部依存（DBなど）を含まないテストです。 | `./gradlew test` |
 | `integrationTest` | **統合テスト**を実行します。DBなどの外部リソースと接続して動作確認を行います。 | `./gradlew integrationTest` |
 | `fitnessTest` | **適応度関数テスト (ArchUnit)** を実行します。パッケージ依存関係などのアーキテクチャルールを守れているかチェックします。 | `./gradlew fitnessTest` |
+| `e2eTest` | **E2Eテスト (Cucumber)** を実行します。Gherkinで記述された自然言語シナリオを実行し、エンドツーエンドの動作を確認します。実行後、Cluecumberレポートが生成されます。 | `./gradlew e2eTest` |
 | `allTest` | **全テスト（単体・結合）**を実行し、**統合されたカバレッジレポート**を生成します。 | `./gradlew allTest` |
 
 ### 1.3.2. コード品質チェック
@@ -140,7 +141,31 @@ docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway
 
 
 
-### 1.3.6. APIドキュメント (OpenAPI)
+```bash
+docker run --rm --network host -v $(pwd)/src/main/resources/db/migration:/flyway/sql flyway/flyway:11 -url=jdbc:postgresql://localhost:5432/sampleapp -user=sampleapp -password=password info
+```
+
+### 1.3.6. E2Eテスト (Cucumber)
+
+Cucumberを使用したE2Eテストの実施方法について説明します。
+
+1.  **テストの実行**
+    ```bash
+    ./gradlew e2eTest
+    ```
+
+2.  **レポートの確認 (Cluecumber)**
+    テスト完了後、以下のパスにHTML形式の詳細レポートが生成されます。
+    
+    `build/reports/cluecumber/index.html`
+
+    ブラウザで開くことで、シナリオごとの実行結果や統計情報を確認できます。
+
+3.  **テストの書き方**
+    *   **シナリオ (Featureファイル)**: `src/e2eTest/resources/features` 配下に `.feature` ファイルを作成し、Gherkin記法でシナリオを記述します。
+    *   **ステップ定義 (Step Definitions)**: `src/e2eTest/java/com/example/samplebootapp/e2e` 配下のJavaクラスで、Cucumberのアノテーション (`@Given`, `@When`, `@Then` 等) を使用してステップの実装を行います。
+
+### 1.3.7. APIドキュメント (OpenAPI)
 
 開発環境 (`dev` プロファイル) では、OpenAPI (Swagger UI) を利用してAPI仕様を確認・実行できます。
 
@@ -194,5 +219,7 @@ git truck
 *   `src/test/java`: 単体テストコード
 *   `src/integrationTest/java`: 統合テストコード
 *   `src/fitnessTest/java`: アーキテクチャテストコード
+*   `src/e2eTest/java`: E2Eテストコード (Cucumber Step Definitions)
+*   `src/e2eTest/resources`: E2Eテストリソース (Cucumber Features)
 *   `doc`: プロジェクトのドキュメント (API仕様、アーキテクチャ詳細など)
 *   `docker`: Docker関連の設定ファイル
