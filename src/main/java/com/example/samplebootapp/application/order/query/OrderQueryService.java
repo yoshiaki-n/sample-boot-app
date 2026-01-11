@@ -1,10 +1,8 @@
 package com.example.samplebootapp.application.order.query;
 
-import com.example.samplebootapp.infrastructure.datasource.order.OrderData;
-import com.example.samplebootapp.infrastructure.datasource.order.OrderMapper;
-import com.example.samplebootapp.presentation.order.api.response.OrderItemResponse;
-import com.example.samplebootapp.presentation.order.api.response.OrderResponse;
+import com.example.samplebootapp.application.order.query.dto.OrderDto;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class OrderQueryService {
 
-  private final OrderMapper orderMapper;
+  private final OrderQueryRepository orderQueryRepository;
 
   @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
-  public OrderQueryService(OrderMapper orderMapper) {
-    this.orderMapper = orderMapper;
+  public OrderQueryService(OrderQueryRepository orderQueryRepository) {
+    this.orderQueryRepository = orderQueryRepository;
   }
 
   /**
@@ -26,40 +24,18 @@ public class OrderQueryService {
    * @param userId ユーザーID
    * @return 注文履歴リスト
    */
-  public List<OrderResponse> getOrders(String userId) {
-    List<OrderData> orders = orderMapper.selectByUserId(userId);
-    return orders.stream().map(this::toResponse).toList();
+  public List<OrderDto> getOrders(String userId) {
+    return orderQueryRepository.findByUserId(userId);
   }
 
   /**
    * 指定された注文IDの注文詳細を取得します.
    *
    * @param orderId 注文ID
-   * @param userId ユーザーID
+   * @param userId  ユーザーID
    * @return 注文詳細 (存在しない場合は空)
    */
-  public java.util.Optional<OrderResponse> getOrder(String orderId, String userId) {
-    OrderData order = orderMapper.selectByIdAndUserId(orderId, userId);
-    if (order == null) {
-      return java.util.Optional.empty();
-    }
-    return java.util.Optional.of(toResponse(order));
-  }
-
-  private OrderResponse toResponse(OrderData order) {
-    List<OrderItemResponse> itemResponses =
-        order.getItems().stream()
-            .map(
-                item ->
-                    new OrderItemResponse(
-                        item.getProductName(), item.getPrice(), item.getQuantity()))
-            .toList();
-
-    return new OrderResponse(
-        order.getId(),
-        order.getOrderedAt(),
-        order.getTotalAmount(),
-        order.getStatus(),
-        itemResponses);
+  public Optional<OrderDto> getOrder(String orderId, String userId) {
+    return orderQueryRepository.findByIdAndUserId(orderId, userId);
   }
 }
