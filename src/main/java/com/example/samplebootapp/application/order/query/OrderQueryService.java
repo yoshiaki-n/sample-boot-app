@@ -32,7 +32,7 @@ public class OrderQueryService {
    * 指定された注文IDの注文詳細を取得します.
    *
    * @param orderId 注文ID
-   * @param userId  ユーザーID
+   * @param userId ユーザーID
    * @return 注文詳細 (存在しない場合は空)
    */
   public Optional<OrderDto> getOrder(String orderId, String userId) {

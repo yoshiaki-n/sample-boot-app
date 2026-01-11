@@ -34,7 +34,8 @@ public class OrderController {
       @AuthenticationPrincipal UserDetails userDetails) {
     // TODO: 本来は UserDetails から安全に ID を取り出す仕組みが必要だが、簡易的に Username を ID とする
     String userId = userDetails.getUsername();
-    List<com.example.samplebootapp.application.order.query.dto.OrderDto> orders = orderQueryService.getOrders(userId);
+    List<com.example.samplebootapp.application.order.query.dto.OrderDto> orders =
+        orderQueryService.getOrders(userId);
     return ResponseEntity.ok(orders.stream().map(this::toResponse).toList());
   }
 
@@ -63,12 +64,14 @@ public class OrderController {
 
   private OrderResponse toResponse(
       com.example.samplebootapp.application.order.query.dto.OrderDto dto) {
-    List<com.example.samplebootapp.presentation.order.api.response.OrderItemResponse> itemResponses = dto.items()
-        .stream()
-        .map(
-            item -> new com.example.samplebootapp.presentation.order.api.response.OrderItemResponse(
-                item.name(), item.price(), item.quantity()))
-        .toList();
+    List<com.example.samplebootapp.presentation.order.api.response.OrderItemResponse>
+        itemResponses =
+            dto.items().stream()
+                .map(
+                    item ->
+                        new com.example.samplebootapp.presentation.order.api.response
+                            .OrderItemResponse(item.name(), item.price(), item.quantity()))
+                .toList();
 
     return new OrderResponse(
         dto.id(), dto.orderedAt(), dto.totalAmount(), dto.status(), itemResponses);
