@@ -15,6 +15,14 @@
         </constructor>
     </resultMap>
 
+    <resultMap id="CartItemDtoResultMap" type="com.example.samplebootapp.application.order.query.CartItemDto">
+        <constructor>
+            <arg column="product_id" javaType="String"/>
+            <arg column="product_name" javaType="String"/>
+            <arg column="quantity" javaType="_int"/>
+        </constructor>
+    </resultMap>
+
     <insert id="insertCart">
         INSERT INTO order_carts (id, user_id)
         VALUES (#{id.value}, #{userId})
@@ -39,6 +47,22 @@
         SELECT product_id, quantity
         FROM order_cart_items
         WHERE cart_id = #{cartId}
+    </select>
+
+    <select id="findCartIdByUserId" resultType="String">
+        SELECT id
+        FROM order_carts
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findCartItemDtos" resultMap="CartItemDtoResultMap">
+        SELECT
+            i.product_id,
+            p.name as product_name,
+            i.quantity
+        FROM order_cart_items i
+        LEFT JOIN product_products p ON i.product_id = p.id
+        WHERE i.cart_id = #{cartId}
     </select>
 
 </mapper>

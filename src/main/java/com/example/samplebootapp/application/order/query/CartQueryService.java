@@ -1,7 +1,6 @@
 package com.example.samplebootapp.application.order.query;
 
-import com.example.samplebootapp.domain.order.model.Cart;
-import com.example.samplebootapp.domain.order.model.CartRepository;
+import com.example.samplebootapp.infrastructure.order.mapper.CartMapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CartQueryService {
 
-  private final CartRepository cartRepository;
+  private final CartMapper cartMapper;
 
-  public CartQueryService(CartRepository cartRepository) {
-    this.cartRepository = cartRepository;
+  public CartQueryService(CartMapper cartMapper) {
+    this.cartMapper = cartMapper;
   }
 
   /**
@@ -26,19 +25,13 @@ public class CartQueryService {
    * @return カートDTO
    */
   public CartDto getCart(String userId) {
-    Optional<Cart> cartOpt = cartRepository.findByUserId(userId);
+    String cartId = cartMapper.findCartIdByUserId(userId);
 
-    if (cartOpt.isPresent()) {
-      Cart cart = cartOpt.get();
-      List<CartItemDto> items =
-          cart.getItems().stream()
-              .map(item -> new CartItemDto(item.getProductId(), item.getQuantity()))
-              .toList();
-      return new CartDto(cart.getId().getValue(), items);
+    if (cartId != null) {
+      List<CartItemDto> items = cartMapper.findCartItemDtos(cartId);
+      return new CartDto(cartId, items);
     } else {
-      // カートが存在しない場合は空のレスポンスを返す（要件に合わせて調整）
-      // IDは仮で空文字、またはnullとするか、空のカートオブジェクトを作成して変換するなど
-      // ここでは空のカートとして扱う
+      // カートが存在しない場合は空のレスポンスを返す
       return new CartDto("", Collections.emptyList());
     }
   }
