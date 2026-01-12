@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">1</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">3.425s</div>
+<div class="counter">3.523s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,12 +61,48 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
+<a href="#">Failed tests</a>
+</li>
+<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard output</a>
 </li>
 </ul>
+<div class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="onion_architecture_is_respected"></a>
+<h3 class="failures">onion_architecture_is_respected</h3>
+<span class="code">
+<pre id="test-message-onion_architecture_is_respected">java.lang.AssertionError: Architecture Violation [Priority: MEDIUM] - Rule 'Onion architecture consisting of (optional)
+domain models ('..domain..')
+domain services ('..domain..service..')
+application services ('..application..')
+adapter 'infrastructure' ('..infrastructure..')
+adapter 'presentation' ('..presentation..')' was violated (8 times):
+Constructor &lt;com.example.samplebootapp.application.order.query.CartQueryService.&lt;init&gt;(com.example.samplebootapp.infrastructure.order.mapper.CartMapper)&gt; has parameter of type &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper&gt; in (CartQueryService.java:0)
+Field &lt;com.example.samplebootapp.application.order.query.CartQueryService.cartMapper&gt; has type &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper&gt; in (CartQueryService.java:0)
+Field &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.cartMapper&gt; has type &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper&gt; in (CartQueryServiceTest.java:0)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls method &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper.findCartIdByUserId(java.lang.String)&gt; in (CartQueryService.java:28)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryService.getCart(java.lang.String)&gt; calls method &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper.findCartItemDtos(java.lang.String)&gt; in (CartQueryService.java:31)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper.findCartIdByUserId(java.lang.String)&gt; in (CartQueryServiceTest.java:30)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_exists()&gt; calls method &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper.findCartItemDtos(java.lang.String)&gt; in (CartQueryServiceTest.java:31)
+Method &lt;com.example.samplebootapp.application.order.query.CartQueryServiceTest.getCart_notFound()&gt; calls method &lt;com.example.samplebootapp.infrastructure.order.mapper.CartMapper.findCartIdByUserId(java.lang.String)&gt; in (CartQueryServiceTest.java:49)
+	at com.tngtech.archunit.lang.ArchRule$Assertions.assertNoViolation(ArchRule.java:94)
+	at com.tngtech.archunit.lang.ArchRule$Assertions.check(ArchRule.java:86)
+	at com.tngtech.archunit.library.Architectures$LayeredArchitecture.check(Architectures.java:347)
+	at com.tngtech.archunit.library.Architectures$OnionArchitecture.check(Architectures.java:1039)
+	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:167)
+	at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:150)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="test-message-onion_architecture_is_respected">Copy</button>
+</span>
+</div>
+</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -78,16 +114,16 @@
 </tr>
 </thead>
 <tr>
-<td class="success">onion_architecture_is_respected</td>
-<td class="success">3.425s</td>
-<td class="success">passed</td>
+<td class="failures">onion_architecture_is_respected</td>
+<td class="failures">3.523s</td>
+<td class="failures">failed</td>
 </tr>
 </table>
 </div>
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">15:25:42.049 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
+<pre id="class-stdout">15:31:24.311 [Test worker] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 17.0.17
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -100,7 +136,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 11, 2026, 3:25:45 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jan 12, 2026, 3:31:27 PM</p>
 </div>
 </div>
 </body>
