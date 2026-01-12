@@ -25,17 +25,22 @@ class CartControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock private CartCommandService cartCommandService;
+  @Mock
+  private CartCommandService cartCommandService;
 
-  @Mock private CartQueryService cartQueryService;
+  @Mock
+  private CartQueryService cartQueryService;
 
-  @InjectMocks private CartController cartController;
+  @InjectMocks
+  private CartController cartController;
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @BeforeEach
   void setUp() {
-    mockMvc = MockMvcBuilders.standaloneSetup(cartController).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(cartController)
+        .setCustomArgumentResolvers(new MockUserDetailsArgumentResolver())
+        .build();
   }
 
   @Test
@@ -54,26 +59,26 @@ class CartControllerTest {
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
 
-    verify(cartCommandService).addItem("test-user-001", "prod_001", 1);
+    verify(cartCommandService).addItem("test-user", "prod_001", 1);
   }
 
   @Test
   @DisplayName("カート商品数量変更API: 正常系")
   void updateItemQuantity_success() throws Exception {
     // 準備
-    com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request =
-        new com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest(3);
+    com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request = new com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest(
+        3);
 
     // 実行 & 検証
     mockMvc
         .perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put(
-                    "/api/cart/items/{itemId}", "prod_001")
+                "/api/cart/items/{itemId}", "prod_001")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
 
-    verify(cartCommandService).updateItemQuantity("test-user-001", "prod_001", 3);
+    verify(cartCommandService).updateItemQuantity("test-user", "prod_001", 3);
   }
 
   @Test
@@ -82,7 +87,7 @@ class CartControllerTest {
     // 準備
     CartDto response = new CartDto("cart-1", java.util.Collections.emptyList());
 
-    org.mockito.Mockito.when(cartQueryService.getCart("test-user-001")).thenReturn(response);
+    org.mockito.Mockito.when(cartQueryService.getCart("test-user")).thenReturn(response);
 
     // 実行 & 検証
     mockMvc
@@ -104,6 +109,30 @@ class CartControllerTest {
                 "/api/cart/items/{itemId}", "prod_001"))
         .andExpect(status().isOk());
 
-    verify(cartCommandService).removeItem("test-user-001", "prod_001");
+    verify(cartCommandService).removeItem("test-user", "prod_001");
+  }
+
+  /** UserDetailsをモックするためのArgumentResolver. */
+  static class MockUserDetailsArgumentResolver
+      implements org.springframework.web.method.support.HandlerMethodArgumentResolver {
+    @Override
+    public boolean supportsParameter(org.springframework.core.MethodParameter parameter) {
+      return parameter.getParameterType()
+          .isAssignableFrom(org.springframework.security.core.userdetails.UserDetails.class)
+          || parameter
+              .hasParameterAnnotation(org.springframework.security.core.annotation.AuthenticationPrincipal.class);
+    }
+
+    @Override
+    public Object resolveArgument(
+        org.springframework.core.MethodParameter parameter,
+        org.springframework.web.method.support.ModelAndViewContainer mavContainer,
+        org.springframework.web.context.request.NativeWebRequest webRequest,
+        org.springframework.web.bind.support.WebDataBinderFactory binderFactory) {
+      return org.springframework.security.core.userdetails.User.withUsername("test-user")
+          .password("password")
+          .roles("USER")
+          .build();
+    }
   }
 }

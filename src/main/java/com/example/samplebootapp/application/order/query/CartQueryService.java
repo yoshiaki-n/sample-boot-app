@@ -14,6 +14,7 @@ public class CartQueryService {
 
   private final CartMapper cartMapper;
 
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
   public CartQueryService(CartMapper cartMapper) {
     this.cartMapper = cartMapper;
   }

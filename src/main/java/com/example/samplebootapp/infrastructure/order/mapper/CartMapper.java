@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public interface CartMapper {
   void insertCart(Cart cart);
 
