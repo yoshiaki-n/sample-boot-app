@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cart")
 public class CartController {
 
-  private static final String TEST_USER_ID = "test-user-001";
+  // private static final String TEST_USER_ID = "test-user-001";
 
   private final CartCommandService cartCommandService;
   private final CartQueryService cartQueryService;
@@ -35,9 +35,9 @@ public class CartController {
   @Operation(summary = "カート参照", description = "現在のユーザーのカート内の商品一覧を返します。")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public CartResponse getCart() {
-    // 簡易的にユーザーID固定
-    String userId = TEST_USER_ID;
+  public CartResponse getCart(
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    String userId = userDetails.getUsername();
     CartDto dto = cartQueryService.getCart(userId);
     return CartResponse.from(dto);
   }
@@ -45,9 +45,10 @@ public class CartController {
   @Operation(summary = "カート追加", description = "カートに商品を追加します。")
   @PostMapping("/items")
   @ResponseStatus(HttpStatus.OK)
-  public void addItem(@RequestBody @Validated CartAddRequest request) {
-    // 簡易的にユーザーID固定（認証未実装のため）
-    String userId = TEST_USER_ID;
+  public void addItem(
+      @RequestBody @Validated CartAddRequest request,
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    String userId = userDetails.getUsername();
     cartCommandService.addItem(userId, request.getProductId(), request.getQuantity());
   }
 
@@ -56,19 +57,19 @@ public class CartController {
   @ResponseStatus(HttpStatus.OK)
   public void updateItemQuantity(
       @org.springframework.web.bind.annotation.PathVariable String itemId,
-      @RequestBody @Validated
-          com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request) {
-    // 簡易的にユーザーID固定
-    String userId = TEST_USER_ID;
+      @RequestBody @Validated com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request,
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    String userId = userDetails.getUsername();
     cartCommandService.updateItemQuantity(userId, itemId, request.getQuantity());
   }
 
   @Operation(summary = "カート削除", description = "カートから特定の商品を削除します。")
   @org.springframework.web.bind.annotation.DeleteMapping("/items/{itemId}")
   @ResponseStatus(HttpStatus.OK)
-  public void deleteItem(@org.springframework.web.bind.annotation.PathVariable String itemId) {
-    // 簡易的にユーザーID固定
-    String userId = TEST_USER_ID;
+  public void deleteItem(
+      @org.springframework.web.bind.annotation.PathVariable String itemId,
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
+    String userId = userDetails.getUsername();
     cartCommandService.removeItem(userId, itemId);
   }
 }

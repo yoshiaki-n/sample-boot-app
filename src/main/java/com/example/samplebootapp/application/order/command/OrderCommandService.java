@@ -44,10 +44,9 @@ public class OrderCommandService {
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public String placeOrder(String userId) {
     // 1. カート取得
-    Cart cart =
-        cartRepository
-            .findByUserId(userId)
-            .orElseThrow(() -> new IllegalArgumentException("Cart not found for user: " + userId));
+    Cart cart = cartRepository
+        .findByUserId(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Cart not found for user: " + userId));
 
     if (cart.getItems().isEmpty()) {
       throw new IllegalArgumentException("Cart is empty");
@@ -57,16 +56,18 @@ public class OrderCommandService {
     List<OrderItem> orderItems = new ArrayList<>();
     for (com.example.samplebootapp.domain.order.model.CartItem cartItem : cart.getItems()) {
       // 商品情報取得
-      Product product =
-          productRepository
-              .findById(new ProductId(cartItem.getProductId()))
-              .orElseThrow(
-                  () ->
-                      new IllegalArgumentException(
-                          "Product not found: " + cartItem.getProductId()));
+      Product product = productRepository
+          .findById(new ProductId(cartItem.getProductId()))
+          .orElseThrow(
+              () -> new IllegalArgumentException(
+                  "Product not found: " + cartItem.getProductId()));
 
       // 在庫引き当て
-      inventoryCommandService.allocate(product.getId().getValue(), cartItem.getQuantity());
+      try {
+        inventoryCommandService.allocate(product.getId().getValue(), cartItem.getQuantity());
+      } catch (Exception e) {
+        throw e;
+      }
 
       // 注文明細作成
       orderItems.add(

@@ -1,5 +1,7 @@
 package com.example.samplebootapp.infrastructure.order.mapper;
 
+import com.example.samplebootapp.application.order.query.CartDto;
+import com.example.samplebootapp.application.order.query.CartItemDto;
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartItem;
 import java.util.List;
@@ -8,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public interface CartMapper {
   void insertCart(Cart cart);
 
@@ -18,4 +21,8 @@ public interface CartMapper {
   Optional<Cart> findByUserId(@Param("userId") String userId);
 
   List<CartItem> findItemsByCartId(@Param("cartId") String cartId);
+
+  String findCartIdByUserId(@Param("userId") String userId);
+
+  List<CartItemDto> findCartItemDtos(@Param("cartId") String cartId);
 }
