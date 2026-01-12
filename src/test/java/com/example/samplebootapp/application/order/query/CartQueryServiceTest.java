@@ -15,11 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CartQueryServiceTest {
 
-  @Mock
-  private CartMapper cartMapper;
+  @Mock private CartMapper cartMapper;
 
-  @InjectMocks
-  private CartQueryService cartQueryService;
+  @InjectMocks private CartQueryService cartQueryService;
 
   @Test
   @DisplayName("カート取得: カートが存在する場合、正しくマッピングされたレスポンスが返る")

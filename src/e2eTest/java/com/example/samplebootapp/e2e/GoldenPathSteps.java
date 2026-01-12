@@ -6,14 +6,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.samplebootapp.domain.product.model.Category;
 import com.example.samplebootapp.domain.product.model.CategoryId;
 import com.example.samplebootapp.domain.product.model.Price;
 import com.example.samplebootapp.domain.product.model.Product;
 import com.example.samplebootapp.domain.product.model.ProductId;
 import com.example.samplebootapp.domain.user.model.Member;
 import com.example.samplebootapp.domain.user.model.MemberRepository;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ja.かつ;
@@ -34,17 +32,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class GoldenPathSteps {
 
-  @Autowired
-  private MockMvc mockMvc;
-  @Autowired
-  private MemberRepository memberRepository;
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+  @Autowired private MockMvc mockMvc;
+  @Autowired private MemberRepository memberRepository;
+  @Autowired private PasswordEncoder passwordEncoder;
   private final ObjectMapper objectMapper = new ObjectMapper();
-  @Autowired
-  private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
-  @Autowired
-  private DataSource dataSource;
+  @Autowired private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
+  @Autowired private DataSource dataSource;
 
   private MockHttpSession session;
   private String memberEmail = "golden_path_user@example.com";
@@ -79,12 +72,13 @@ public class GoldenPathSteps {
       // カテゴリは仮のものを使用、なければ作成などのロジックが必要だが
       // ここでは既存のカテゴリID 'C001' を使用すると仮定 or 簡易作成
       // 実装簡略化のため、JdbcTemplateを使って直接保存
-      Product product = new Product(
-          new ProductId("P-" + name),
-          name,
-          "Description for " + name,
-          new Price(BigDecimal.valueOf(price)),
-          new CategoryId("C001"));
+      Product product =
+          new Product(
+              new ProductId("P-" + name),
+              name,
+              "Description for " + name,
+              new Price(BigDecimal.valueOf(price)),
+              new CategoryId("C001"));
       ensureCategoryExists("C001", "Electronics");
       insertProduct(product);
       insertInventory(product.getId());
@@ -100,12 +94,15 @@ public class GoldenPathSteps {
   }
 
   private void ensureCategoryExists(String categoryId, String categoryName) {
-    Integer count = jdbcTemplate.queryForObject(
-        "SELECT count(*) FROM product_categories WHERE id = ?", Integer.class, categoryId);
+    Integer count =
+        jdbcTemplate.queryForObject(
+            "SELECT count(*) FROM product_categories WHERE id = ?", Integer.class, categoryId);
     if (count != null && count == 0) {
       jdbcTemplate.update(
           "INSERT INTO product_categories (id, name, parent_id) VALUES (?, ?, ?)",
-          categoryId, categoryName, null);
+          categoryId,
+          categoryName,
+          null);
     }
   }
 
@@ -133,11 +130,14 @@ public class GoldenPathSteps {
     loginRequest.put("email", memberEmail);
     loginRequest.put("password", memberPassword);
 
-    MvcResult result = mockMvc.perform(post("/api/users/login")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(loginRequest)))
-        .andExpect(status().isOk())
-        .andReturn();
+    MvcResult result =
+        mockMvc
+            .perform(
+                post("/api/users/login")
+                    .contentType("application/json")
+                    .content(objectMapper.writeValueAsString(loginRequest)))
+            .andExpect(status().isOk())
+            .andReturn();
 
     session = (MockHttpSession) result.getRequest().getSession();
     assertThat(session).isNotNull();
@@ -145,17 +145,15 @@ public class GoldenPathSteps {
 
   @もし("商品 {string} を検索する")
   public void 商品_を検索する(String productName) throws Exception {
-    mockMvc.perform(get("/api/products")
-        .param("keyword", productName)
-        .session(session))
+    mockMvc
+        .perform(get("/api/products").param("keyword", productName).session(session))
         .andExpect(status().isOk());
   }
 
   @ならば("検索結果に {string} が表示される")
   public void 検索結果に_が表示される(String productName) throws Exception {
-    mockMvc.perform(get("/api/products")
-        .param("keyword", productName)
-        .session(session))
+    mockMvc
+        .perform(get("/api/products").param("keyword", productName).session(session))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].name").value(productName));
   }
@@ -172,17 +170,19 @@ public class GoldenPathSteps {
     cartRequest.put("productId", productId);
     cartRequest.put("quantity", 1);
 
-    mockMvc.perform(post("/api/cart/items")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(cartRequest))
-        .session(session))
+    mockMvc
+        .perform(
+            post("/api/cart/items")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(cartRequest))
+                .session(session))
         .andExpect(status().isOk());
   }
 
   @ならば("カート内に {string} が {int} 点ある")
   public void カート内に_が_点ある(String productName, int quantity) throws Exception {
-    mockMvc.perform(get("/api/cart")
-        .session(session))
+    mockMvc
+        .perform(get("/api/cart").session(session))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.items[0].productName").value(productName))
         .andExpect(jsonPath("$.items[0].quantity").value(quantity));
@@ -190,8 +190,8 @@ public class GoldenPathSteps {
 
   @もし("カートの内容で注文手続きを行う")
   public void カートの内容で注文手続きを行う() throws Exception {
-    mockMvc.perform(post("/api/orders")
-        .session(session))
+    mockMvc
+        .perform(post("/api/orders").session(session))
         .andExpect(status().isOk()); // Controller returns 200 OK
   }
 
@@ -203,8 +203,8 @@ public class GoldenPathSteps {
 
   @かつ("注文履歴で最新の注文を確認できる")
   public void 注文履歴で最新の注文を確認できる() throws Exception {
-    mockMvc.perform(get("/api/orders")
-        .session(session))
+    mockMvc
+        .perform(get("/api/orders").session(session))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0]").exists()); // 少なくとも1件あること
   }

@@ -3,7 +3,6 @@ package com.example.samplebootapp.application.order.query;
 import com.example.samplebootapp.infrastructure.order.mapper.CartMapper;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

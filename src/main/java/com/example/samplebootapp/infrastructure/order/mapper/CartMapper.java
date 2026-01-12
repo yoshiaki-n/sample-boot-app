@@ -1,6 +1,5 @@
 package com.example.samplebootapp.infrastructure.order.mapper;
 
-import com.example.samplebootapp.application.order.query.CartDto;
 import com.example.samplebootapp.application.order.query.CartItemDto;
 import com.example.samplebootapp.domain.order.model.Cart;
 import com.example.samplebootapp.domain.order.model.CartItem;
