@@ -36,8 +36,7 @@ public class CartController {
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public CartResponse getCart(
-      @org.springframework.security.core.annotation.AuthenticationPrincipal
-          org.springframework.security.core.userdetails.UserDetails userDetails) {
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
     String userId = userDetails.getUsername();
     CartDto dto = cartQueryService.getCart(userId);
     return CartResponse.from(dto);
@@ -48,8 +47,7 @@ public class CartController {
   @ResponseStatus(HttpStatus.OK)
   public void addItem(
       @RequestBody @Validated CartAddRequest request,
-      @org.springframework.security.core.annotation.AuthenticationPrincipal
-          org.springframework.security.core.userdetails.UserDetails userDetails) {
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
     String userId = userDetails.getUsername();
     cartCommandService.addItem(userId, request.getProductId(), request.getQuantity());
   }
@@ -59,10 +57,8 @@ public class CartController {
   @ResponseStatus(HttpStatus.OK)
   public void updateItemQuantity(
       @org.springframework.web.bind.annotation.PathVariable String itemId,
-      @RequestBody @Validated
-          com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request,
-      @org.springframework.security.core.annotation.AuthenticationPrincipal
-          org.springframework.security.core.userdetails.UserDetails userDetails) {
+      @RequestBody @Validated com.example.samplebootapp.presentation.order.request.CartItemUpdateRequest request,
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
     String userId = userDetails.getUsername();
     cartCommandService.updateItemQuantity(userId, itemId, request.getQuantity());
   }
@@ -72,8 +68,7 @@ public class CartController {
   @ResponseStatus(HttpStatus.OK)
   public void deleteItem(
       @org.springframework.web.bind.annotation.PathVariable String itemId,
-      @org.springframework.security.core.annotation.AuthenticationPrincipal
-          org.springframework.security.core.userdetails.UserDetails userDetails) {
+      @org.springframework.security.core.annotation.AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails) {
     String userId = userDetails.getUsername();
     cartCommandService.removeItem(userId, itemId);
   }

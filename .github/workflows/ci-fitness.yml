@@ -1,11 +1,10 @@
-name: Nightly Fitness Test
+name: Fitness Check
 
 on:
-  schedule:
-    # 毎日 15:00 UTC (00:00 JST) に実行
-    - cron: "0 15 * * *"
-  # 手動実行も可能にする
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - develop
 
 permissions:
   contents: write
