@@ -14,29 +14,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CartQueryServiceImpl implements CartQueryService {
 
-    private final CartMapper cartMapper;
+  private final CartMapper cartMapper;
 
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
-    public CartQueryServiceImpl(CartMapper cartMapper) {
-        this.cartMapper = cartMapper;
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
+  public CartQueryServiceImpl(CartMapper cartMapper) {
+    this.cartMapper = cartMapper;
+  }
+
+  /**
+   * カートを取得します.
+   *
+   * @param userId ユーザーID
+   * @return カートDTO
+   */
+  @Override
+  public CartDto getCart(String userId) {
+    String cartId = cartMapper.findCartIdByUserId(userId);
+
+    if (cartId != null) {
+      List<CartItemDto> items = cartMapper.findCartItemDtos(cartId);
+      return new CartDto(cartId, items);
+    } else {
+      // カートが存在しない場合は空のレスポンスを返す
+      return new CartDto("", Collections.emptyList());
     }
-
-    /**
-     * カートを取得します.
-     *
-     * @param userId ユーザーID
-     * @return カートDTO
-     */
-    @Override
-    public CartDto getCart(String userId) {
-        String cartId = cartMapper.findCartIdByUserId(userId);
-
-        if (cartId != null) {
-            List<CartItemDto> items = cartMapper.findCartItemDtos(cartId);
-            return new CartDto(cartId, items);
-        } else {
-            // カートが存在しない場合は空のレスポンスを返す
-            return new CartDto("", Collections.emptyList());
-        }
-    }
+  }
 }

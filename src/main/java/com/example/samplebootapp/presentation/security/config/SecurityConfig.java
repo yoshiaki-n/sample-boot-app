@@ -71,22 +71,23 @@ public class SecurityConfig {
         // CSRF対策は一旦無効化（API動作優先）
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
-            auth -> auth
-                // ログインAPIは誰でもアクセス可能
-                .requestMatchers("/api/users/login")
-                .permitAll()
-                // 会員登録APIは誰でもアクセス可能
-                .requestMatchers("/api/users/")
-                .permitAll()
-                // 商品APIも既存テストのため許可
-                .requestMatchers("/api/products/**")
-                .permitAll()
-                // カートAPIも試験実装のため許可
-                .requestMatchers("/api/cart/**")
-                .authenticated()
-                // その他は認証が必要
-                .anyRequest()
-                .permitAll())
+            auth ->
+                auth
+                    // ログインAPIは誰でもアクセス可能
+                    .requestMatchers("/api/users/login")
+                    .permitAll()
+                    // 会員登録APIは誰でもアクセス可能
+                    .requestMatchers("/api/users/")
+                    .permitAll()
+                    // 商品APIも既存テストのため許可
+                    .requestMatchers("/api/products/**")
+                    .permitAll()
+                    // カートAPIも試験実装のため許可
+                    .requestMatchers("/api/cart/**")
+                    .authenticated()
+                    // その他は認証が必要
+                    .anyRequest()
+                    .permitAll())
         .addFilterBefore(jsonFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
