@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.974s</div>
+<div class="counter">0.723s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,13 +81,13 @@
 <tr>
 <td class="success">会員情報取得API: ログイン後に自分の情報を取得できること</td>
 <td class="success">testLoginAndGetMe()</td>
-<td class="success">0.653s</td>
+<td class="success">0.498s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">会員登録API: 正常に登録でき、DBに保存されること</td>
 <td class="success">testRegister()</td>
-<td class="success">0.321s</td>
+<td class="success">0.225s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -95,21 +95,21 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">2026-06-21 16:45:54.844  INFO 3247 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest]: MemberControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-06-21 16:45:54.873  INFO 3247 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest
-2026-06-21 16:45:55.078 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154247ad24980a95602c7a903f8a,73641972d5c51dba] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
-2026-06-21 16:45:55.080 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154247ad24980a95602c7a903f8a,73641972d5c51dba] ==&gt; Parameters: 019eeb13-0e06-74ce-9375-c2e023dd3912(String), テスト太郎(String), taro@example.com(String), $2a$10$73oNk1YqKs/P2ZjKP2SSSOBDFcBFaakDEtYPOABP.jgFrguBc4gnu(String)
-2026-06-21 16:45:55.082 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154247ad24980a95602c7a903f8a,73641972d5c51dba] &lt;==    Updates: 1
-2026-06-21 16:45:55.363 DEBUG 3247 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a38154398658e01de68ffd140c86b60,409024032fbcf82a] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
-2026-06-21 16:45:55.364 DEBUG 3247 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a38154398658e01de68ffd140c86b60,409024032fbcf82a] ==&gt; Parameters: taro@example.com(String)
-2026-06-21 16:45:55.369 DEBUG 3247 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a38154398658e01de68ffd140c86b60,409024032fbcf82a] &lt;==      Total: 1
-2026-06-21 16:45:55.506 DEBUG 3247 --- [    Test worker] c.e.s.p.s.JsonAuthenticationFilter       : [6a38154398658e01de68ffd140c86b60,409024032fbcf82a] Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@296c8e2f, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-06-21T16:45:55.505771057Z]]]
-2026-06-21 16:45:55.518 DEBUG 3247 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a381543fd2392ecebdc5bd114b1d2de,4238bae80cbb90dd] ==&gt;  Preparing: SELECT * FROM user_members WHERE id = ?
-2026-06-21 16:45:55.519 DEBUG 3247 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a381543fd2392ecebdc5bd114b1d2de,4238bae80cbb90dd] ==&gt; Parameters: 019eeb13-0e06-74ce-9375-c2e023dd3912(String)
-2026-06-21 16:45:55.521 DEBUG 3247 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a381543fd2392ecebdc5bd114b1d2de,4238bae80cbb90dd] &lt;==      Total: 1
-2026-06-21 16:45:55.684 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154350c432b2eb3121bc3da750e0,b88b401b1a1c62ef] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
-2026-06-21 16:45:55.685 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154350c432b2eb3121bc3da750e0,b88b401b1a1c62ef] ==&gt; Parameters: 019eeb13-1064-7734-be90-c90950bb4583(String), テスト花子(String), hanako@example.com(String), $2a$10$YjA9C312pALS/h1PyLNajenhitWCkZOzz4vRYuhcw6ZDR4wICGpaS(String)
-2026-06-21 16:45:55.687 DEBUG 3247 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a38154350c432b2eb3121bc3da750e0,b88b401b1a1c62ef] &lt;==    Updates: 1
+<pre id="class-stdout">2026-06-22 18:47:03.601  INFO 3205 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest]: MemberControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-22 18:47:03.629  INFO 3205 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.user.api.MemberControllerIntegrationTest
+2026-06-22 18:47:03.781 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a398327216afb23342a6cad69fdf0f4,d4cbfe39ea7bfd4c] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-06-22 18:47:03.782 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a398327216afb23342a6cad69fdf0f4,d4cbfe39ea7bfd4c] ==&gt; Parameters: 019ef0a8-5365-755d-b96f-7b351f96dd19(String), テスト太郎(String), taro@example.com(String), $2a$10$CS5X4GqityCF9ApzZtoeHOfoODXDyB8wKjORGaRWiLB0IEMUrEVRq(String)
+2026-06-22 18:47:03.785 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a398327216afb23342a6cad69fdf0f4,d4cbfe39ea7bfd4c] &lt;==    Updates: 1
+2026-06-22 18:47:04.007 DEBUG 3205 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a39832738e66f5dc93a94fbca0eb240,89d1a2511c80509e] ==&gt;  Preparing: SELECT * FROM user_members WHERE email = ?
+2026-06-22 18:47:04.014 DEBUG 3205 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a39832738e66f5dc93a94fbca0eb240,89d1a2511c80509e] ==&gt; Parameters: taro@example.com(String)
+2026-06-22 18:47:04.017 DEBUG 3205 --- [    Test worker] c.e.s.i.u.m.MemberMapper.findByEmail     : [6a39832738e66f5dc93a94fbca0eb240,89d1a2511c80509e] &lt;==      Total: 1
+2026-06-22 18:47:04.112 DEBUG 3205 --- [    Test worker] c.e.s.p.s.JsonAuthenticationFilter       : [6a39832738e66f5dc93a94fbca0eb240,89d1a2511c80509e] Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=com.example.samplebootapp.application.security.MemberUserDetails@254b365f, Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=127.0.0.1, SessionId=null], Granted Authorities=[ROLE_MEMBER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-06-22T18:47:04.112472750Z]]]
+2026-06-22 18:47:04.120 DEBUG 3205 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a39832835d8fa5ce4545667b40b917d,4de2b35f0f1e128c] ==&gt;  Preparing: SELECT * FROM user_members WHERE id = ?
+2026-06-22 18:47:04.120 DEBUG 3205 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a39832835d8fa5ce4545667b40b917d,4de2b35f0f1e128c] ==&gt; Parameters: 019ef0a8-5365-755d-b96f-7b351f96dd19(String)
+2026-06-22 18:47:04.121 DEBUG 3205 --- [    Test worker] c.e.s.i.u.mapper.MemberMapper.findById   : [6a39832835d8fa5ce4545667b40b917d,4de2b35f0f1e128c] &lt;==      Total: 1
+2026-06-22 18:47:04.235 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a3983281fa7fb1d478303feed42f126,a66cd798a864c8fd] ==&gt;  Preparing: INSERT INTO user_members (id, name, email, password) VALUES (?, ?, ?, ?)
+2026-06-22 18:47:04.236 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a3983281fa7fb1d478303feed42f126,a66cd798a864c8fd] ==&gt; Parameters: 019ef0a8-552b-7486-90da-39f1988b0974(String), テスト花子(String), hanako@example.com(String), $2a$10$K1qiMuRLYcjIxh7dPV4aAeZXGIuyE9X6pniBt/mdaBE.gKl2kszOe(String)
+2026-06-22 18:47:04.237 DEBUG 3205 --- [    Test worker] c.e.s.i.user.mapper.MemberMapper.insert  : [6a3983281fa7fb1d478303feed42f126,a66cd798a864c8fd] &lt;==    Updates: 1
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -122,7 +122,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jun 21, 2026, 4:45:56 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jun 22, 2026, 6:47:05 PM</p>
 </div>
 </div>
 </body>
