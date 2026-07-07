@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">1.859s</div>
+<div class="counter">1.590s</div>
 <p>duration</p>
 </div>
 </td>
@@ -84,19 +84,19 @@
 <tr>
 <td class="success">商品詳細取得APIの統合テスト: 存在するID指定でステータスコード200と正しいJSONレスポンスが返ること</td>
 <td class="success">testGetProductById()</td>
-<td class="success">0.041s</td>
+<td class="success">0.031s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">商品詳細取得APIの統合テスト: 存在しないID指定でステータスコード404が返ること</td>
 <td class="success">testGetProductByIdNotFound()</td>
-<td class="success">1.468s</td>
+<td class="success">1.250s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">商品一覧取得APIの統合テスト: ステータスコード200と正しいJSONレスポンスが返ること</td>
 <td class="success">testGetProducts()</td>
-<td class="success">0.350s</td>
+<td class="success">0.309s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -104,8 +104,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">17:42:53.650 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.api.ProductApiIntegrationTest]: ProductApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-17:42:53.880 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.api.ProductApiIntegrationTest
+<pre id="class-stdout">17:14:29.171 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.api.ProductApiIntegrationTest]: ProductApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:14:29.418 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.api.ProductApiIntegrationTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -116,35 +116,35 @@
 
  :: Spring Boot ::                (v4.0.1)
 
-2026-07-06 17:42:55.214  INFO 3287 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Starting ProductApiIntegrationTest using Java 17.0.19 with PID 3287 (started by runner in /home/runner/work/sample-boot-app/sample-boot-app)
-2026-07-06 17:42:55.216 DEBUG 3287 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Running with Spring Boot v4.0.1, Spring v7.0.2
-2026-07-06 17:42:55.217  INFO 3287 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] The following 1 profile is active: &quot;dev&quot;
-2026-07-06 17:42:57.228  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'orderMapper' and 'com.example.samplebootapp.infrastructure.datasource.order.OrderMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.228  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.example.samplebootapp.infrastructure.inventory.datasource.InventoryMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.229  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'cartMapper' and 'com.example.samplebootapp.infrastructure.order.mapper.CartMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.229  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'categoryMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.CategoryMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.229  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'productMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.ProductMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.229  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'memberMapper' and 'com.example.samplebootapp.infrastructure.user.mapper.MemberMapper' mapperInterface. Bean already defined with the same name!
-2026-07-06 17:42:57.230  WARN 3287 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] No MyBatis mapper was found in '[com.example.samplebootapp.infrastructure]' package. Please check your configuration.
-2026-07-06 17:42:57.477  INFO 3287 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : [,] BeanFactory id=1e500df6-84a1-3514-9a50-a3e9503103b5
-2026-07-06 17:42:58.766  INFO 3287 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : [,] Global AuthenticationManager configured with UserDetailsService bean with name memberUserDetailsService
-2026-07-06 17:42:59.903  INFO 3287 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : [,] Initializing Spring TestDispatcherServlet ''
-2026-07-06 17:42:59.904  INFO 3287 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Initializing Servlet ''
-2026-07-06 17:42:59.912  INFO 3287 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : [,] Exposing 3 endpoints beneath base path '/actuator'
-2026-07-06 17:42:59.927  INFO 3287 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Completed initialization in 22 ms
-2026-07-06 17:43:00.070  INFO 3287 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Started ProductApiIntegrationTest in 5.67 seconds (process running for 8.55)
-2026-07-06 17:43:01.400  INFO 3287 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] SpringHikariCP - Starting...
-2026-07-06 17:43:01.709  INFO 3287 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] SpringHikariCP - Added connection org.postgresql.jdbc.PgConnection@4614740
-2026-07-06 17:43:01.715  INFO 3287 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] SpringHikariCP - Start completed.
-2026-07-06 17:43:01.762 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
-2026-07-06 17:43:01.792 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] ==&gt; Parameters: P999(String)
-2026-07-06 17:43:01.814 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be9254d6799a3edec2b58dfe36870,23e31a26e44baa01] &lt;==      Total: 0
-2026-07-06 17:43:02.021 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4be92516faa885a0ca606e4e90fdd0,8d1e5def3db80e81] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products ORDER BY id
-2026-07-06 17:43:02.023 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4be92516faa885a0ca606e4e90fdd0,8d1e5def3db80e81] ==&gt; Parameters: 
-2026-07-06 17:43:02.027 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4be92516faa885a0ca606e4e90fdd0,8d1e5def3db80e81] &lt;==      Total: 3
-2026-07-06 17:43:02.260 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be92675819fa88be97f3f36076048,cf7e3da73fc38555] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
-2026-07-06 17:43:02.261 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be92675819fa88be97f3f36076048,cf7e3da73fc38555] ==&gt; Parameters: P001(String)
-2026-07-06 17:43:02.263 DEBUG 3287 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4be92675819fa88be97f3f36076048,cf7e3da73fc38555] &lt;==      Total: 1
+2026-07-07 17:14:30.795  INFO 3304 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Starting ProductApiIntegrationTest using Java 17.0.19 with PID 3304 (started by runner in /home/runner/work/sample-boot-app/sample-boot-app)
+2026-07-07 17:14:30.799 DEBUG 3304 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-07-07 17:14:30.800  INFO 3304 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] The following 1 profile is active: &quot;dev&quot;
+2026-07-07 17:14:32.932  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'orderMapper' and 'com.example.samplebootapp.infrastructure.datasource.order.OrderMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.933  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.example.samplebootapp.infrastructure.inventory.datasource.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.933  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'cartMapper' and 'com.example.samplebootapp.infrastructure.order.mapper.CartMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.934  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'categoryMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.CategoryMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.934  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'productMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.ProductMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.935  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'memberMapper' and 'com.example.samplebootapp.infrastructure.user.mapper.MemberMapper' mapperInterface. Bean already defined with the same name!
+2026-07-07 17:14:32.935  WARN 3304 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] No MyBatis mapper was found in '[com.example.samplebootapp.infrastructure]' package. Please check your configuration.
+2026-07-07 17:14:33.235  INFO 3304 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : [,] BeanFactory id=1e500df6-84a1-3514-9a50-a3e9503103b5
+2026-07-07 17:14:34.631  INFO 3304 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : [,] Global AuthenticationManager configured with UserDetailsService bean with name memberUserDetailsService
+2026-07-07 17:14:35.692  INFO 3304 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : [,] Initializing Spring TestDispatcherServlet ''
+2026-07-07 17:14:35.693  INFO 3304 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Initializing Servlet ''
+2026-07-07 17:14:35.700  INFO 3304 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : [,] Exposing 3 endpoints beneath base path '/actuator'
+2026-07-07 17:14:35.716  INFO 3304 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Completed initialization in 23 ms
+2026-07-07 17:14:35.847  INFO 3304 --- [    Test worker] c.e.s.p.api.ProductApiIntegrationTest    : [,] Started ProductApiIntegrationTest in 5.886 seconds (process running for 8.796)
+2026-07-07 17:14:36.841  INFO 3304 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] SpringHikariCP - Starting...
+2026-07-07 17:14:37.100  INFO 3304 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] SpringHikariCP - Added connection org.postgresql.jdbc.PgConnection@57281510
+2026-07-07 17:14:37.107  INFO 3304 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] SpringHikariCP - Start completed.
+2026-07-07 17:14:37.144 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
+2026-07-07 17:14:37.173 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] ==&gt; Parameters: P999(String)
+2026-07-07 17:14:37.196 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fce607c17acfdbb3d47e0658e8,78c7f501a3d4bba7] &lt;==      Total: 0
+2026-07-07 17:14:37.384 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4d33fde55c41dec56b7ba1000fc6ca,6d1f5c5b003095a7] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products ORDER BY id
+2026-07-07 17:14:37.385 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4d33fde55c41dec56b7ba1000fc6ca,6d1f5c5b003095a7] ==&gt; Parameters: 
+2026-07-07 17:14:37.389 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.search         : [6a4d33fde55c41dec56b7ba1000fc6ca,6d1f5c5b003095a7] &lt;==      Total: 3
+2026-07-07 17:14:37.586 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fde4ae1a39111bea5396fb22b0,cbac12dadb344e91] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
+2026-07-07 17:14:37.586 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fde4ae1a39111bea5396fb22b0,cbac12dadb344e91] ==&gt; Parameters: P001(String)
+2026-07-07 17:14:37.588 DEBUG 3304 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4d33fde4ae1a39111bea5396fb22b0,cbac12dadb344e91] &lt;==      Total: 1
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -152,7 +152,7 @@
 <div class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre id="class-stderr">17:42:55,041 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [ASYNC_CONSOLE] not referenced. Skipping further processing.
+<pre id="class-stderr">17:14:30,613 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [ASYNC_CONSOLE] not referenced. Skipping further processing.
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stderr">Copy</button>
 </span>
@@ -165,7 +165,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jul 6, 2026, 5:43:08 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jul 7, 2026, 5:14:43 PM</p>
 </div>
 </div>
 </body>
