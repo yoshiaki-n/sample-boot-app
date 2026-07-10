@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.172s</div>
+<div class="counter">0.190s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,25 +81,25 @@
 <tr>
 <td class="success">注文詳細取得_他人の注文は取得できない</td>
 <td class="success">get_notFound_accessingOtherUsersOrder()</td>
-<td class="success">0.018s</td>
+<td class="success">0.021s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">注文詳細取得_正常系</td>
 <td class="success">get_success()</td>
-<td class="success">0.052s</td>
+<td class="success">0.056s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">注文履歴取得_正常系</td>
 <td class="success">list_success()</td>
-<td class="success">0.023s</td>
+<td class="success">0.026s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">注文確定_正常に注文が作成され在庫が減りカートが空になる</td>
 <td class="success">placeOrder_success()</td>
-<td class="success">0.079s</td>
+<td class="success">0.087s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -107,68 +107,68 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">2026-07-09 17:23:08.395  INFO 3300 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.order.api.OrderControllerIntegrationTest]: OrderControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-07-09 17:23:08.411  INFO 3300 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.order.api.OrderControllerIntegrationTest
-2026-07-09 17:23:08.440 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc7cd23c20a887cebc247e8eea,c808aaa5667120d2] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.id = ? AND o.user_id = ?
-2026-07-09 17:23:08.440 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc7cd23c20a887cebc247e8eea,c808aaa5667120d2] ==&gt; Parameters: ord-detail-1(String), test-user-order-detail(String)
-2026-07-09 17:23:08.445 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc7cd23c20a887cebc247e8eea,c808aaa5667120d2] &lt;==      Total: 1
-2026-07-09 17:23:08.478 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
-2026-07-09 17:23:08.478 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt; Parameters: test-user-order(String)
-2026-07-09 17:23:08.479 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] &lt;==      Total: 0
-2026-07-09 17:23:08.479 DEBUG 3300 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] ==&gt;  Preparing: INSERT INTO order_carts (id, user_id) VALUES (?, ?)
-2026-07-09 17:23:08.479 DEBUG 3300 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] ==&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String), test-user-order(String)
-2026-07-09 17:23:08.480 DEBUG 3300 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] &lt;==    Updates: 1
-2026-07-09 17:23:08.480 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] ==&gt;  Preparing: DELETE FROM order_cart_items WHERE cart_id = ?
-2026-07-09 17:23:08.481 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] ==&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String)
-2026-07-09 17:23:08.481 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] &lt;==    Updates: 0
-2026-07-09 17:23:08.481 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] ==&gt;  Preparing: INSERT INTO order_cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)
-2026-07-09 17:23:08.482 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] ==&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String), prod-order-1(String), 2(Integer)
-2026-07-09 17:23:08.482 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] &lt;==    Updates: 1
-2026-07-09 17:23:08.486 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
-2026-07-09 17:23:08.486 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: test-user-order(String)
-2026-07-09 17:23:08.487 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
-2026-07-09 17:23:08.488 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ====&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String)
-2026-07-09 17:23:08.488 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;====      Total: 1
-2026-07-09 17:23:08.489 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==      Total: 1
-2026-07-09 17:23:08.490 DEBUG 3300 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
-2026-07-09 17:23:08.490 DEBUG 3300 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: prod-order-1(String)
-2026-07-09 17:23:08.491 DEBUG 3300 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==      Total: 1
-2026-07-09 17:23:08.492 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-07-09 17:23:08.492 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: prod-order-1(String)
-2026-07-09 17:23:08.493 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==      Total: 1
-2026-07-09 17:23:08.494 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
-2026-07-09 17:23:08.494 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: 8(Integer), prod-order-1(String), 1(Long)
-2026-07-09 17:23:08.495 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==    Updates: 1
-2026-07-09 17:23:08.497 DEBUG 3300 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)
-2026-07-09 17:23:08.498 DEBUG 3300 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: 94bd81f5-f190-46e1-84c3-68bc0945e68d(String), test-user-order(String), ORDERED(String), 2000(Integer), 2026-07-09T17:23:08.497708023(LocalDateTime)
-2026-07-09 17:23:08.499 DEBUG 3300 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==    Updates: 1
-2026-07-09 17:23:08.502 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)
-2026-07-09 17:23:08.502 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: 94bd81f5-f190-46e1-84c3-68bc0945e68d(String), prod-order-1(String), Order Test Product(String), 1000(Integer), 2(Integer)
-2026-07-09 17:23:08.503 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==    Updates: 1
-2026-07-09 17:23:08.503 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
-2026-07-09 17:23:08.504 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: test-user-order(String)
-2026-07-09 17:23:08.505 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
-2026-07-09 17:23:08.505 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ====&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String)
-2026-07-09 17:23:08.506 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;====      Total: 1
-2026-07-09 17:23:08.506 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==      Total: 1
-2026-07-09 17:23:08.507 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt;  Preparing: DELETE FROM order_cart_items WHERE cart_id = ?
-2026-07-09 17:23:08.507 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] ==&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String)
-2026-07-09 17:23:08.507 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a4fd8fc002c5d15ba3006f9383fee7b,4ac41504b3f13a90] &lt;==    Updates: 1
-2026-07-09 17:23:08.512 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-07-09 17:23:08.512 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] ==&gt; Parameters: prod-order-1(String)
-2026-07-09 17:23:08.513 DEBUG 3300 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] &lt;==      Total: 1
-2026-07-09 17:23:08.514 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
-2026-07-09 17:23:08.514 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt; Parameters: test-user-order(String)
-2026-07-09 17:23:08.515 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
-2026-07-09 17:23:08.515 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] ====&gt; Parameters: 019f47e7-9a3d-75aa-9a4b-8c408cc87efd(String)
-2026-07-09 17:23:08.516 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] &lt;====      Total: 0
-2026-07-09 17:23:08.516 DEBUG 3300 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] &lt;==      Total: 1
-2026-07-09 17:23:08.561 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc9251d17a6f2b70500436a87e,e78d921d3927f52b] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.id = ? AND o.user_id = ?
-2026-07-09 17:23:08.561 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc9251d17a6f2b70500436a87e,e78d921d3927f52b] ==&gt; Parameters: ord-other-1(String), test-user-other(String)
-2026-07-09 17:23:08.562 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a4fd8fc9251d17a6f2b70500436a87e,e78d921d3927f52b] &lt;==      Total: 0
-2026-07-09 17:23:08.580 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a4fd8fc13b936ad8cf81a2ebb6c3d38,089139c149b1d26b] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.user_id = ? ORDER BY o.ordered_at DESC
-2026-07-09 17:23:08.581 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a4fd8fc13b936ad8cf81a2ebb6c3d38,089139c149b1d26b] ==&gt; Parameters: test-user-order-list(String)
-2026-07-09 17:23:08.583 DEBUG 3300 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a4fd8fc13b936ad8cf81a2ebb6c3d38,089139c149b1d26b] &lt;==      Total: 1
+<pre id="class-stdout">2026-07-10 16:56:29.857  INFO 3276 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.order.api.OrderControllerIntegrationTest]: OrderControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-07-10 16:56:29.872  INFO 3276 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.order.api.OrderControllerIntegrationTest
+2026-07-10 16:56:29.903 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243dae9a6cee6cac8ae2f2bb5de9,5c858f00f07a3cdf] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.id = ? AND o.user_id = ?
+2026-07-10 16:56:29.904 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243dae9a6cee6cac8ae2f2bb5de9,5c858f00f07a3cdf] ==&gt; Parameters: ord-detail-1(String), test-user-order-detail(String)
+2026-07-10 16:56:29.909 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243dae9a6cee6cac8ae2f2bb5de9,5c858f00f07a3cdf] &lt;==      Total: 1
+2026-07-10 16:56:29.945 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
+2026-07-10 16:56:29.946 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt; Parameters: test-user-order(String)
+2026-07-10 16:56:29.947 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] &lt;==      Total: 0
+2026-07-10 16:56:29.947 DEBUG 3276 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] ==&gt;  Preparing: INSERT INTO order_carts (id, user_id) VALUES (?, ?)
+2026-07-10 16:56:29.948 DEBUG 3276 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] ==&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String), test-user-order(String)
+2026-07-10 16:56:29.948 DEBUG 3276 --- [    Test worker] c.e.s.i.o.mapper.CartMapper.insertCart   : [,] &lt;==    Updates: 1
+2026-07-10 16:56:29.949 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] ==&gt;  Preparing: DELETE FROM order_cart_items WHERE cart_id = ?
+2026-07-10 16:56:29.949 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] ==&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String)
+2026-07-10 16:56:29.950 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [,] &lt;==    Updates: 0
+2026-07-10 16:56:29.950 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] ==&gt;  Preparing: INSERT INTO order_cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)
+2026-07-10 16:56:29.950 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] ==&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String), prod-order-1(String), 2(Integer)
+2026-07-10 16:56:29.951 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.insertCartItem    : [,] &lt;==    Updates: 1
+2026-07-10 16:56:29.955 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
+2026-07-10 16:56:29.956 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: test-user-order(String)
+2026-07-10 16:56:29.957 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
+2026-07-10 16:56:29.957 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ====&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String)
+2026-07-10 16:56:29.958 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;====      Total: 1
+2026-07-10 16:56:29.958 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==      Total: 1
+2026-07-10 16:56:29.959 DEBUG 3276 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: SELECT id, name, description, price_amount, category_id FROM product_products WHERE id = ?
+2026-07-10 16:56:29.960 DEBUG 3276 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: prod-order-1(String)
+2026-07-10 16:56:29.961 DEBUG 3276 --- [    Test worker] c.e.s.i.p.d.ProductMapper.findById       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==      Total: 1
+2026-07-10 16:56:29.962 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-07-10 16:56:29.962 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: prod-order-1(String)
+2026-07-10 16:56:29.963 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==      Total: 1
+2026-07-10 16:56:29.964 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
+2026-07-10 16:56:29.964 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: 8(Integer), prod-order-1(String), 1(Long)
+2026-07-10 16:56:29.965 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==    Updates: 1
+2026-07-10 16:56:29.968 DEBUG 3276 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: INSERT INTO order_orders (id, user_id, status, total_amount, ordered_at) VALUES (?, ?, ?, ?, ?)
+2026-07-10 16:56:29.969 DEBUG 3276 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: 5c1a71be-388c-4308-8b59-e2626e871e8e(String), test-user-order(String), ORDERED(String), 2000(Integer), 2026-07-10T16:56:29.968220815(LocalDateTime)
+2026-07-10 16:56:29.970 DEBUG 3276 --- [    Test worker] c.e.s.i.d.order.OrderMapper.insertOrder  : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==    Updates: 1
+2026-07-10 16:56:29.973 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: INSERT INTO order_order_items (order_id, product_id, product_name, price, quantity) VALUES (?, ?, ?, ?, ?)
+2026-07-10 16:56:29.973 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: 5c1a71be-388c-4308-8b59-e2626e871e8e(String), prod-order-1(String), Order Test Product(String), 1000(Integer), 2(Integer)
+2026-07-10 16:56:29.974 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.insertOrderItems           : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==    Updates: 1
+2026-07-10 16:56:29.975 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
+2026-07-10 16:56:29.975 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: test-user-order(String)
+2026-07-10 16:56:29.976 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
+2026-07-10 16:56:29.977 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ====&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String)
+2026-07-10 16:56:29.978 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;====      Total: 1
+2026-07-10 16:56:29.978 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==      Total: 1
+2026-07-10 16:56:29.978 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt;  Preparing: DELETE FROM order_cart_items WHERE cart_id = ?
+2026-07-10 16:56:29.979 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] ==&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String)
+2026-07-10 16:56:29.979 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.deleteCartItems   : [6a51243d5caa02036867f2c568e6ad79,33e2bf6ca66d3198] &lt;==    Updates: 1
+2026-07-10 16:56:29.985 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-07-10 16:56:29.985 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] ==&gt; Parameters: prod-order-1(String)
+2026-07-10 16:56:29.986 DEBUG 3276 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [,] &lt;==      Total: 1
+2026-07-10 16:56:29.987 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt;  Preparing: SELECT id, user_id FROM order_carts WHERE user_id = ?
+2026-07-10 16:56:29.987 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] ==&gt; Parameters: test-user-order(String)
+2026-07-10 16:56:29.988 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] ====&gt;  Preparing: SELECT product_id, quantity FROM order_cart_items WHERE cart_id = ?
+2026-07-10 16:56:29.989 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] ====&gt; Parameters: 019f4cf5-91f9-709e-91c1-509a6076dbb0(String)
+2026-07-10 16:56:29.990 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.C.findItemsByCartId          : [,] &lt;====      Total: 0
+2026-07-10 16:56:29.990 DEBUG 3276 --- [    Test worker] c.e.s.i.o.m.CartMapper.findByUserId      : [,] &lt;==      Total: 1
+2026-07-10 16:56:30.037 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243e83764544527c334c78460f51,c759c12a53184a56] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.id = ? AND o.user_id = ?
+2026-07-10 16:56:30.038 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243e83764544527c334c78460f51,c759c12a53184a56] ==&gt; Parameters: ord-other-1(String), test-user-other(String)
+2026-07-10 16:56:30.039 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.O.selectByIdAndUserId        : [6a51243e83764544527c334c78460f51,c759c12a53184a56] &lt;==      Total: 0
+2026-07-10 16:56:30.060 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a51243ec4b63e68401a853c84aba89a,65b3392e93b80e6e] ==&gt;  Preparing: SELECT o.id, o.user_id, o.status, o.total_amount, o.ordered_at, oi.product_id, oi.product_name, oi.price, oi.quantity FROM order_orders o JOIN order_order_items oi ON o.id = oi.order_id WHERE o.user_id = ? ORDER BY o.ordered_at DESC
+2026-07-10 16:56:30.060 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a51243ec4b63e68401a853c84aba89a,65b3392e93b80e6e] ==&gt; Parameters: test-user-order-list(String)
+2026-07-10 16:56:30.063 DEBUG 3276 --- [    Test worker] c.e.s.i.d.o.OrderMapper.selectByUserId   : [6a51243ec4b63e68401a853c84aba89a,65b3392e93b80e6e] &lt;==      Total: 1
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -181,7 +181,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jul 9, 2026, 5:23:10 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Jul 10, 2026, 4:56:31 PM</p>
 </div>
 </div>
 </body>
