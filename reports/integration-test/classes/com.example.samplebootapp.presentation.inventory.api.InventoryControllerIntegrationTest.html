@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.893s</div>
+<div class="counter">1.172s</div>
 <p>duration</p>
 </div>
 </td>
@@ -84,31 +84,31 @@
 <tr>
 <td class="success">在庫数確認API: 存在する商品の在庫数を取得できること</td>
 <td class="success">getQuantity()</td>
-<td class="success">0.026s</td>
+<td class="success">0.037s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">在庫数確認API: 存在しない商品の場合は404エラー</td>
 <td class="success">getQuantityNotFound()</td>
-<td class="success">0.034s</td>
+<td class="success">0.026s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">在庫引き当てAPI: 在庫引き当てができること</td>
 <td class="success">reserve()</td>
-<td class="success">0.255s</td>
+<td class="success">0.377s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">在庫引き当てAPI: 在庫不足の場合はエラーになること</td>
 <td class="success">reserveInsufficientStock()</td>
-<td class="success">0.535s</td>
+<td class="success">0.674s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">在庫引き当てAPI: 楽観ロックエラーが発生した場合は409 Conflictになること</td>
 <td class="success">reserveOptimisticLockError()</td>
-<td class="success">0.043s</td>
+<td class="success">0.058s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -116,8 +116,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre id="class-stdout">2026-10-09 20:01:36.250  INFO 3044 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.inventory.api.InventoryControllerIntegrationTest]: InventoryControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-09 20:01:36.266  INFO 3044 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.inventory.api.InventoryControllerIntegrationTest
+<pre id="class-stdout">2026-10-10 19:08:49.242  INFO 3278 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : [,] Could not detect default configuration classes for test class [com.example.samplebootapp.presentation.inventory.api.InventoryControllerIntegrationTest]: InventoryControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10 19:08:49.270  INFO 3278 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : [,] Found @SpringBootConfiguration com.example.samplebootapp.SpringBootAppApplication for test class com.example.samplebootapp.presentation.inventory.api.InventoryControllerIntegrationTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -128,47 +128,47 @@
 
  :: Spring Boot ::                (v4.0.1)
 
-2026-10-09 20:01:36.318  INFO 3044 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Starting InventoryControllerIntegrationTest using Java 17.0.20.1 with PID 3044 (started by runner in /home/runner/work/sample-boot-app/sample-boot-app)
-2026-10-09 20:01:36.319 DEBUG 3044 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Running with Spring Boot v4.0.1, Spring v7.0.2
-2026-10-09 20:01:36.319  INFO 3044 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] The following 1 profile is active: &quot;dev&quot;
-2026-10-09 20:01:36.570  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'orderMapper' and 'com.example.samplebootapp.infrastructure.datasource.order.OrderMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.570  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.example.samplebootapp.infrastructure.inventory.datasource.InventoryMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.570  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'cartMapper' and 'com.example.samplebootapp.infrastructure.order.mapper.CartMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.571  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'categoryMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.CategoryMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.571  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'productMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.ProductMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.571  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'memberMapper' and 'com.example.samplebootapp.infrastructure.user.mapper.MemberMapper' mapperInterface. Bean already defined with the same name!
-2026-10-09 20:01:36.571  WARN 3044 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] No MyBatis mapper was found in '[com.example.samplebootapp.infrastructure]' package. Please check your configuration.
-2026-10-09 20:01:36.576  INFO 3044 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : [,] BeanFactory id=1e500df6-84a1-3514-9a50-a3e9503103b5
-2026-10-09 20:01:37.231  INFO 3044 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : [,] Global AuthenticationManager configured with UserDetailsService bean with name memberUserDetailsService
-2026-10-09 20:01:37.742  INFO 3044 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : [,] Initializing Spring TestDispatcherServlet ''
-2026-10-09 20:01:37.742  INFO 3044 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Initializing Servlet ''
-2026-10-09 20:01:37.749  INFO 3044 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : [,] Exposing 3 endpoints beneath base path '/actuator'
-2026-10-09 20:01:37.762  INFO 3044 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Completed initialization in 19 ms
-2026-10-09 20:01:37.829  INFO 3044 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Started InventoryControllerIntegrationTest in 1.558 seconds (process running for 10.191)
-2026-10-09 20:01:37.858  INFO 3044 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [,] SpringHikariCP - Starting...
-2026-10-09 20:01:37.902  INFO 3044 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : [,] SpringHikariCP - Added connection org.postgresql.jdbc.PgConnection@2047c196
-2026-10-09 20:01:37.904  INFO 3044 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [,] SpringHikariCP - Start completed.
-2026-10-09 20:01:38.353 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94821dde7b85b74f08e38d3cd686e,1d84db50d00a8327] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-10-09 20:01:38.354 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94821dde7b85b74f08e38d3cd686e,1d84db50d00a8327] ==&gt; Parameters: 01a12241-c482-770f-bdbc-c60b1b29c97a(String)
-2026-10-09 20:01:38.358 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94821dde7b85b74f08e38d3cd686e,1d84db50d00a8327] &lt;==      Total: 1
-2026-10-09 20:01:38.400 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822c71d02e86acb94a5e8f669af,3034d203429bd445] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-10-09 20:01:38.401 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822c71d02e86acb94a5e8f669af,3034d203429bd445] ==&gt; Parameters: unknown-id(String)
-2026-10-09 20:01:38.402 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822c71d02e86acb94a5e8f669af,3034d203429bd445] &lt;==      Total: 0
-2026-10-09 20:01:38.433 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac948227c42c73bf702e0cbf811561b,2994f265d8f20798] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-10-09 20:01:38.433 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac948227c42c73bf702e0cbf811561b,2994f265d8f20798] ==&gt; Parameters: 01a12241-c679-72fa-a671-75322d819695(String)
-2026-10-09 20:01:38.434 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac948227c42c73bf702e0cbf811561b,2994f265d8f20798] &lt;==      Total: 1
-2026-10-09 20:01:38.462 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-10-09 20:01:38.462 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] ==&gt; Parameters: 01a12241-c695-72d9-8de0-3118f9c5d251(String)
-2026-10-09 20:01:38.466 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] &lt;==      Total: 1
-2026-10-09 20:01:38.470 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
-2026-10-09 20:01:38.471 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] ==&gt; Parameters: 90(Integer), 01a12241-c695-72d9-8de0-3118f9c5d251(String), 0(Long)
-2026-10-09 20:01:38.473 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac9482202032822ca4d5763dcacd8e6,7756a7b40c213240] &lt;==    Updates: 1
-2026-10-09 20:01:38.728 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
-2026-10-09 20:01:38.728 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] ==&gt; Parameters: 01a12241-c794-73a7-8e60-da3db72d521b(String)
-2026-10-09 20:01:38.730 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] &lt;==      Total: 1
-2026-10-09 20:01:38.732 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
-2026-10-09 20:01:38.733 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] ==&gt; Parameters: 90(Integer), 01a12241-c794-73a7-8e60-da3db72d521b(String), 0(Long)
-2026-10-09 20:01:38.733 DEBUG 3044 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6ac94822225ff6d2f7fbb8d54c926b56,cbc6cb41b0328e55] &lt;==    Updates: 0
+2026-10-10 19:08:49.353  INFO 3278 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Starting InventoryControllerIntegrationTest using Java 17.0.20.1 with PID 3278 (started by runner in /home/runner/work/sample-boot-app/sample-boot-app)
+2026-10-10 19:08:49.353 DEBUG 3278 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-10-10 19:08:49.353  INFO 3278 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] The following 1 profile is active: &quot;dev&quot;
+2026-10-10 19:08:49.844  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'orderMapper' and 'com.example.samplebootapp.infrastructure.datasource.order.OrderMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.844  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.example.samplebootapp.infrastructure.inventory.datasource.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.844  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'cartMapper' and 'com.example.samplebootapp.infrastructure.order.mapper.CartMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.844  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'categoryMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.CategoryMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.845  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'productMapper' and 'com.example.samplebootapp.infrastructure.product.datasource.ProductMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.845  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] Skipping MapperFactoryBean with name 'memberMapper' and 'com.example.samplebootapp.infrastructure.user.mapper.MemberMapper' mapperInterface. Bean already defined with the same name!
+2026-10-10 19:08:49.845  WARN 3278 --- [    Test worker] o.m.s.mapper.ClassPathMapperScanner      : [,] No MyBatis mapper was found in '[com.example.samplebootapp.infrastructure]' package. Please check your configuration.
+2026-10-10 19:08:49.851  INFO 3278 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : [,] BeanFactory id=1e500df6-84a1-3514-9a50-a3e9503103b5
+2026-10-10 19:08:50.798  INFO 3278 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : [,] Global AuthenticationManager configured with UserDetailsService bean with name memberUserDetailsService
+2026-10-10 19:08:51.451  INFO 3278 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : [,] Initializing Spring TestDispatcherServlet ''
+2026-10-10 19:08:51.452  INFO 3278 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Initializing Servlet ''
+2026-10-10 19:08:51.458  INFO 3278 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : [,] Exposing 3 endpoints beneath base path '/actuator'
+2026-10-10 19:08:51.473  INFO 3278 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : [,] Completed initialization in 21 ms
+2026-10-10 19:08:51.569  INFO 3278 --- [    Test worker] p.i.a.InventoryControllerIntegrationTest : [,] Started InventoryControllerIntegrationTest in 2.294 seconds (process running for 14.14)
+2026-10-10 19:08:51.595  INFO 3278 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [,] SpringHikariCP - Starting...
+2026-10-10 19:08:51.647  INFO 3278 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : [,] SpringHikariCP - Added connection org.postgresql.jdbc.PgConnection@77f1f43a
+2026-10-10 19:08:51.650  INFO 3278 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : [,] SpringHikariCP - Start completed.
+2026-10-10 19:08:52.218 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d43140aed4a0752ca522dd3e96d,cf07e7a2e8be5e0b] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-10-10 19:08:52.218 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d43140aed4a0752ca522dd3e96d,cf07e7a2e8be5e0b] ==&gt; Parameters: 01a12737-d056-7726-b437-e3669829e325(String)
+2026-10-10 19:08:52.221 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d43140aed4a0752ca522dd3e96d,cf07e7a2e8be5e0b] &lt;==      Total: 1
+2026-10-10 19:08:52.269 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44dc9bbb40eac38ecb567541c5,ab8ca92d4ae848cf] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-10-10 19:08:52.270 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44dc9bbb40eac38ecb567541c5,ab8ca92d4ae848cf] ==&gt; Parameters: unknown-id(String)
+2026-10-10 19:08:52.272 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44dc9bbb40eac38ecb567541c5,ab8ca92d4ae848cf] &lt;==      Total: 0
+2026-10-10 19:08:52.305 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44de73fddb97d525d80b3f36c1,74718d5ae92904b8] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-10-10 19:08:52.306 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44de73fddb97d525d80b3f36c1,74718d5ae92904b8] ==&gt; Parameters: 01a12737-d2ca-72a5-bb70-2dbd1ca789fe(String)
+2026-10-10 19:08:52.307 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44de73fddb97d525d80b3f36c1,74718d5ae92904b8] &lt;==      Total: 1
+2026-10-10 19:08:52.342 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-10-10 19:08:52.342 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] ==&gt; Parameters: 01a12737-d2eb-73a8-b7ef-a9572146759e(String)
+2026-10-10 19:08:52.344 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] &lt;==      Total: 1
+2026-10-10 19:08:52.347 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
+2026-10-10 19:08:52.348 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] ==&gt; Parameters: 90(Integer), 01a12737-d2eb-73a8-b7ef-a9572146759e(String), 0(Long)
+2026-10-10 19:08:52.349 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d4450358c22804c7f932bfb3f28,76327c19e1450b53] &lt;==    Updates: 1
+2026-10-10 19:08:52.740 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] ==&gt;  Preparing: SELECT product_id, quantity, version FROM inventory_inventories WHERE product_id = ?
+2026-10-10 19:08:52.740 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] ==&gt; Parameters: 01a12737-d466-75cb-b845-19ba182ba77b(String)
+2026-10-10 19:08:52.742 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.I.findByProductId            : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] &lt;==      Total: 1
+2026-10-10 19:08:52.744 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] ==&gt;  Preparing: UPDATE inventory_inventories SET quantity = ?, version = version + 1 WHERE product_id = ? AND version = ?
+2026-10-10 19:08:52.744 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] ==&gt; Parameters: 90(Integer), 01a12737-d466-75cb-b845-19ba182ba77b(String), 0(Long)
+2026-10-10 19:08:52.745 DEBUG 3278 --- [    Test worker] c.e.s.i.i.d.InventoryMapper.update       : [6aca8d44b7b899db7d2843dafce493e3,70f1857e749d9875] &lt;==    Updates: 0
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
 </span>
@@ -176,7 +176,7 @@
 <div class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre id="class-stderr">20:01:36,308 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [ASYNC_CONSOLE] not referenced. Skipping further processing.
+<pre id="class-stderr">19:08:49,338 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [ASYNC_CONSOLE] not referenced. Skipping further processing.
 </pre>
 <button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stderr">Copy</button>
 </span>
@@ -189,7 +189,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.2.1</a> at Oct 9, 2026, 8:01:40 PM</p>
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at Oct 10, 2026, 7:08:55 PM</p>
 </div>
 </div>
 </body>
